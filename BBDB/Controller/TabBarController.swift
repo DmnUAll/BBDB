@@ -14,11 +14,15 @@ class TabBarController: UITabBarController {
         let feedTabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), selectedImage: UIImage(named: "newspaper"))
         feedTab.tabBarItem = feedTabBarItem
         
+        let menuTab = MenuController()
+        let menuTabBarItem = UITabBarItem(title: "Menu", image: UIImage(systemName: "menucard"), selectedImage: UIImage(named: "menucard"))
+        menuTab.tabBarItem = menuTabBarItem
+        
         let testTab = TestController()
         let testTabBarItem = UITabBarItem(title: "Test", image: UIImage(systemName: "testtube.2"), selectedImage: UIImage(named: "testtube.2"))
         testTab.tabBarItem = testTabBarItem
         
-        self.viewControllers = [feedTab, testTab]
+        self.viewControllers = [feedTab, menuTab, testTab]
     }
 }
 

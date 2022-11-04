@@ -1,21 +1,21 @@
 import UIKit
 
-final class FeedController: UIViewController {
-    private var presenter: FeedPresenter?
+final class MenuController: UIViewController {
+    private var presenter: MenuPresenter?
     private var alertPresenter: AlertPresenterProtocol?
-    lazy var feedView: FeedView = {
-        let feedView = FeedView()
-        return feedView
+    lazy var menuView: MenuView = {
+        let menuView = MenuView()
+        return menuView
     }()
         
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .bbdbYellow
-        view.addSubview(feedView)
+        view.backgroundColor = .bbdbBlue
+        view.addSubview(menuView)
         setupConstraints()
-        presenter = FeedPresenter(viewController: self)
+        presenter = MenuPresenter(viewController: self)
         alertPresenter = AlertPresenter(delegate: self)
     }
     
@@ -23,28 +23,17 @@ final class FeedController: UIViewController {
 
     private func setupConstraints() {
         let constraints = [
-            feedView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            feedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            feedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            feedView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            menuView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            menuView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
     }
     
-    func showNetworkError(message: String) {
-        let alertModel = AlertModel(title: "Error",
-                                    message: message,
-                                    buttonText: "Try again",
-                                    completionHandler: { [weak self] _ in
-            guard let self = self else { return }
-            self.presenter?.loadFiveOfTheDay()
-        })
-        alertPresenter?.show(alertModel: alertModel)
-    }
-    
-    func showAboutFeedAlert() {
-        let alertModel = AlertModel(title: "About Feed",
-                                    message: "\nThis feed will show you 5 random characters per day.\nBuy full version to see 5 random characters per run!",
+    func showAboutMenuAlert() {
+        let alertModel = AlertModel(title: "About Menu",
+                                    message: "\nThis menu allows you to watch the full info list of any provided category.",
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
@@ -68,7 +57,7 @@ final class FeedController: UIViewController {
 
 // MARK: - AlertPresenterDelegate
 
-extension FeedController: AlertPresenterDelegate {
+extension MenuController: AlertPresenterDelegate {
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)
     }

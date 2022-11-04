@@ -6,5 +6,5 @@ struct AlertModel {
     var title: String
     var message: String
     var buttonText: String
-    var completionHandler: (UIAlertAction) -> Void
+    var completionHandler: ((UIAlertAction) -> Void)?
 }

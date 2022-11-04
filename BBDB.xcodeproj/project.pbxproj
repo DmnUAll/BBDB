@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61454F92291269870016F835 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454F91291269870016F835 /* WebView.swift */; };
+		61454F9429126C1A0016F835 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454F9329126C1A0016F835 /* WebController.swift */; };
+		61454F9A2913D1930016F835 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454F992913D1930016F835 /* MenuView.swift */; };
+		61454F9C2913D7A60016F835 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454F9B2913D7A60016F835 /* MenuController.swift */; };
+		61454F9E2913EBFC0016F835 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454F9D2913EBFC0016F835 /* CGFloat+Extensions.swift */; };
+		61454FA2291539530016F835 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454FA1291539530016F835 /* MenuPresenter.swift */; };
+		61454FA429153DFC0016F835 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454FA329153DFC0016F835 /* ListView.swift */; };
+		61454FA6291541960016F835 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454FA5291541960016F835 /* ListController.swift */; };
 		618AB51D2907E05C00EB9C8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB51C2907E05C00EB9C8B /* AppDelegate.swift */; };
 		618AB51F2907E05C00EB9C8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB51E2907E05C00EB9C8B /* SceneDelegate.swift */; };
 		618AB5272907E05C00EB9C8B /* BBDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 618AB5252907E05C00EB9C8B /* BBDB.xcdatamodeld */; };
@@ -29,10 +37,18 @@
 		618AB55D29094CDA00EB9C8B /* CharacterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB55C29094CD900EB9C8B /* CharacterModel.swift */; };
 		618AB56029094F9800EB9C8B /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB55E29094F9800EB9C8B /* AlertModel.swift */; };
 		618AB56129094F9800EB9C8B /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB55F29094F9800EB9C8B /* AlertPresenter.swift */; };
-		618AB5632909503900EB9C8B /* AppLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB5622909503800EB9C8B /* AppLogic.swift */; };
+		618AB5632909503900EB9C8B /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB5622909503800EB9C8B /* FeedPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		61454F91291269870016F835 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		61454F9329126C1A0016F835 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
+		61454F992913D1930016F835 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		61454F9B2913D7A60016F835 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		61454F9D2913EBFC0016F835 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
+		61454FA1291539530016F835 /* MenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		61454FA329153DFC0016F835 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		61454FA5291541960016F835 /* ListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListController.swift; sourceTree = "<group>"; };
 		618AB5192907E05C00EB9C8B /* BBDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		618AB51C2907E05C00EB9C8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		618AB51E2907E05C00EB9C8B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,7 +73,7 @@
 		618AB55C29094CD900EB9C8B /* CharacterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterModel.swift; sourceTree = "<group>"; };
 		618AB55E29094F9800EB9C8B /* AlertModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		618AB55F29094F9800EB9C8B /* AlertPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
-		618AB5622909503800EB9C8B /* AppLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLogic.swift; sourceTree = "<group>"; };
+		618AB5622909503800EB9C8B /* FeedPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +87,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61454F8E290E69150016F835 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				618AB55F29094F9800EB9C8B /* AlertPresenter.swift */,
+				618AB5622909503800EB9C8B /* FeedPresenter.swift */,
+				61454FA1291539530016F835 /* MenuPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		618AB5102907E05C00EB9C8B = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +119,7 @@
 				618AB5352907E06F00EB9C8B /* Model */,
 				618AB5342907E06B00EB9C8B /* View */,
 				618AB5332907E06400EB9C8B /* Controller */,
+				61454F8E290E69150016F835 /* Presenter */,
 				618AB5362907E07700EB9C8B /* Supporting Files */,
 			);
 			path = BBDB;
@@ -102,7 +129,10 @@
 			isa = PBXGroup;
 			children = (
 				618AB55429092B9E00EB9C8B /* TabBarController.swift */,
+				61454F9329126C1A0016F835 /* WebController.swift */,
 				618AB54E2907E37800EB9C8B /* FeedController.swift */,
+				61454F9B2913D7A60016F835 /* MenuController.swift */,
+				61454FA5291541960016F835 /* ListController.swift */,
 				618AB55629092D6800EB9C8B /* TestController.swift */,
 			);
 			path = Controller;
@@ -112,7 +142,10 @@
 			isa = PBXGroup;
 			children = (
 				618AB52A2907E05E00EB9C8B /* LaunchScreen.storyboard */,
+				61454F91291269870016F835 /* WebView.swift */,
 				618AB54C2907E36C00EB9C8B /* FeedView.swift */,
+				61454F992913D1930016F835 /* MenuView.swift */,
+				61454FA329153DFC0016F835 /* ListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -122,11 +155,9 @@
 			children = (
 				618AB5252907E05C00EB9C8B /* BBDB.xcdatamodeld */,
 				618AB55E29094F9800EB9C8B /* AlertModel.swift */,
-				618AB55F29094F9800EB9C8B /* AlertPresenter.swift */,
-				618AB5582909306300EB9C8B /* NetworkClient.swift */,
 				618AB55C29094CD900EB9C8B /* CharacterModel.swift */,
+				618AB5582909306300EB9C8B /* NetworkClient.swift */,
 				618AB5592909306300EB9C8B /* CharactersLoader.swift */,
-				618AB5622909503800EB9C8B /* AppLogic.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -148,11 +179,12 @@
 		618AB5372907E0B900EB9C8B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				618AB53B2907E12E00EB9C8B /* UIColor+Extensions.swift */,
 				618AB5502907E3F000EB9C8B /* UIView+Extensions.swift */,
 				618AB5382907E12E00EB9C8B /* UIImageView+Extensions.swift */,
+				61454F9D2913EBFC0016F835 /* CGFloat+Extensions.swift */,
 				618AB5392907E12E00EB9C8B /* Array+Extensions.swift */,
 				618AB53A2907E12E00EB9C8B /* Date+Extensions.swift */,
-				618AB53B2907E12E00EB9C8B /* UIColor+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -247,19 +279,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				618AB5632909503900EB9C8B /* AppLogic.swift in Sources */,
+				618AB5632909503900EB9C8B /* FeedPresenter.swift in Sources */,
 				618AB54D2907E36C00EB9C8B /* FeedView.swift in Sources */,
 				618AB51D2907E05C00EB9C8B /* AppDelegate.swift in Sources */,
 				618AB55B2909306300EB9C8B /* CharactersLoader.swift in Sources */,
 				618AB55529092B9E00EB9C8B /* TabBarController.swift in Sources */,
 				618AB56029094F9800EB9C8B /* AlertModel.swift in Sources */,
 				618AB55729092D6800EB9C8B /* TestController.swift in Sources */,
+				61454FA429153DFC0016F835 /* ListView.swift in Sources */,
+				61454F9A2913D1930016F835 /* MenuView.swift in Sources */,
 				618AB54F2907E37800EB9C8B /* FeedController.swift in Sources */,
 				618AB53D2907E12E00EB9C8B /* Array+Extensions.swift in Sources */,
 				618AB5512907E3F000EB9C8B /* UIView+Extensions.swift in Sources */,
+				61454FA2291539530016F835 /* MenuPresenter.swift in Sources */,
 				618AB51F2907E05C00EB9C8B /* SceneDelegate.swift in Sources */,
+				61454F9E2913EBFC0016F835 /* CGFloat+Extensions.swift in Sources */,
 				618AB55A2909306300EB9C8B /* NetworkClient.swift in Sources */,
+				61454F9429126C1A0016F835 /* WebController.swift in Sources */,
+				61454FA6291541960016F835 /* ListController.swift in Sources */,
 				618AB56129094F9800EB9C8B /* AlertPresenter.swift in Sources */,
+				61454F92291269870016F835 /* WebView.swift in Sources */,
+				61454F9C2913D7A60016F835 /* MenuController.swift in Sources */,
 				618AB53C2907E12E00EB9C8B /* UIImageView+Extensions.swift in Sources */,
 				618AB53F2907E12E00EB9C8B /* UIColor+Extensions.swift in Sources */,
 				618AB55D29094CDA00EB9C8B /* CharacterModel.swift in Sources */,
@@ -408,7 +448,6 @@
 				INFOPLIST_FILE = "BBDB/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -440,7 +479,6 @@
 				INFOPLIST_FILE = "BBDB/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
