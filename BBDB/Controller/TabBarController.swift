@@ -10,11 +10,16 @@ class TabBarController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        configureTabBarController()
+    }
+    
+    private func configureTabBarController() {
+        tabBar.backgroundImage = UIImage()
         let feedTab = FeedController()
         let feedTabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), selectedImage: UIImage(named: "newspaper"))
         feedTab.tabBarItem = feedTabBarItem
         
-        let menuTab = MenuController()
+        let menuTab = NavigationController(rootViewController: MenuController())
         let menuTabBarItem = UITabBarItem(title: "Menu", image: UIImage(systemName: "menucard"), selectedImage: UIImage(named: "menucard"))
         menuTab.tabBarItem = menuTabBarItem
         

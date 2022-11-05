@@ -15,32 +15,6 @@ final class MenuView: UIView {
     
     weak var delegate: MenuViewDelegate?
     
-    lazy var menuNavigationBar: UINavigationBar = {
-        let navigationBar = UINavigationBar()
-        navigationBar.toAutolayout()
-        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationBar.backgroundColor = .clear
-        navigationBar.tintColor = .bbdbBlack
-        let navigationItem = UINavigationItem(title: "Main Menu")
-        navigationBar.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: 30)!, .foregroundColor: UIColor.bbdbBlack]
-        navigationBar.setTitleVerticalPositionAdjustment(3, for: .default)
-        var menuItems: [UIAction] = [
-            UIAction(title: "About Menu", image: UIImage(systemName: "clock.badge.questionmark"), handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.aboutMenuButtonTapped()
-            }),
-            UIAction(title: "About App", image: UIImage(systemName: "questionmark.app"), handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.aboutAppButtonTapped()
-            }),
-        ]
-        var buttonMenu = UIMenu(title: "Info", image: nil, identifier: nil, options: [], children: menuItems)
-        let infoButton = UIBarButtonItem(title: "Menu", image: UIImage(systemName: "info.circle"), primaryAction: nil, menu: buttonMenu)
-        navigationItem.leftBarButtonItem = infoButton
-        navigationBar.setItems([navigationItem], animated: false)
-        return navigationBar
-    }()
-    
     private let menuStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.toAutolayout()
@@ -87,7 +61,6 @@ final class MenuView: UIView {
     }
     
     private func addSubviews() {
-        addSubview(menuNavigationBar)
         menuStackView.addArrangedSubview(makeButton(title: "Characters",
                                                     subtitle: "List of all characters",
                                                     imageName: "person",
@@ -117,11 +90,8 @@ final class MenuView: UIView {
     
     private func setupConstraints() {
         let constraints = [
-            menuNavigationBar.topAnchor.constraint(equalTo: topAnchor),
-            menuNavigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            menuNavigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
-            menuStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            menuStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            menuStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            menuStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             menuStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]
         NSLayoutConstraint.activate(constraints)

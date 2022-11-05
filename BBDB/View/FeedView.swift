@@ -59,6 +59,7 @@ final class FeedView: UIView {
     private let feedPageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.toAutolayout()
+        pageControl.isEnabled = false
         pageControl.backgroundColor = .bbdbYellow
         pageControl.currentPageIndicatorTintColor = .bbdbBlack
         pageControl.numberOfPages = 5

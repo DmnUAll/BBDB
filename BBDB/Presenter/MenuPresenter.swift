@@ -14,15 +14,21 @@ class MenuPresenter {
 
 extension MenuPresenter: MenuViewDelegate {
     func aboutMenuButtonTapped() {
+        print(#function)
+
         viewController?.showAboutMenuAlert()
     }
     
     func aboutAppButtonTapped() {
+        print(#function)
+
         viewController?.showAboutAppAlert()
     }
     
+    
     func charactersButtonTapped() {
         print(#function)
+        viewController?.navigationController?.pushViewController(ListController(), animated: true)
     }
     
     func episodesButtonTapped() {
