@@ -5,7 +5,10 @@ final class ListViewCell: UITableViewCell {
     let cellImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.toAutolayout()
-        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .bbdbWhite
+        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
+        imageView.layer.borderWidth = 3
+        imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = CGFloat().cornerRadiusAutoSize(divider: 40)
         imageView.clipsToBounds = true
         return imageView
@@ -14,7 +17,7 @@ final class ListViewCell: UITableViewCell {
     let cellLabel: UILabel = {
         let label = UILabel()
         label.toAutolayout()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont(name: "Bob'sBurgers", size: 26)
         label.textColor = .bbdbBlack
         return label
     }()
@@ -36,8 +39,8 @@ final class ListViewCell: UITableViewCell {
     
     private func setupConstraints() {
         let constraints = [
-            cellImageView.heightAnchor.constraint(equalToConstant: CGFloat().cornerRadiusAutoSize(divider: 14)),
-            cellImageView.widthAnchor.constraint(equalToConstant: CGFloat().cornerRadiusAutoSize(divider: 14)),
+            cellImageView.heightAnchor.constraint(equalToConstant: CGFloat().cornerRadiusAutoSize(divider: 10)),
+            cellImageView.widthAnchor.constraint(equalToConstant: CGFloat().cornerRadiusAutoSize(divider: 10)),
             cellImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             cellImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             cellLabel.leadingAnchor.constraint(equalTo: cellImageView.trailingAnchor, constant: 4),

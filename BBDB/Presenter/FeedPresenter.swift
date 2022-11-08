@@ -1,11 +1,11 @@
 import UIKit
 
+
 class FeedPresenter {
     
     private let userDefaults = UserDefaults.standard
     private let charactersLoader: CharactersLoading
     weak var viewController: FeedController?
-    private var characters: Character = []
     
     init(viewController: FeedController) {
         self.viewController = viewController
@@ -20,8 +20,7 @@ class FeedPresenter {
                 guard let self = self else { return }
                 switch result {
                 case .success(let charactersList):
-                    self.characters = charactersList
-                    let fiveOfTheDay = Character(self.characters.shuffled()[0...4])
+                    let fiveOfTheDay = Character(charactersList.shuffled()[0...4])
                     self.saveUserDefaults(value: Date(), at: .date)
                     self.saveUserDefaults(value: fiveOfTheDay, at: .fiveOfTheDay)
                     self.viewController?.feedView.fillUI(with: fiveOfTheDay)

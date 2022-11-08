@@ -1,8 +1,6 @@
 import UIKit
 
 protocol MenuViewDelegate: AnyObject {
-    func aboutMenuButtonTapped()
-    func aboutAppButtonTapped()
     func charactersButtonTapped()
     func episodesButtonTapped()
     func nextDoorStoresButtonTapped()

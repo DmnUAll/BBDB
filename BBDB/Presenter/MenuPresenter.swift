@@ -13,22 +13,9 @@ class MenuPresenter {
 // MARK: - MenuViewDelegate
 
 extension MenuPresenter: MenuViewDelegate {
-    func aboutMenuButtonTapped() {
-        print(#function)
-
-        viewController?.showAboutMenuAlert()
-    }
-    
-    func aboutAppButtonTapped() {
-        print(#function)
-
-        viewController?.showAboutAppAlert()
-    }
-    
-    
     func charactersButtonTapped() {
         print(#function)
-        viewController?.navigationController?.pushViewController(ListController(), animated: true)
+        viewController?.navigationController?.pushViewController(CharactersListController(), animated: true)
     }
     
     func episodesButtonTapped() {

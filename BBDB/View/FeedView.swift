@@ -43,7 +43,6 @@ final class FeedView: UIView {
         activityIndicator.toAutolayout()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.color = .bbdbBlue
-        activityIndicator.startAnimating()
         return activityIndicator
     }()
     
@@ -123,7 +122,7 @@ final class FeedView: UIView {
                                            backgroundColor: .bbdbSkin)
             labelStack.spacing = 0
             labelStack.clipsToBounds = true
-            labelStack.translatesAutoresizingMaskIntoConstraints = false
+            labelStack.toAutolayout()
             labelStack.widthAnchor.constraint(equalToConstant: width - 32).isActive = true
             labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
             labelStack.layer.borderWidth = 3
@@ -139,10 +138,10 @@ final class FeedView: UIView {
             labelStack.addArrangedSubview(makeLabelStack(leadingText: "Voiced by:", trailingText: character.voicedBy ?? "Undefined"))
             feedScrollView.addSubview(scrollViewPage)
         }
-        feedActivityIndicator.stopAnimating()
         showOrHideUI()
     }
     private func showOrHideUI() {
+        feedActivityIndicator.isAnimating ? feedActivityIndicator.stopAnimating() : feedActivityIndicator.startAnimating()
         feedNavigationBar.isHidden.toggle()
         feedScrollView.isHidden.toggle()
         feedPageControl.isHidden.toggle()

@@ -2,9 +2,24 @@ import UIKit
 
 class NavigationController: UINavigationController {
     
+    weak var rootVC: MenuController?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureNavigationController()
+    }
+    
+    override init(rootViewController: UIViewController) {
+        super.init(rootViewController: rootViewController)
+        self.rootVC = rootViewController as? MenuController
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.popToRootViewController(animated: false)
     }
     
     private func configureNavigationController() {
@@ -17,12 +32,11 @@ class NavigationController: UINavigationController {
         let menuItems: [UIAction] = [
             UIAction(title: "About Menu", image: UIImage(systemName: "clock.badge.questionmark"), handler: { [weak self] _ in
                 guard let self = self else { return }
-//                self.delegate?.aboutMenuButtonTapped()
-                
+                self.rootVC?.showAboutMenuAlert()
             }),
             UIAction(title: "About App", image: UIImage(systemName: "questionmark.app"), handler: { [weak self] _ in
                 guard let self = self else { return }
-//                self.delegate?.aboutAppButtonTapped()
+                self.rootVC?.showAboutAppAlert()
             }),
         ]
         let buttonMenu = UIMenu(title: "Info", image: nil, identifier: nil, options: [], children: menuItems)
