@@ -2,22 +2,18 @@ import UIKit
 
 final class ListViewCell: UITableViewCell {
     
-    let cellImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.toAutolayout()
-        imageView.backgroundColor = .bbdbWhite
-        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
-        imageView.layer.borderWidth = 3
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = CGFloat().cornerRadiusAutoSize(divider: 40)
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
-    let cellLabel: UILabel = {
+    let cellMainLabel: UILabel = {
         let label = UILabel()
         label.toAutolayout()
         label.font = UIFont(name: "Bob'sBurgers", size: 26)
+        label.textColor = .bbdbBlack
+        return label
+    }()
+    
+    let cellAdditionLabel: UILabel = {
+        let label = UILabel()
+        label.toAutolayout()
+        label.font = UIFont(name: "Bob'sBurgers2", size: 26)
         label.textColor = .bbdbBlack
         return label
     }()
@@ -33,19 +29,18 @@ final class ListViewCell: UITableViewCell {
     }
     
     private func addSubviews() {
-        addSubview(cellImageView)
-        addSubview(cellLabel)
+        addSubview(cellMainLabel)
+        addSubview(cellAdditionLabel)
     }
     
     private func setupConstraints() {
         let constraints = [
-            cellImageView.heightAnchor.constraint(equalToConstant: CGFloat().cornerRadiusAutoSize(divider: 10)),
-            cellImageView.widthAnchor.constraint(equalToConstant: CGFloat().cornerRadiusAutoSize(divider: 10)),
-            cellImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-            cellImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cellLabel.leadingAnchor.constraint(equalTo: cellImageView.trailingAnchor, constant: 4),
-            cellLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
-            cellLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            cellMainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+            cellMainLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            cellMainLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
+            cellAdditionLabel.topAnchor.constraint(equalTo: cellMainLabel.bottomAnchor, constant: 4),
+            cellAdditionLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            cellAdditionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4)
         ]
         NSLayoutConstraint.activate(constraints)
     }

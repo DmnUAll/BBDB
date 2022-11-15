@@ -5,6 +5,7 @@ final class ListView: UIView {
     let listTableView: UITableView = {
         let tableView = UITableView()
         tableView.toAutolayout()
+        tableView.register(ListViewCellWithImage.self, forCellReuseIdentifier: "listCellWithImage")
         tableView.register(ListViewCell.self, forCellReuseIdentifier: "listCell")
         tableView.backgroundColor = .clear
         tableView.isHidden = true

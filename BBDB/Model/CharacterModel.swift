@@ -40,4 +40,4 @@ struct Relative: Codable {
     }
 }
 
-typealias Character = [CharacterModel]
+typealias Characters = [CharacterModel]

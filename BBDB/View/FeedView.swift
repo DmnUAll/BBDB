@@ -59,7 +59,7 @@ final class FeedView: UIView {
         let pageControl = UIPageControl()
         pageControl.toAutolayout()
         pageControl.isEnabled = false
-        pageControl.backgroundColor = .bbdbYellow
+        pageControl.backgroundColor = .clear
         pageControl.currentPageIndicatorTintColor = .bbdbBlack
         pageControl.numberOfPages = 5
         return pageControl
@@ -107,7 +107,7 @@ final class FeedView: UIView {
         NSLayoutConstraint.activate(constraints)
     }
     
-    func fillUI(with feedList: Character) {
+    func fillUI(with feedList: Characters) {
         let width = feedScrollView.bounds.width
         for i in 0...4 {
             let character = feedList[i]

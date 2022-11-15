@@ -12,7 +12,7 @@ final class MenuController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .bbdbBlue
+        view.backgroundColor = UIColor(patternImage: UIImage(named: "blueBackground")!)
         view.addSubview(menuView)
         setupConstraints()
         presenter = MenuPresenter(viewController: self)

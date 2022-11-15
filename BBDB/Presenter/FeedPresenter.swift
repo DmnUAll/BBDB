@@ -4,23 +4,24 @@ import UIKit
 class FeedPresenter {
     
     private let userDefaults = UserDefaults.standard
-    private let charactersLoader: CharactersLoading
+    private let feedLoader: NetworkDataLoading
     weak var viewController: FeedController?
     
     init(viewController: FeedController) {
         self.viewController = viewController
-        charactersLoader = CharactersLoader()
+        feedLoader = NetworkDataLoader(link: .charactersList)
         loadFiveOfTheDay()
         viewController.feedView.delegate = self
     }
     
     private func loadData() {
-        charactersLoader.loadCharacters { result in
+        
+        feedLoader.loadList { (result: Result<Characters, Error>) in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 switch result {
                 case .success(let charactersList):
-                    let fiveOfTheDay = Character(charactersList.shuffled()[0...4])
+                    let fiveOfTheDay = Characters(charactersList.shuffled()[0...4])
                     self.saveUserDefaults(value: Date(), at: .date)
                     self.saveUserDefaults(value: fiveOfTheDay, at: .fiveOfTheDay)
                     self.viewController?.feedView.fillUI(with: fiveOfTheDay)
@@ -36,7 +37,7 @@ class FeedPresenter {
             loadData()
             return
         }
-        guard let fiveOfTheDay = loadUserDefaults(for: .fiveOfTheDay, as: Character.self) else {
+        guard let fiveOfTheDay = loadUserDefaults(for: .fiveOfTheDay, as: Characters.self) else {
             loadData()
             return
         }
@@ -82,7 +83,7 @@ extension FeedPresenter: FeedViewDelegate {
     }
     
     func webButtonTapped(atPage pageIndex: Int) {
-        guard let feedCharacters = loadUserDefaults(for: .fiveOfTheDay, as: Character.self) else { return }
+        guard let feedCharacters = loadUserDefaults(for: .fiveOfTheDay, as: Characters.self) else { return }
         let webController = WebController()
         if let webURL = URL(string: feedCharacters[pageIndex].wikiURL) {
             let request = URLRequest(url: webURL)

@@ -12,11 +12,22 @@ final class DetailedInfoController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Character Info"
         view.backgroundColor = .bbdbBlue
         view.addSubview(detailedInfoView)
         setupConstraints()
-        presenter = DetailedInfoPresenter()
+    }
+    
+    func addWebButton(withLink link: String) {
+        presenter = DetailedInfoPresenter(viewController: self)
+        presenter?.link = link
+        print(link)
+
+        let webButton = UIBarButtonItem(image: UIImage(systemName: "network"), style: .plain, target: self, action: #selector(webButtonTapped))
+        navigationItem.rightBarButtonItem = webButton
+    }
+    
+    @objc func webButtonTapped() {
+        presenter?.webButtonTapped()
     }
     
     // MARK: - Helpers
