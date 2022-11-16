@@ -164,6 +164,33 @@ extension ListController: UITableViewDelegate {
         }
         navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        
+        let addToFavoriteButton = UIContextualAction(style: .destructive, title: "Add to favorites") { _, _, completionHandler in
+            print("Favoroite!")
+            let character = self.presenter?.dataList[indexPath.row] as! CharacterModel
+            let newFavorite = Character(context: CoreDataManager.context)
+            newFavorite.name = character.name
+            newFavorite.gender = character.gender
+            newFavorite.age = character.age ?? "Unknown"
+            newFavorite.hairColor = character.hairColor ?? "Undefined"
+            newFavorite.occupation = character.occupation ?? "Unknown"
+            newFavorite.firstEpisode = character.firstEpisode ?? "Undefined"
+            newFavorite.voicedBy = character.voicedBy ?? "Undefined"
+            newFavorite.imageURL = character.imageURL
+            newFavorite.wikiURL = character.wikiURL
+            CoreDataManager.favoritesArray.append(newFavorite)
+            CoreDataManager.saveFavorites()
+            completionHandler(true)
+        }
+        addToFavoriteButton.backgroundColor = .bbdbYellow
+        addToFavoriteButton.image = UIImage(systemName: "star")
+        let config = UISwipeActionsConfiguration(actions: [addToFavoriteButton])
+        config.performsFirstActionWithFullSwipe = true
+        return config
+    }
 }
 
 // MARK: - AlertPresenterDelegate

@@ -12,7 +12,7 @@ final class FeedController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(patternImage: UIImage(named: "yellowBackground")!)
+        UIImageView().setAsBackgroundImage(named: "yellowBackground", to: self)
         view.addSubview(feedView)
         setupConstraints()
         presenter = FeedPresenter(viewController: self)

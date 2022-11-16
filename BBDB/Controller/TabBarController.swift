@@ -23,11 +23,11 @@ class TabBarController: UITabBarController {
         let menuTabBarItem = UITabBarItem(title: "Menu", image: UIImage(systemName: "menucard"), selectedImage: UIImage(named: "menucard"))
         menuTab.tabBarItem = menuTabBarItem
         
-        let testTab = TestController()
-        let testTabBarItem = UITabBarItem(title: "Test", image: UIImage(systemName: "testtube.2"), selectedImage: UIImage(named: "testtube.2"))
-        testTab.tabBarItem = testTabBarItem
+        let favoritesTab = FavoritesController()
+        let favoritesTabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star"), selectedImage: UIImage(named: "star"))
+        favoritesTab.tabBarItem = favoritesTabBarItem
         
-        self.viewControllers = [feedTab, menuTab, testTab]
+        self.viewControllers = [feedTab, menuTab, favoritesTab]
     }
 }
 

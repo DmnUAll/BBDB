@@ -12,8 +12,9 @@ final class MenuController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(patternImage: UIImage(named: "blueBackground")!)
+        UIImageView().setAsBackgroundImage(named: "blueBackground", to: self)
         view.addSubview(menuView)
+        self.title = "Main Menu"
         setupConstraints()
         presenter = MenuPresenter(viewController: self)
         alertPresenter = AlertPresenter(delegate: self)
