@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Burger" representedClassName=".Burger" syncable="YES" codeGenerationType="class">
+    <entity name="CDBurger" representedClassName=".CDBurger" syncable="YES" codeGenerationType="class">
         <attribute name="episode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="price" attributeType="String"/>
         <attribute name="season" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="Character" representedClassName=".Character" syncable="YES" codeGenerationType="class">
+    <entity name="CDCharacter" representedClassName=".CDCharacter" syncable="YES" codeGenerationType="class">
         <attribute name="age" attributeType="String"/>
         <attribute name="firstEpisode" attributeType="String"/>
         <attribute name="gender" attributeType="String"/>
@@ -17,12 +17,12 @@
         <attribute name="voicedBy" attributeType="String"/>
         <attribute name="wikiURL" attributeType="String"/>
     </entity>
-    <entity name="Credits" representedClassName=".Credits" syncable="YES" codeGenerationType="class">
+    <entity name="CDCredits" representedClassName=".CDCredits" syncable="YES" codeGenerationType="class">
         <attribute name="episode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imageURL" attributeType="URI"/>
         <attribute name="season" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="Episode" representedClassName=".Episode" syncable="YES" codeGenerationType="class">
+    <entity name="CDEpisode" representedClassName=".CDEpisode" syncable="YES" codeGenerationType="class">
         <attribute name="airDate" optional="YES" attributeType="String"/>
         <attribute name="episode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -31,13 +31,13 @@
         <attribute name="totalViewers" optional="YES" attributeType="String"/>
         <attribute name="wikiURL" attributeType="String"/>
     </entity>
-    <entity name="Store" representedClassName=".Store" syncable="YES" codeGenerationType="class">
+    <entity name="CDStore" representedClassName=".CDStore" syncable="YES" codeGenerationType="class">
         <attribute name="episode" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imageURL" attributeType="URI"/>
-        <attribute name="name" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="season" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="Truck" representedClassName=".Truck" syncable="YES" codeGenerationType="class">
+    <entity name="CDTruck" representedClassName=".CDTruck" syncable="YES" codeGenerationType="class">
         <attribute name="imageURL" attributeType="URI"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="season" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

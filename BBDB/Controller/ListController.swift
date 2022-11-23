@@ -170,7 +170,7 @@ extension ListController: UITableViewDelegate {
             switch self.title {
             case "Characters List":
                 let character = self.presenter?.dataList[indexPath.row] as! CharacterModel
-                let newFavorite = Character(context: CoreDataManager.context)
+                let newFavorite = CDCharacter(context: CoreDataManager.context)
                 newFavorite.name = character.name
                 newFavorite.gender = character.gender
                 newFavorite.age = character.age ?? "Unknown"
@@ -180,10 +180,10 @@ extension ListController: UITableViewDelegate {
                 newFavorite.voicedBy = character.voicedBy ?? "Undefined"
                 newFavorite.imageURL = character.imageURL
                 newFavorite.wikiURL = character.wikiURL
-                CoreDataManager.favoritesArray.append(newFavorite)
+                CoreDataManager.favoritesDictionary[.characters]?.append(newFavorite)
             case "Episodes List":
                 let episode = self.presenter?.dataList[indexPath.row] as! EpisodeModel
-                let newFavorite = Episode(context: CoreDataManager.context)
+                let newFavorite = CDEpisode(context: CoreDataManager.context)
                 newFavorite.id = Int64(episode.id)
                 newFavorite.name = episode.name
                 newFavorite.season = Int64(episode.season)
@@ -191,42 +191,41 @@ extension ListController: UITableViewDelegate {
                 newFavorite.airDate = episode.airDate
                 newFavorite.totalViewers = episode.totalViewers
                 newFavorite.wikiURL = episode.wikiURL
-                CoreDataManager.favoritesArray.append(newFavorite)
+                CoreDataManager.favoritesDictionary[.episodes]?.append(newFavorite)
             case "Stores List":
                 let store = self.presenter?.dataList[indexPath.row] as! StoreModel
-                let newFavorite = Store(context: CoreDataManager.context)
+                let newFavorite = CDStore(context: CoreDataManager.context)
                 newFavorite.name = store.name
                 newFavorite.season = Int64(store.season)
                 newFavorite.episode = Int64(store.episode)
                 newFavorite.imageURL = store.imageURL
-                CoreDataManager.favoritesArray.append(newFavorite)
+                CoreDataManager.favoritesDictionary[.stores]?.append(newFavorite)
             case "Trucks List":
                 let truck = self.presenter?.dataList[indexPath.row] as! PestControlTruckModel
-                let newFavorite = Truck(context: CoreDataManager.context)
+                let newFavorite = CDTruck(context: CoreDataManager.context)
                 newFavorite.name = truck.name
                 newFavorite.season = Int64(truck.season)
                 newFavorite.imageURL = truck.imageURL
-                CoreDataManager.favoritesArray.append(newFavorite)
+                CoreDataManager.favoritesDictionary[.trucks]?.append(newFavorite)
             case "End Credits List":
                 let credits = self.presenter?.dataList[indexPath.row] as! EndCreditsModel
-                let newFavorite = Credits(context: CoreDataManager.context)
+                let newFavorite = CDCredits(context: CoreDataManager.context)
                 newFavorite.episode = Int64(credits.episode)
                 newFavorite.season = Int64(credits.season)
                 newFavorite.imageURL = credits.imageURL
-                CoreDataManager.favoritesArray.append(newFavorite)
+                CoreDataManager.favoritesDictionary[.credits]?.append(newFavorite)
             case "Burgers List":
                 let burger = self.presenter?.dataList[indexPath.row] as! BurgerOfTheDayModel
-                let newFavorite = Burger(context: CoreDataManager.context)
+                let newFavorite = CDBurger(context: CoreDataManager.context)
                 newFavorite.episode = Int64(burger.episode)
                 newFavorite.season = Int64(burger.season)
                 newFavorite.name = burger.name
                 newFavorite.price = burger.price
-                CoreDataManager.favoritesArray.append(newFavorite)
+                CoreDataManager.favoritesDictionary[.burgers]?.append(newFavorite)
             default:
                 return
             }
             CoreDataManager.saveFavorites()
-            print(CoreDataManager.favoritesArray)
             completionHandler(true)
         }
         addToFavoriteButton.backgroundColor = .bbdbYellow

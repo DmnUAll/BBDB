@@ -18,12 +18,12 @@
 		61454FA2291539530016F835 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454FA1291539530016F835 /* MenuPresenter.swift */; };
 		61454FA429153DFC0016F835 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454FA329153DFC0016F835 /* ListView.swift */; };
 		61454FA6291541960016F835 /* ListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454FA5291541960016F835 /* ListController.swift */; };
+		614DB9DF292E3C7B003842F5 /* BBDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 618AB5252907E05C00EB9C8B /* BBDB.xcdatamodeld */; };
 		61518C29292519B10013080A /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61518C28292519B10013080A /* CoreDataManager.swift */; };
 		615C29BA291CF042006AF07F /* EpisodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615C29B9291CF042006AF07F /* EpisodeModel.swift */; };
 		615C29BC291E87BA006AF07F /* ListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615C29BB291E87BA006AF07F /* ListViewCell.swift */; };
 		618AB51D2907E05C00EB9C8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB51C2907E05C00EB9C8B /* AppDelegate.swift */; };
 		618AB51F2907E05C00EB9C8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB51E2907E05C00EB9C8B /* SceneDelegate.swift */; };
-		618AB5272907E05C00EB9C8B /* BBDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 618AB5252907E05C00EB9C8B /* BBDB.xcdatamodeld */; };
 		618AB5292907E05E00EB9C8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 618AB5282907E05E00EB9C8B /* Assets.xcassets */; };
 		618AB52C2907E05E00EB9C8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 618AB52A2907E05E00EB9C8B /* LaunchScreen.storyboard */; };
 		618AB53C2907E12E00EB9C8B /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618AB5382907E12E00EB9C8B /* UIImageView+Extensions.swift */; };
@@ -339,6 +339,7 @@
 				618B0E952923B4BD00CDFF1D /* PestControlTruckModel.swift in Sources */,
 				618AB55529092B9E00EB9C8B /* TabBarController.swift in Sources */,
 				615C29BA291CF042006AF07F /* EpisodeModel.swift in Sources */,
+				614DB9DF292E3C7B003842F5 /* BBDB.xcdatamodeld in Sources */,
 				618AB56029094F9800EB9C8B /* AlertModel.swift in Sources */,
 				61454FA429153DFC0016F835 /* ListView.swift in Sources */,
 				61454F9A2913D1930016F835 /* MenuView.swift in Sources */,
@@ -370,7 +371,6 @@
 				618AB53C2907E12E00EB9C8B /* UIImageView+Extensions.swift in Sources */,
 				618AB53F2907E12E00EB9C8B /* UIColor+Extensions.swift in Sources */,
 				618AB55D29094CDA00EB9C8B /* CharacterModel.swift in Sources */,
-				618AB5272907E05C00EB9C8B /* BBDB.xcdatamodeld in Sources */,
 				618B0E992923BD3B00CDFF1D /* BurgerOfTheDayModel.swift in Sources */,
 				618AB53E2907E12E00EB9C8B /* Date+Extensions.swift in Sources */,
 			);

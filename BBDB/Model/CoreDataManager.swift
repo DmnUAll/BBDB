@@ -3,11 +3,26 @@ import CoreData
 
 struct CoreDataManager {
     
-    static var favoritesArray = [Any]()
+    enum Categories: String {
+        case characters
+        case episodes
+        case stores
+        case trucks
+        case credits
+        case burgers
+    }
+    
+    static var favoritesDictionary: [Categories: [Any]] = [.characters: [],
+                                                           .episodes: [],
+                                                           .stores: [],
+                                                           .trucks: [],
+                                                           .credits: [],
+                                                           .burgers: []
+    ]
     static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     // MARK: - Data Manipulation Methods
-
+    
     static func saveFavorites() {
         do {
             try context.save()
@@ -15,12 +30,64 @@ struct CoreDataManager {
             print("Error saving cintext: \(error)")
         }
     }
-
-    static func loadFavorites(with request: NSFetchRequest<Character> = Character.fetchRequest()) {
-        do {
-            favoritesArray = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context: \(error)")
+    
+    static func loadAll() {
+        loadFavorites(with: CDBurger.fetchRequest())
+        loadFavorites(with: CDCredits.fetchRequest())
+        loadFavorites(with: CDTruck.fetchRequest())
+        loadFavorites(with: CDStore.fetchRequest())
+        loadFavorites(with: CDEpisode.fetchRequest())
+        loadFavorites(with: CDCharacter.fetchRequest())
+        print(favoritesDictionary)
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+    }
+    
+    static func loadFavorites(with request: NSFetchRequest<NSFetchRequestResult>) {
+        switch request.entityName {
+        case "CDCharacter":
+            do {
+                favoritesDictionary[.characters] = try context.fetch(request)
+                print("Characters loaded" ,try context.fetch(request))
+            } catch {
+                print("Error fetching data from context: \(error)")
+            }
+        case "CDEpisode":
+            do {
+                favoritesDictionary[.episodes] = try context.fetch(request)
+                print("Episodes loaded")
+            } catch {
+                print("Error fetching data from context: \(error)")
+            }
+        case "CDStore":
+            do {
+                favoritesDictionary[.stores] = try context.fetch(request)
+                print("Stores loaded")
+            } catch {
+                print("Error fetching data from context: \(error)")
+            }
+        case "CDTruck":
+            do {
+                favoritesDictionary[.trucks] = try context.fetch(request)
+                print("Trucks loaded")
+            } catch {
+                print("Error fetching data from context: \(error)")
+            }
+        case "CDCredits":
+            do {
+                favoritesDictionary[.credits] = try context.fetch(request)
+                print("Credits loaded")
+            } catch {
+                print("Error fetching data from context: \(error)")
+            }
+        case "CDBurger":
+            do {
+                favoritesDictionary[.burgers] = try context.fetch(request)
+                print("Burgers loaded")
+            } catch {
+                print("Error fetching data from context: \(error)")
+            }
+        default:
+            return
         }
     }
 }
