@@ -18,14 +18,14 @@ final class FavoritesController: UIViewController {
         setupConstraints()
         presenter = FavoritesPresenter(viewController: self)
         alertPresenter = AlertPresenter(delegate: self)
-        favoritesView.favoritesTableView.dataSource = self
-        favoritesView.favoritesTableView.delegate = self
+        favoritesView.favoritesCollectionView.dataSource = self
+        favoritesView.favoritesCollectionView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         CoreDataManager.loadFavorites()
-        favoritesView.favoritesTableView.reloadData()
+        favoritesView.favoritesCollectionView.reloadData()
     }
     
     // MARK: - Helpers
@@ -64,15 +64,26 @@ final class FavoritesController: UIViewController {
     }
 }
 
-// MARK: - UITAbleViewDataSource
+// MARK: - UICollectionViewDataSource
 
-extension FavoritesController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension FavoritesController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as! HeaderCollectionReusableView
+        header.backgroundColor = .bbdbYellow
+        header.configure(withText: "header")
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return CoreDataManager.favoritesArray.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listCellWithImage", for: indexPath) as! ListViewCellWithImage
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favoriteCell", for: indexPath) as! FavoritesCell
         cell.backgroundColor = .clear
         
         let character = CoreDataManager.favoritesArray[indexPath.row] as! Character
@@ -80,17 +91,21 @@ extension FavoritesController: UITableViewDataSource {
         cell.cellLabel.text = character.name
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat().cornerRadiusAutoSize(divider: 8)
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension FavoritesController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.size.width, height: 50)
     }
 }
 
-// MARK: - UITableViewDelegate
+// MARK: - UICollectionViewDelegate
 
-extension FavoritesController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+extension FavoritesController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(123)
     }
 }
 

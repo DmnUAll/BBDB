@@ -35,14 +35,18 @@ final class FavoritesView: UIView {
         return navigationBar
     }()
     
-    let favoritesTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.toAutolayout()
-        tableView.register(ListViewCellWithImage.self, forCellReuseIdentifier: "listCellWithImage")
-        tableView.register(ListViewCell.self, forCellReuseIdentifier: "listCell")
-        tableView.backgroundColor = .clear
+    let favoritesCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: CGFloat().textAutoSize(divider: 7), height: CGFloat().textAutoSize(divider: 7))
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.toAutolayout()
+        collectionView.register(FavoritesCell.self, forCellWithReuseIdentifier: "favoriteCell")
+        collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
+        collectionView.backgroundColor = .clear
 //        tableView.isHidden = true
-        return tableView
+        return collectionView
     }()
     
     private let favoritesActivityIndicator: UIActivityIndicatorView = {
@@ -67,7 +71,7 @@ final class FavoritesView: UIView {
     
     private func addSubviews() {
         addSubview(favoritesNavigationBar)
-        addSubview(favoritesTableView)
+        addSubview(favoritesCollectionView)
         addSubview(favoritesActivityIndicator)
     }
     
@@ -78,10 +82,10 @@ final class FavoritesView: UIView {
             favoritesNavigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             favoritesActivityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
             favoritesActivityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
-            favoritesTableView.topAnchor.constraint(equalTo: favoritesNavigationBar.bottomAnchor, constant: 0),
-            favoritesTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            favoritesTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            favoritesTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            favoritesCollectionView.topAnchor.constraint(equalTo: favoritesNavigationBar.bottomAnchor, constant: 0),
+            favoritesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            favoritesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            favoritesCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
