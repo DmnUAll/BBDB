@@ -63,6 +63,15 @@ final class ListController: UIViewController {
         })
         alertPresenter?.show(alertModel: alertModel)
     }
+    
+    func showDuplicatingFavoriteError(message: String) {
+        let alertModel = AlertModel(title: "Duplicate Found",
+                                    message: message,
+                                    buttonText: "Got it!",
+                                    completionHandler: nil
+        )
+        alertPresenter?.show(alertModel: alertModel)
+    }
 }
 
     // MARK: - UITAbleViewDataSource
@@ -171,6 +180,7 @@ extension ListController: UITableViewDelegate {
             case "Characters List":
                 let character = self.presenter?.dataList[indexPath.row] as! CharacterModel
                 let newFavorite = CDCharacter(context: CoreDataManager.context)
+                newFavorite.id = Int64(character.id)
                 newFavorite.name = character.name
                 newFavorite.gender = character.gender
                 newFavorite.age = character.age ?? "Unknown"
@@ -180,7 +190,7 @@ extension ListController: UITableViewDelegate {
                 newFavorite.voicedBy = character.voicedBy ?? "Undefined"
                 newFavorite.imageURL = character.imageURL
                 newFavorite.wikiURL = character.wikiURL
-                CoreDataManager.favoritesDictionary[.characters]?.append(newFavorite)
+                self.presenter?.checkForDuplicate(of: newFavorite, at: .characters)
             case "Episodes List":
                 let episode = self.presenter?.dataList[indexPath.row] as! EpisodeModel
                 let newFavorite = CDEpisode(context: CoreDataManager.context)
@@ -191,41 +201,44 @@ extension ListController: UITableViewDelegate {
                 newFavorite.airDate = episode.airDate
                 newFavorite.totalViewers = episode.totalViewers
                 newFavorite.wikiURL = episode.wikiURL
-                CoreDataManager.favoritesDictionary[.episodes]?.append(newFavorite)
+                self.presenter?.checkForDuplicate(of: newFavorite, at: .episodes)
             case "Stores List":
                 let store = self.presenter?.dataList[indexPath.row] as! StoreModel
                 let newFavorite = CDStore(context: CoreDataManager.context)
+                newFavorite.id = Int64(store.id)
                 newFavorite.name = store.name
                 newFavorite.season = Int64(store.season)
                 newFavorite.episode = Int64(store.episode)
                 newFavorite.imageURL = store.imageURL
-                CoreDataManager.favoritesDictionary[.stores]?.append(newFavorite)
+                self.presenter?.checkForDuplicate(of: newFavorite, at: .stores)
             case "Trucks List":
                 let truck = self.presenter?.dataList[indexPath.row] as! PestControlTruckModel
                 let newFavorite = CDTruck(context: CoreDataManager.context)
+                newFavorite.id = Int64(truck.id)
                 newFavorite.name = truck.name
                 newFavorite.season = Int64(truck.season)
                 newFavorite.imageURL = truck.imageURL
-                CoreDataManager.favoritesDictionary[.trucks]?.append(newFavorite)
+                self.presenter?.checkForDuplicate(of: newFavorite, at: .trucks)
             case "End Credits List":
                 let credits = self.presenter?.dataList[indexPath.row] as! EndCreditsModel
                 let newFavorite = CDCredits(context: CoreDataManager.context)
+                newFavorite.id = Int64(credits.id)
                 newFavorite.episode = Int64(credits.episode)
                 newFavorite.season = Int64(credits.season)
                 newFavorite.imageURL = credits.imageURL
-                CoreDataManager.favoritesDictionary[.credits]?.append(newFavorite)
+                self.presenter?.checkForDuplicate(of: newFavorite, at: .credits)
             case "Burgers List":
                 let burger = self.presenter?.dataList[indexPath.row] as! BurgerOfTheDayModel
                 let newFavorite = CDBurger(context: CoreDataManager.context)
+                newFavorite.id = Int64(burger.id)
                 newFavorite.episode = Int64(burger.episode)
                 newFavorite.season = Int64(burger.season)
                 newFavorite.name = burger.name
                 newFavorite.price = burger.price
-                CoreDataManager.favoritesDictionary[.burgers]?.append(newFavorite)
+                self.presenter?.checkForDuplicate(of: newFavorite, at: .burgers)
             default:
                 return
             }
-            CoreDataManager.saveFavorites()
             completionHandler(true)
         }
         addToFavoriteButton.backgroundColor = .bbdbYellow
