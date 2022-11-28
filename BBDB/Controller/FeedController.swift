@@ -7,9 +7,9 @@ final class FeedController: UIViewController {
         let feedView = FeedView()
         return feedView
     }()
-        
+    
     // MARK: - Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UIImageView().setAsBackgroundImage(named: "yellowBackground", to: self)
@@ -20,7 +20,7 @@ final class FeedController: UIViewController {
     }
     
     // MARK: - Helpers
-
+    
     private func setupConstraints() {
         let constraints = [
             feedView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -41,8 +41,20 @@ final class FeedController: UIViewController {
         })
         alertPresenter?.show(alertModel: alertModel)
     }
-    
-    func showAboutFeedAlert() {
+}
+
+// MARK: - AlertPresenterDelegate
+
+extension FeedController: AlertPresenterDelegate {
+    func presentAlert(_ alert: UIAlertController) {
+        present(alert, animated: true)
+    }
+}
+
+// MARK: - InfoAlertPresenterProtocol
+
+extension FeedController: InfoAlertPresenterProtocol {
+    func showCurrentControllerInfoAlert() {
         let alertModel = AlertModel(title: "About Feed",
                                     message: "\nThis feed will show you 5 random characters per day.\nBuy full version to see 5 random characters per run!",
                                     buttonText: "Got it",
@@ -63,13 +75,5 @@ final class FeedController: UIViewController {
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
-    }
-}
-
-// MARK: - AlertPresenterDelegate
-
-extension FeedController: AlertPresenterDelegate {
-    func presentAlert(_ alert: UIAlertController) {
-        present(alert, animated: true)
     }
 }

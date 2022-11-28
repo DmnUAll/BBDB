@@ -3,7 +3,7 @@ import CoreData
 
 struct CoreDataManager {
     
-    enum Categories: String {
+    enum Categories {
         case characters
         case episodes
         case stores

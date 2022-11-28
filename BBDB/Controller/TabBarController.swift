@@ -15,7 +15,7 @@ class TabBarController: UITabBarController {
     
     private func configureTabBarController() {
         tabBar.backgroundImage = UIImage()
-        let feedTab = FeedController()
+        let feedTab = NavigationController(rootViewController: FeedController())
         let feedTabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), selectedImage: UIImage(named: "newspaper"))
         feedTab.tabBarItem = feedTabBarItem
         
@@ -23,7 +23,7 @@ class TabBarController: UITabBarController {
         let menuTabBarItem = UITabBarItem(title: "Menu", image: UIImage(systemName: "menucard"), selectedImage: UIImage(named: "menucard"))
         menuTab.tabBarItem = menuTabBarItem
         
-        let favoritesTab = FavoritesController()
+        let favoritesTab = NavigationController(rootViewController: FavoritesController())
         let favoritesTabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star"), selectedImage: UIImage(named: "star"))
         favoritesTab.tabBarItem = favoritesTabBarItem
         

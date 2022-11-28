@@ -10,34 +10,6 @@ final class FeedView: UIView {
     
     weak var delegate: FeedViewDelegate?
     
-    private lazy var feedNavigationBar: UINavigationBar = {
-        let navigationBar = UINavigationBar()
-        navigationBar.toAutolayout()
-        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationBar.backgroundColor = .clear
-        navigationBar.tintColor = .bbdbBlack
-        let navigationItem = UINavigationItem(title: "Feed: 5 of the day")
-        navigationBar.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: 30)!, .foregroundColor: UIColor.bbdbBlack]
-        navigationBar.setTitleVerticalPositionAdjustment(3, for: .default)
-        let webButton = UIBarButtonItem(image: UIImage(systemName: "network"), style: .plain, target: nil, action: #selector(webButtonTapped))
-        navigationItem.rightBarButtonItem = webButton
-        var menuItems: [UIAction] = [
-            UIAction(title: "About Feed", image: UIImage(systemName: "clock.badge.questionmark"), handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.aboutFeedButtonTapped()
-            }),
-            UIAction(title: "About App", image: UIImage(systemName: "questionmark.app"), handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.aboutAppButtonTapped()
-            }),
-        ]
-        var buttonMenu = UIMenu(title: "Info", image: nil, identifier: nil, options: [], children: menuItems)
-        let infoButton = UIBarButtonItem(title: "Menu", image: UIImage(systemName: "info.circle"), primaryAction: nil, menu: buttonMenu)
-        navigationItem.leftBarButtonItem = infoButton
-        navigationBar.setItems([navigationItem], animated: false)
-        return navigationBar
-    }()
-    
     private let feedActivityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.toAutolayout()
@@ -78,12 +50,11 @@ final class FeedView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func webButtonTapped() {
+    @objc func webButtonTapped() {
         delegate?.webButtonTapped(atPage: feedPageControl.currentPage)
     }
     
     private func addSubviews() {
-        addSubview(feedNavigationBar)
         addSubview(feedActivityIndicator)
         addSubview(feedScrollView)
         addSubview(feedPageControl)
@@ -91,12 +62,9 @@ final class FeedView: UIView {
     
     private func setupConstraints() {
         let constraints = [
-            feedNavigationBar.topAnchor.constraint(equalTo: topAnchor),
-            feedNavigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            feedNavigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             feedActivityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
             feedActivityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
-            feedScrollView.topAnchor.constraint(equalTo: feedNavigationBar.bottomAnchor, constant: 0),
+            feedScrollView.topAnchor.constraint(equalTo: topAnchor),
             feedScrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             feedScrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             feedScrollView.bottomAnchor.constraint(equalTo: feedPageControl.topAnchor, constant: 0),
@@ -137,12 +105,13 @@ final class FeedView: UIView {
             labelStack.addArrangedSubview(makeLabelStack(leadingText: "1st appearance:", trailingText: character.firstEpisode ?? "Undefined"))
             labelStack.addArrangedSubview(makeLabelStack(leadingText: "Voiced by:", trailingText: character.voicedBy ?? "Undefined"))
             feedScrollView.addSubview(scrollViewPage)
+            print(scrollViewPage.frame, " = ", feedScrollView.frame)
+
         }
         showOrHideUI()
     }
     private func showOrHideUI() {
         feedActivityIndicator.isAnimating ? feedActivityIndicator.stopAnimating() : feedActivityIndicator.startAnimating()
-        feedNavigationBar.isHidden.toggle()
         feedScrollView.isHidden.toggle()
         feedPageControl.isHidden.toggle()
     }

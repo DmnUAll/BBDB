@@ -37,6 +37,4 @@ extension MenuPresenter: MenuViewDelegate {
     func burgersOfTheDayButtonTapped() {
         viewController?.navigationController?.pushViewController(ListController(for: .burgersOfTheDayList), animated: true)
     }
-    
-    
 }

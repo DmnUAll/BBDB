@@ -15,7 +15,7 @@ class FavoritesPresenter {
 
 extension FavoritesPresenter: FavoritesViewDelegate {
     func aboutFavoritesButtonTapped() {
-        viewController?.showAboutFavoritesAlert()
+        viewController?.showCurrentControllerInfoAlert()
     }
     
     func aboutAppButtonTapped() {

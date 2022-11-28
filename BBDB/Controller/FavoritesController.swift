@@ -13,6 +13,7 @@ final class FavoritesController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIImageView().setAsBackgroundImage(named: "redBackground", to: self)
         view.backgroundColor = .bbdbRed
         view.addSubview(favoritesView)
         setupConstraints()
@@ -38,29 +39,6 @@ final class FavoritesController: UIViewController {
             favoritesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
-    }
-    
-    func showAboutFavoritesAlert() {
-        let alertModel = AlertModel(title: "About Favorites",
-                                    message: "\n Here stores all items that you're added to your favorites list!",
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
-        alertPresenter?.show(alertModel: alertModel)
-    }
-    
-    func showAboutAppAlert() {
-        let alertModel = AlertModel(title: "About App",
-                                    message: """
-                                    
-                                    This App was made by me:
-                                    https://github.com/DmnUAll
-                                    
-                                    Based on API:
-                                    https://bobs-burgers-api-ui.herokuapp.com
-                                    """,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
-        alertPresenter?.show(alertModel: alertModel)
     }
 }
 
@@ -144,7 +122,58 @@ extension FavoritesController: UICollectionViewDelegateFlowLayout {
 
 extension FavoritesController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(123)
+        let dictionaryKey: CoreDataManager.Categories
+        switch indexPath.section {
+        case 0:
+            dictionaryKey = .characters
+        case 1:
+            dictionaryKey = .episodes
+        case 2:
+            dictionaryKey = .stores
+        case 3:
+            dictionaryKey = .trucks
+        case 4:
+            dictionaryKey = .credits
+        case 5:
+            dictionaryKey = .burgers
+        default:
+            return
+        }
+        
+        guard let dataFromSelectedRow = CoreDataManager.favoritesDictionary[dictionaryKey]?[indexPath.row] else { return }
+        let viewController = DetailedInfoController()
+        viewController.view.backgroundColor = .bbdbRed
+        if let dataFromSelectedRow = dataFromSelectedRow as? CDCharacter {
+            viewController.title = "Character's Info"
+            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+            if let wikiURL = dataFromSelectedRow.wikiURL {
+                viewController.addWebButton(withLink: wikiURL)
+            }
+        }
+        if let dataFromSelectedRow = dataFromSelectedRow as? CDEpisode {
+            viewController.title = "Episode Info"
+            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+            if let wikiURL = dataFromSelectedRow.wikiURL {
+                viewController.addWebButton(withLink: wikiURL)
+            }
+        }
+        if let dataFromSelectedRow = dataFromSelectedRow as? CDStore {
+            viewController.title = "Store Info"
+            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+        }
+        if let dataFromSelectedRow = dataFromSelectedRow as? CDTruck {
+            viewController.title = "Truck Info"
+            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+        }
+        if let dataFromSelectedRow = dataFromSelectedRow as? CDCredits {
+            viewController.title = "End Credits Info"
+            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+        }
+        if let dataFromSelectedRow = dataFromSelectedRow as? CDBurger {
+            viewController.title = "Burger Info"
+            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+        }
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -153,5 +182,32 @@ extension FavoritesController: UICollectionViewDelegate {
 extension FavoritesController: AlertPresenterDelegate {
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)
+    }
+}
+
+// MARK: - InfoAlertPresenterProtocol
+
+extension FavoritesController: InfoAlertPresenterProtocol {
+    func showCurrentControllerInfoAlert() {
+        let alertModel = AlertModel(title: "About Favorites",
+                                    message: "\n Here stores all items that you're added to your favorites list!",
+                                    buttonText: "Got it",
+                                    completionHandler: nil)
+        alertPresenter?.show(alertModel: alertModel)
+    }
+    
+    func showAboutAppAlert() {
+        let alertModel = AlertModel(title: "About App",
+                                    message: """
+                                    
+                                    This App was made by me:
+                                    https://github.com/DmnUAll
+                                    
+                                    Based on API:
+                                    https://bobs-burgers-api-ui.herokuapp.com
+                                    """,
+                                    buttonText: "Got it",
+                                    completionHandler: nil)
+        alertPresenter?.show(alertModel: alertModel)
     }
 }

@@ -15,7 +15,7 @@ class FeedPresenter {
     }
     
     private func loadData() {
-        
+
         feedLoader.loadList { (result: Result<Characters, Error>) in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
@@ -33,6 +33,7 @@ class FeedPresenter {
     }
     
     func loadFiveOfTheDay() {
+
         guard let savedDate = loadUserDefaults(for: .date, as: Date.self) else {
             loadData()
             return
@@ -74,8 +75,9 @@ private enum Keys: String {
 // MARK: - FeedViewDelegate
 
 extension FeedPresenter: FeedViewDelegate {
+    
     func aboutFeedButtonTapped() {
-        viewController?.showAboutFeedAlert()
+        viewController?.showCurrentControllerInfoAlert()
     }
     
     func aboutAppButtonTapped() {

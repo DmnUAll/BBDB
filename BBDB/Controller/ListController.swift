@@ -172,6 +172,7 @@ extension ListController: UITableViewDelegate {
             viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
         }
         navigationController?.pushViewController(viewController, animated: true)
+        print(navigationController)
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

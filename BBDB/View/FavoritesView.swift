@@ -9,32 +9,6 @@ final class FavoritesView: UIView {
     
     weak var delegate: FavoritesViewDelegate?
     
-    private lazy var favoritesNavigationBar: UINavigationBar = {
-        let navigationBar = UINavigationBar()
-        navigationBar.toAutolayout()
-        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationBar.backgroundColor = .clear
-        navigationBar.tintColor = .bbdbBlack
-        let navigationItem = UINavigationItem(title: "Favorites")
-        navigationBar.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: 30)!, .foregroundColor: UIColor.bbdbBlack]
-        navigationBar.setTitleVerticalPositionAdjustment(3, for: .default)
-        var menuItems: [UIAction] = [
-            UIAction(title: "About Favorites", image: UIImage(systemName: "clock.badge.questionmark"), handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.aboutFavoritesButtonTapped()
-            }),
-            UIAction(title: "About App", image: UIImage(systemName: "questionmark.app"), handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.delegate?.aboutAppButtonTapped()
-            }),
-        ]
-        var buttonMenu = UIMenu(title: "Info", image: nil, identifier: nil, options: [], children: menuItems)
-        let infoButton = UIBarButtonItem(title: "Menu", image: UIImage(systemName: "info.circle"), primaryAction: nil, menu: buttonMenu)
-        navigationItem.leftBarButtonItem = infoButton
-        navigationBar.setItems([navigationItem], animated: false)
-        return navigationBar
-    }()
-    
     let favoritesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -45,7 +19,6 @@ final class FavoritesView: UIView {
         collectionView.register(FavoritesCell.self, forCellWithReuseIdentifier: "favoriteCell")
         collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
         collectionView.backgroundColor = .clear
-//        tableView.isHidden = true
         return collectionView
     }()
     
@@ -54,7 +27,6 @@ final class FavoritesView: UIView {
         activityIndicator.toAutolayout()
         activityIndicator.hidesWhenStopped = true
         activityIndicator.color = .bbdbYellow
-//        activityIndicator.startAnimating()
         return activityIndicator
     }()
     
@@ -70,19 +42,15 @@ final class FavoritesView: UIView {
     }
     
     private func addSubviews() {
-        addSubview(favoritesNavigationBar)
         addSubview(favoritesCollectionView)
         addSubview(favoritesActivityIndicator)
     }
     
     private func setupConstraints() {
         let constraints = [
-            favoritesNavigationBar.topAnchor.constraint(equalTo: topAnchor),
-            favoritesNavigationBar.leadingAnchor.constraint(equalTo: leadingAnchor),
-            favoritesNavigationBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             favoritesActivityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
             favoritesActivityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
-            favoritesCollectionView.topAnchor.constraint(equalTo: favoritesNavigationBar.bottomAnchor, constant: 0),
+            favoritesCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
             favoritesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             favoritesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             favoritesCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)

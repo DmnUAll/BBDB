@@ -1,5 +1,10 @@
 import UIKit
 
+protocol InfoAlertPresenterProtocol: AnyObject {
+    func showCurrentControllerInfoAlert()
+    func showAboutAppAlert()
+}
+
 protocol AlertPresenterProtocol {
     func show(alertModel: AlertModel)
 }

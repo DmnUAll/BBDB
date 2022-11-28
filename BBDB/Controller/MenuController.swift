@@ -31,8 +31,21 @@ final class MenuController: UIViewController {
         ]
         NSLayoutConstraint.activate(constraints)
     }
+}
+
+// MARK: - AlertPresenterDelegate
+
+extension MenuController: AlertPresenterDelegate {
+    func presentAlert(_ alert: UIAlertController) {
+        present(alert, animated: true)
+    }
+}
+
+// MARK: - InfoAlertPresenterProtocol
+
+extension MenuController: InfoAlertPresenterProtocol {
     
-    func showAboutMenuAlert() {
+    func showCurrentControllerInfoAlert() {
         let alertModel = AlertModel(title: "About Menu",
                                     message: "\nThis menu allows you to watch the full info list of any provided category.",
                                     buttonText: "Got it",
@@ -53,13 +66,5 @@ final class MenuController: UIViewController {
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
-    }
-}
-
-// MARK: - AlertPresenterDelegate
-
-extension MenuController: AlertPresenterDelegate {
-    func presentAlert(_ alert: UIAlertController) {
-        present(alert, animated: true)
     }
 }
