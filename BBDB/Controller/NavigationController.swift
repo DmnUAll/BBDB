@@ -19,6 +19,10 @@ class NavigationController: UINavigationController {
             self.rootVC = vc
             configureNavigationController(withTitle: "Favorites", andCurrentMenuTitle: "About Favorites")
         }
+        if let vc = rootViewController as? WhoAmIController {
+            self.rootVC = vc
+            configureNavigationController(withTitle: "Who am I?", andCurrentMenuTitle: "About 'Who am I?'")
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -27,7 +27,11 @@ class TabBarController: UITabBarController {
         let favoritesTabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star"), selectedImage: UIImage(named: "star"))
         favoritesTab.tabBarItem = favoritesTabBarItem
         
-        self.viewControllers = [feedTab, menuTab, favoritesTab]
+        let whoAmITab = NavigationController(rootViewController: WhoAmIController())
+        let whoAmITabBarItem = UITabBarItem(title: "Who am I?", image: UIImage(systemName: "person.fill.questionmark"), selectedImage: UIImage(named: "person.fill.questionmark"))
+        whoAmITab.tabBarItem = whoAmITabBarItem
+        
+        self.viewControllers = [feedTab, menuTab, favoritesTab, whoAmITab]
     }
 }
 

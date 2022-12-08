@@ -20,5 +20,6 @@ extension FavoritesPresenter: FavoritesViewDelegate {
     
     func aboutAppButtonTapped() {
         viewController?.showAboutAppAlert()
+        viewController?.navigationController?.pushViewController(WhoAmIResultController(), animated: true)
     }
 }
