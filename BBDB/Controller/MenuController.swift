@@ -1,27 +1,30 @@
 import UIKit
 
 final class MenuController: UIViewController {
+    
+    // MARK: - Properties and Initializers
     private var presenter: MenuPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var menuView: MenuView = {
         let menuView = MenuView()
         return menuView
     }()
-        
+    
     // MARK: - Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView().setAsBackgroundImage(named: "blueBackground", to: self)
+        UIImageView.setAsBackground(withImage: "blueBackground", to: self)
         view.addSubview(menuView)
         self.title = "Main Menu"
         setupConstraints()
         presenter = MenuPresenter(viewController: self)
         alertPresenter = AlertPresenter(delegate: self)
     }
-    
-    // MARK: - Helpers
+}
 
+// MARK: - Helpers
+extension MenuController {
+    
     private func setupConstraints() {
         let constraints = [
             menuView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -34,7 +37,6 @@ final class MenuController: UIViewController {
 }
 
 // MARK: - AlertPresenterDelegate
-
 extension MenuController: AlertPresenterDelegate {
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)
@@ -42,12 +44,11 @@ extension MenuController: AlertPresenterDelegate {
 }
 
 // MARK: - InfoAlertPresenterProtocol
-
 extension MenuController: InfoAlertPresenterProtocol {
     
     func showCurrentControllerInfoAlert() {
         let alertModel = AlertModel(title: "About Menu",
-                                    message: "\nThis menu allows you to watch the full info list of any provided category.",
+                                    message: InfoAlertText.aboutMenu.rawValue,
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
@@ -55,14 +56,7 @@ extension MenuController: InfoAlertPresenterProtocol {
     
     func showAboutAppAlert() {
         let alertModel = AlertModel(title: "About App",
-                                    message: """
-                                    
-                                    This App was made by me:
-                                    https://github.com/DmnUAll
-                                    
-                                    Based on API:
-                                    https://bobs-burgers-api-ui.herokuapp.com
-                                    """,
+                                    message: InfoAlertText.aboutApp.rawValue,
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)

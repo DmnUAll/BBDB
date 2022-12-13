@@ -13,7 +13,7 @@ extension UIImageView {
         }
     }
     
-    func setAsBackgroundImage(named imageName: String, to viewController: UIViewController) {
+    static func setAsBackground(withImage imageName: String, to viewController: UIViewController) {
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.contentMode = .scaleAspectFill
         backgroundImage.image = UIImage(named: imageName)

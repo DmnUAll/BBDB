@@ -47,7 +47,7 @@ final class DetailedInfoView: UIView {
         labelStack.clipsToBounds = true
         labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
         labelStack.layer.borderWidth = 3
-        labelStack.layer.cornerRadius = CGFloat().cornerRadiusAutoSize()
+        labelStack.layer.cornerRadius = UIScreen.screenSize(dividedBy: 30)
         if let data = data as? CharacterModel {
             infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL))
             infoStackView.addArrangedSubview(labelStack)
@@ -104,7 +104,7 @@ final class DetailedInfoView: UIView {
         labelStack.clipsToBounds = true
         labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
         labelStack.layer.borderWidth = 3
-        labelStack.layer.cornerRadius = CGFloat().cornerRadiusAutoSize()
+        labelStack.layer.cornerRadius = UIScreen.screenSize(dividedBy: 30)
         if let data = data as? CDCharacter {
             infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL ?? Bundle.main.url(forResource: "noImage", withExtension: "png")!))
             infoStackView.addArrangedSubview(labelStack)
@@ -169,7 +169,7 @@ extension DetailedInfoView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = CGFloat().cornerRadiusAutoSize()
+        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 30)
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
         imageView.backgroundColor = .bbdbWhite

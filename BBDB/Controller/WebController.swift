@@ -1,23 +1,25 @@
 import UIKit
 
 final class WebController: UIViewController {
-        
+    
+    // MARK: - Properties and Initializers
     lazy var webView: WebView = {
         let webView = WebView()
         return webView
     }()
     
     // MARK: - Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .bbdbYellow
         view.addSubview(webView)
         setupConstraints()
     }
-    
-    // MARK: - Helpers
+}
 
+// MARK: - Helpers
+extension WebController {
+    
     private func setupConstraints() {
         let constraints = [
             webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

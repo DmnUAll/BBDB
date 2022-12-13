@@ -2,10 +2,11 @@ import UIKit
 import CoreML
 import Vision
 
-class WhoAmIPresenter {
+final class WhoAmIPresenter {
     
     weak var viewController: WhoAmIController?
-    
+    let imagePicker = UIImagePickerController()
+
     init(viewController: WhoAmIController) {
         self.viewController = viewController
         viewController.whoAmIView.delegate = self

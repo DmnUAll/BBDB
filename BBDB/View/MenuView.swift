@@ -106,14 +106,14 @@ extension MenuView {
         filled.baseForegroundColor = .bbdbBlack
         filled.titleAlignment = .automatic
         filled.title = title
-        filled.attributedTitle?.font = UIFont(name: "Bob'sBurgers2", size: CGFloat().textAutoSize(divider: 30))
+        filled.attributedTitle?.font = UIFont(name: "Bob'sBurgers2", size: UIScreen.screenSize(dividedBy: 30))
         filled.subtitle = subtitle
-        filled.attributedSubtitle?.font = UIFont(name: "Bob'sBurgers", size: CGFloat().textAutoSize(divider: 50))
+        filled.attributedSubtitle?.font = UIFont(name: "Bob'sBurgers", size: UIScreen.screenSize(dividedBy: 50))
         filled.image = UIImage(systemName: imageName)
         filled.imagePlacement = .leading
         filled.imagePadding = 8
         let button = UIButton(configuration: filled, primaryAction: nil)
-        button.layer.cornerRadius = CGFloat().cornerRadiusAutoSize(divider: 70)
+        button.layer.cornerRadius = UIScreen.screenSize(dividedBy: 70)
         button.addTarget(self, action: action, for: .touchUpInside)
         return button
     }

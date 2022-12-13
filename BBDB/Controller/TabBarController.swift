@@ -1,43 +1,47 @@
 import UIKit
-class TabBarController: UITabBarController {
+
+final class TabBarController: UITabBarController {
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        self.tabBar.tintColor = .bbdbBlack
-        self.tabBar.barTintColor = .bbdbBlack
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureTabBarController()
     }
-    
+}
+
+// MARK: - Helpers
+extension TabBarController {
+
     private func configureTabBarController() {
         tabBar.backgroundImage = UIImage()
-        let feedTab = NavigationController(rootViewController: FeedController())
-        let feedTabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "newspaper"), selectedImage: UIImage(named: "newspaper"))
-        feedTab.tabBarItem = feedTabBarItem
-        
-        let menuTab = NavigationController(rootViewController: MenuController())
-        let menuTabBarItem = UITabBarItem(title: "Menu", image: UIImage(systemName: "menucard"), selectedImage: UIImage(named: "menucard"))
-        menuTab.tabBarItem = menuTabBarItem
-        
-        let favoritesTab = NavigationController(rootViewController: FavoritesController())
-        let favoritesTabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star"), selectedImage: UIImage(named: "star"))
-        favoritesTab.tabBarItem = favoritesTabBarItem
-        
-        let whoAmITab = NavigationController(rootViewController: WhoAmIController())
-        let whoAmITabBarItem = UITabBarItem(title: "Who am I?", image: UIImage(systemName: "person.fill.questionmark"), selectedImage: UIImage(named: "person.fill.questionmark"))
-        whoAmITab.tabBarItem = whoAmITabBarItem
-        
-        self.viewControllers = [feedTab, menuTab, favoritesTab, whoAmITab]
+        tabBar.tintColor = .bbdbBlack
+        tabBar.barTintColor = .bbdbBlack
+        self.viewControllers = [
+            configureTab(withRootController: FeedController(), title: "Feed", andImage: UIImage(systemName: "newspaper")),
+            configureTab(withRootController: MenuController(), title: "Menu", andImage: UIImage(systemName: "menucard")),
+            configureTab(withRootController: FavoritesController(), title: "Favorites", andImage: UIImage(systemName: "star")),
+            configureTab(withRootController: WhoAmIController(), title: "Who am I?", andImage: UIImage(systemName: "person.fill.questionmark"))
+        ]
+    }
+    
+    private func configureTab(withRootController rootVC: UIViewController, title: String, andImage image: UIImage?) -> NavigationController {
+        let tab = NavigationController(rootViewController: rootVC)
+        let tabBarItem = UITabBarItem(title: title, image: image, selectedImage: image)
+        tab.tabBarItem = tabBarItem
+        return tab
     }
 }
 
 // MARK: - UITabBarControllerDelegate
 extension TabBarController: UITabBarControllerDelegate {
+
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        // Need to add some functionality later
         print("Selected \(viewController.description)")
     }
 }

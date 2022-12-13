@@ -63,8 +63,8 @@ final class WhoAmIView: UIView {
     
     private func setupConstraints() {
         let constraints = [
-            whoAmICameraButton.widthAnchor.constraint(equalToConstant: CGFloat().buttonAutoSize()),
-            whoAmICameraButton.heightAnchor.constraint(equalToConstant: CGFloat().buttonAutoSize()),
+            whoAmICameraButton.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 5)),
+            whoAmICameraButton.heightAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 5)),
             whoAmIStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             whoAmIStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]

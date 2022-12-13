@@ -17,7 +17,7 @@ final class WhoAmIResultController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView().setAsBackgroundImage(named: "blueBackground", to: self)
+        UIImageView.setAsBackground(withImage: "blueBackground", to: self)
         self.title = "'Who am I' Result"
         view.addSubview(whoAmIResultView)
         setupConstraints()

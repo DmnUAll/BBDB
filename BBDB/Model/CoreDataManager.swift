@@ -2,7 +2,7 @@ import UIKit
 import CoreData
 
 struct CoreDataManager {
-    
+
     enum Categories {
         case characters
         case episodes
@@ -11,7 +11,7 @@ struct CoreDataManager {
         case credits
         case burgers
     }
-    
+
     static var favoritesDictionary: [Categories: [Any]] = [.characters: [],
                                                            .episodes: [],
                                                            .stores: [],
@@ -19,10 +19,12 @@ struct CoreDataManager {
                                                            .credits: [],
                                                            .burgers: []
     ]
+    // swiftlint:disable force_cast
     static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+    // swiftlint:enable force_cast
+
     // MARK: - Data Manipulation Methods
-    
+
     static func saveFavorites() {
         do {
             try context.save()
@@ -30,7 +32,7 @@ struct CoreDataManager {
             print("Error saving cintext: \(error)")
         }
     }
-    
+
     static func loadAll() {
         loadFavorites(with: CDBurger.fetchRequest())
         loadFavorites(with: CDCredits.fetchRequest())
@@ -40,7 +42,7 @@ struct CoreDataManager {
         loadFavorites(with: CDCharacter.fetchRequest())
 //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
-    
+
     static func loadFavorites(with request: NSFetchRequest<NSFetchRequestResult>) {
         switch request.entityName {
         case "CDCharacter":

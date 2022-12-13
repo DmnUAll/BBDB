@@ -1,19 +1,19 @@
 import UIKit
 
 final class FavoritesController: UIViewController {
-    
+
     private var presenter: FavoritesPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var favoritesView: FavoritesView = {
         let favoritesView = FavoritesView()
         return favoritesView
     }()
-    
+
     // MARK: - Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView().setAsBackgroundImage(named: "redBackground", to: self)
+        UIImageView.setAsBackground(withImage: "redBackground", to: self)
         view.backgroundColor = .bbdbRed
         view.addSubview(favoritesView)
         setupConstraints()
@@ -22,21 +22,21 @@ final class FavoritesController: UIViewController {
         favoritesView.favoritesCollectionView.dataSource = self
         favoritesView.favoritesCollectionView.delegate = self
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         CoreDataManager.loadAll()
         favoritesView.favoritesCollectionView.reloadData()
     }
-    
+
     // MARK: - Helpers
-    
+
     private func setupConstraints() {
         let constraints = [
             favoritesView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             favoritesView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             favoritesView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            favoritesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            favoritesView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -48,14 +48,14 @@ extension FavoritesController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return CoreDataManager.favoritesDictionary.keys.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as! HeaderCollectionReusableView
         header.backgroundColor = .bbdbYellow
         header.configure(withText: "header")
         return header
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -74,7 +74,7 @@ extension FavoritesController: UICollectionViewDataSource {
             return 0
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favoriteCell", for: indexPath) as! FavoritesCell
         cell.backgroundColor = .clear
@@ -139,7 +139,7 @@ extension FavoritesController: UICollectionViewDelegate {
         default:
             return
         }
-        
+    
         guard let dataFromSelectedRow = CoreDataManager.favoritesDictionary[dictionaryKey]?[indexPath.row] else { return }
         let viewController = DetailedInfoController()
         viewController.view.backgroundColor = .bbdbRed
@@ -190,22 +190,15 @@ extension FavoritesController: AlertPresenterDelegate {
 extension FavoritesController: InfoAlertPresenterProtocol {
     func showCurrentControllerInfoAlert() {
         let alertModel = AlertModel(title: "About Favorites",
-                                    message: "\n Here stores all items that you're added to your favorites list!",
+                                    message: InfoAlertText.aboutFavorites.rawValue,
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
     }
-    
+
     func showAboutAppAlert() {
         let alertModel = AlertModel(title: "About App",
-                                    message: """
-                                    
-                                    This App was made by me:
-                                    https://github.com/DmnUAll
-                                    
-                                    Based on API:
-                                    https://bobs-burgers-api-ui.herokuapp.com
-                                    """,
+                                    message: InfoAlertText.aboutApp.rawValue,
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)

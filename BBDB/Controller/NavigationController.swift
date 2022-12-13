@@ -1,8 +1,9 @@
 import UIKit
 
-class NavigationController: UINavigationController {
+final class NavigationController: UINavigationController {
     
-    weak var rootVC: InfoAlertPresenterProtocol?
+    // MARK: - Properties and Initializers
+    private weak var rootVC: InfoAlertPresenterProtocol?
     
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
@@ -29,15 +30,20 @@ class NavigationController: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Life Cycle
     override func viewWillDisappear(_ animated: Bool) {
         self.popToRootViewController(animated: false)
     }
+}
+
+// MARK: - Helpers
+extension NavigationController {
     
     private func configureNavigationController(withTitle navVCTitle: String, andCurrentMenuTitle menuTitle: String) {
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.tintColor = .bbdbBlack
         navigationBar.topItem?.title = navVCTitle
-        navigationBar.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: 30)!, .foregroundColor: UIColor.bbdbBlack]
+        navigationBar.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: UIScreen.screenSize(dividedBy: 25))!, .foregroundColor: UIColor.bbdbBlack]
         navigationBar.setTitleVerticalPositionAdjustment(3, for: .default)
         navigationBar.topItem?.backButtonTitle = "Back"
         let menuItems: [UIAction] = [

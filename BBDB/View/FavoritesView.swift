@@ -12,7 +12,7 @@ final class FavoritesView: UIView {
     let favoritesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: CGFloat().textAutoSize(divider: 7), height: CGFloat().textAutoSize(divider: 7))
+        layout.itemSize = CGSize(width: UIScreen.screenSize(dividedBy: 7), height: UIScreen.screenSize(dividedBy: 7))
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.toAutolayout()

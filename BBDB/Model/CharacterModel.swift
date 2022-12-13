@@ -18,7 +18,7 @@ struct CharacterModel: Codable {
     let wikiURL: String
     let relatives: [Relative]
     let age: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case id, name, image, gender, hairColor, occupation, firstEpisode, voicedBy, url
         case wikiURL = "wikiUrl"

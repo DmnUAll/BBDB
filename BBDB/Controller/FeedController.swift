@@ -1,6 +1,8 @@
 import UIKit
 
 final class FeedController: UIViewController {
+    
+    // MARK: - Properties and Initializers
     private var presenter: FeedPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var feedView: FeedView = {
@@ -9,17 +11,18 @@ final class FeedController: UIViewController {
     }()
     
     // MARK: - Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView().setAsBackgroundImage(named: "yellowBackground", to: self)
+        UIImageView.setAsBackground(withImage: "yellowBackground", to: self)
         view.addSubview(feedView)
         setupConstraints()
         presenter = FeedPresenter(viewController: self)
         alertPresenter = AlertPresenter(delegate: self)
     }
-    
-    // MARK: - Helpers
+}
+
+// MARK: - Helpers
+extension FeedController {
     
     private func setupConstraints() {
         let constraints = [
@@ -44,19 +47,19 @@ final class FeedController: UIViewController {
 }
 
 // MARK: - AlertPresenterDelegate
-
 extension FeedController: AlertPresenterDelegate {
+    
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)
     }
 }
 
 // MARK: - InfoAlertPresenterProtocol
-
 extension FeedController: InfoAlertPresenterProtocol {
+    
     func showCurrentControllerInfoAlert() {
         let alertModel = AlertModel(title: "About Feed",
-                                    message: "\nThis feed will show you 5 random characters per day.\nBuy full version to see 5 random characters per run!",
+                                    message: InfoAlertText.aboutFeed.rawValue,
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
@@ -64,14 +67,7 @@ extension FeedController: InfoAlertPresenterProtocol {
     
     func showAboutAppAlert() {
         let alertModel = AlertModel(title: "About App",
-                                    message: """
-                                    
-                                    This App was made by me:
-                                    https://github.com/DmnUAll
-                                    
-                                    Based on API:
-                                    https://bobs-burgers-api-ui.herokuapp.com
-                                    """,
+                                    message: InfoAlertText.aboutApp.rawValue,
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)

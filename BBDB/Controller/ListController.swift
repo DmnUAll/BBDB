@@ -2,6 +2,7 @@ import UIKit
 
 final class ListController: UIViewController {
     
+    // MARK: - Properties and Initializers
     private var presenter: ListPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var listView: ListView = {
@@ -13,25 +14,9 @@ final class ListController: UIViewController {
         self.init()
         presenter = ListPresenter(viewController: self, link: link)
         alertPresenter = AlertPresenter(delegate: self)
-        
-        switch link {
-        case .charactersList:
-            self.title = "Characters List"
-        case .episodesList:
-            self.title = "Episodes List"
-        case .nextDoorStoresList:
-            self.title = "Stores List"
-        case .pestControllTrucksList:
-            self.title = "Trucks List"
-        case .endCreditsList:
-            self.title = "End Credits List"
-        case .burgersOfTheDayList:
-            self.title = "Burgers List"
-        }
     }
     
     // MARK: - Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .bbdbBlue
@@ -40,9 +25,11 @@ final class ListController: UIViewController {
         listView.listTableView.dataSource = self
         listView.listTableView.delegate = self
     }
-    
-    // MARK: - Helpers
+}
 
+// MARK: - Helpers
+extension ListController {
+    
     private func setupConstraints() {
         let constraints = [
             listView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -74,172 +61,37 @@ final class ListController: UIViewController {
     }
 }
 
-    // MARK: - UITAbleViewDataSource
-
+// MARK: - UITAbleViewDataSource
 extension ListController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let rows = presenter?.dataList.count else { return 0}
+        guard let rows = presenter?.dataList.count else { return 0 }
         return rows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch presenter?.dataList[0] {
-        case is CharacterModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCellWithImage", for: indexPath) as! ListViewCellWithImage
-            cell.backgroundColor = .clear
-            guard let character = presenter?.dataList[indexPath.row] as? CharacterModel else { return cell }
-            cell.cellImageView.load(url: character.imageURL)
-            cell.cellLabel.text = character.name
-            return cell
-        case is EpisodeModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListViewCell
-            cell.backgroundColor = .clear
-            guard let episode = presenter?.dataList[indexPath.row] as? EpisodeModel else { return cell }
-            cell.cellMainLabel.text = episode.name
-            cell.cellAdditionLabel.text = "Season: \(episode.season) / Episode: \(episode.episode)"
-            return cell
-        case is StoreModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCellWithImage", for: indexPath) as! ListViewCellWithImage
-            cell.backgroundColor = .clear
-            guard let store = presenter?.dataList[indexPath.row] as? StoreModel else { return cell }
-            cell.cellImageView.load(url: store.imageURL)
-            cell.cellLabel.text = store.name
-            return cell
-        case is PestControlTruckModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCellWithImage", for: indexPath) as! ListViewCellWithImage
-            cell.backgroundColor = .clear
-            guard let truck = presenter?.dataList[indexPath.row] as? PestControlTruckModel else { return cell }
-            cell.cellImageView.load(url: truck.imageURL)
-            cell.cellLabel.text = truck.name
-            return cell
-        case is EndCreditsModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCellWithImage", for: indexPath) as! ListViewCellWithImage
-            cell.backgroundColor = .clear
-            guard let credits = presenter?.dataList[indexPath.row] as? EndCreditsModel else { return cell }
-            cell.cellImageView.load(url: credits.imageURL)
-            cell.cellLabel.text = "Season: \(credits.season) Episode: \(credits.episode)"
-            return cell
-        case is BurgerOfTheDayModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListViewCell
-            cell.backgroundColor = .clear
-            guard let burger = presenter?.dataList[indexPath.row] as? BurgerOfTheDayModel else { return cell }
-            cell.cellMainLabel.text = burger.name
-            cell.cellAdditionLabel.text = "Seaseon: \(burger.season) Episode: \(burger.episode)"
-            return cell
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListViewCell
-            return cell
-        }
-        
+        guard let cell = presenter?.configureCell(forIndexPath: indexPath, atTable: tableView) else { return UITableViewCell() }
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat().cornerRadiusAutoSize(divider: 8)
+        return UIScreen.screenSize(dividedBy: 8)
     }
 }
 
-    // MARK: - UITableViewDelegate
-
+// MARK: - UITableViewDelegate
 extension ListController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let dataFromSelectedRow = presenter?.dataList[indexPath.row] else { return }
-        print(dataFromSelectedRow)
-        let viewController = DetailedInfoController()
-        if let dataFromSelectedRow = dataFromSelectedRow as? CharacterModel {
-            viewController.title = "Character's Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
-            viewController.addWebButton(withLink: dataFromSelectedRow.wikiURL)
-        }
-        if let dataFromSelectedRow = dataFromSelectedRow as? EpisodeModel {
-            viewController.title = "Episode Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
-            viewController.addWebButton(withLink: dataFromSelectedRow.wikiURL)
-        }
-        if let dataFromSelectedRow = dataFromSelectedRow as? StoreModel {
-            viewController.title = "Store Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
-        }
-        if let dataFromSelectedRow = dataFromSelectedRow as? PestControlTruckModel {
-            viewController.title = "Truck Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
-        }
-        if let dataFromSelectedRow = dataFromSelectedRow as? EndCreditsModel {
-            viewController.title = "End Credits Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
-        }
-        if let dataFromSelectedRow = dataFromSelectedRow as? BurgerOfTheDayModel {
-            viewController.title = "Burger Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
-        }
+        guard let viewController = presenter?.configureViewController(forData: dataFromSelectedRow) else { return }
         navigationController?.pushViewController(viewController, animated: true)
-        print(navigationController)
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let addToFavoriteButton = UIContextualAction(style: .destructive, title: "Add to favorites") { _, _, completionHandler in
-            switch self.title {
-            case "Characters List":
-                let character = self.presenter?.dataList[indexPath.row] as! CharacterModel
-                let newFavorite = CDCharacter(context: CoreDataManager.context)
-                newFavorite.id = Int64(character.id)
-                newFavorite.name = character.name
-                newFavorite.gender = character.gender
-                newFavorite.age = character.age ?? "Unknown"
-                newFavorite.hairColor = character.hairColor ?? "Undefined"
-                newFavorite.occupation = character.occupation ?? "Unknown"
-                newFavorite.firstEpisode = character.firstEpisode ?? "Undefined"
-                newFavorite.voicedBy = character.voicedBy ?? "Undefined"
-                newFavorite.imageURL = character.imageURL
-                newFavorite.wikiURL = character.wikiURL
-                self.presenter?.checkForDuplicate(of: newFavorite, at: .characters)
-            case "Episodes List":
-                let episode = self.presenter?.dataList[indexPath.row] as! EpisodeModel
-                let newFavorite = CDEpisode(context: CoreDataManager.context)
-                newFavorite.id = Int64(episode.id)
-                newFavorite.name = episode.name
-                newFavorite.season = Int64(episode.season)
-                newFavorite.episode = Int64(episode.episode)
-                newFavorite.airDate = episode.airDate
-                newFavorite.totalViewers = episode.totalViewers
-                newFavorite.wikiURL = episode.wikiURL
-                self.presenter?.checkForDuplicate(of: newFavorite, at: .episodes)
-            case "Stores List":
-                let store = self.presenter?.dataList[indexPath.row] as! StoreModel
-                let newFavorite = CDStore(context: CoreDataManager.context)
-                newFavorite.id = Int64(store.id)
-                newFavorite.name = store.name
-                newFavorite.season = Int64(store.season)
-                newFavorite.episode = Int64(store.episode)
-                newFavorite.imageURL = store.imageURL
-                self.presenter?.checkForDuplicate(of: newFavorite, at: .stores)
-            case "Trucks List":
-                let truck = self.presenter?.dataList[indexPath.row] as! PestControlTruckModel
-                let newFavorite = CDTruck(context: CoreDataManager.context)
-                newFavorite.id = Int64(truck.id)
-                newFavorite.name = truck.name
-                newFavorite.season = Int64(truck.season)
-                newFavorite.imageURL = truck.imageURL
-                self.presenter?.checkForDuplicate(of: newFavorite, at: .trucks)
-            case "End Credits List":
-                let credits = self.presenter?.dataList[indexPath.row] as! EndCreditsModel
-                let newFavorite = CDCredits(context: CoreDataManager.context)
-                newFavorite.id = Int64(credits.id)
-                newFavorite.episode = Int64(credits.episode)
-                newFavorite.season = Int64(credits.season)
-                newFavorite.imageURL = credits.imageURL
-                self.presenter?.checkForDuplicate(of: newFavorite, at: .credits)
-            case "Burgers List":
-                let burger = self.presenter?.dataList[indexPath.row] as! BurgerOfTheDayModel
-                let newFavorite = CDBurger(context: CoreDataManager.context)
-                newFavorite.id = Int64(burger.id)
-                newFavorite.episode = Int64(burger.episode)
-                newFavorite.season = Int64(burger.season)
-                newFavorite.name = burger.name
-                newFavorite.price = burger.price
-                self.presenter?.checkForDuplicate(of: newFavorite, at: .burgers)
-            default:
-                return
-            }
+        let addToFavoriteButton = UIContextualAction(style: .destructive, title: "Add to favorites") { [weak self] _, _, completionHandler in
+            guard let self = self else { return }
+            self.presenter?.proceedSavingToFavorites(toCategory: self.title, fromRow: indexPath.row)
             completionHandler(true)
         }
         addToFavoriteButton.backgroundColor = .bbdbYellow
@@ -251,7 +103,6 @@ extension ListController: UITableViewDelegate {
 }
 
 // MARK: - AlertPresenterDelegate
-
 extension ListController: AlertPresenterDelegate {
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)

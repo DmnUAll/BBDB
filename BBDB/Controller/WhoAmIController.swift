@@ -17,7 +17,7 @@ final class WhoAmIController: UIViewController {
         super.viewDidLoad()
         print(#function)
 
-        UIImageView().setAsBackgroundImage(named: "blueBackground", to: self)
+        UIImageView.setAsBackground(withImage: "blueBackground", to: self)
         self.title = "Who am I?"
         view.addSubview(whoAmIView)
         setupConstraints()
@@ -55,7 +55,7 @@ extension WhoAmIController: InfoAlertPresenterProtocol {
     
     func showCurrentControllerInfoAlert() {
         let alertModel = AlertModel(title: "About 'Who am I?'",
-                                    message: "\nThis section allows you to know - which character from 'Bob's Burgers' suits you.",
+                                    message: InfoAlertText.aboutWhoAmI.rawValue,
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
@@ -63,14 +63,7 @@ extension WhoAmIController: InfoAlertPresenterProtocol {
     
     func showAboutAppAlert() {
         let alertModel = AlertModel(title: "About App",
-                                    message: """
-                                    
-                                    This App was made by me:
-                                    https://github.com/DmnUAll
-                                    
-                                    Based on API:
-                                    https://bobs-burgers-api-ui.herokuapp.com
-                                    """,
+                                    message: InfoAlertText.aboutApp.rawValue,
                                     buttonText: "Got it",
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)

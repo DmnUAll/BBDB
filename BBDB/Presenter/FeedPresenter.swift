@@ -76,14 +76,6 @@ private enum Keys: String {
 
 extension FeedPresenter: FeedViewDelegate {
     
-    func aboutFeedButtonTapped() {
-        viewController?.showCurrentControllerInfoAlert()
-    }
-    
-    func aboutAppButtonTapped() {
-        viewController?.showAboutAppAlert()
-    }
-    
     func webButtonTapped(atPage pageIndex: Int) {
         guard let feedCharacters = loadUserDefaults(for: .fiveOfTheDay, as: Characters.self) else { return }
         let webController = WebController()

@@ -1,8 +1,6 @@
 import UIKit
 
 protocol FeedViewDelegate: AnyObject {
-    func aboutFeedButtonTapped()
-    func aboutAppButtonTapped()
     func webButtonTapped(atPage pageIndex: Int)
 }
 
@@ -94,7 +92,7 @@ final class FeedView: UIView {
             labelStack.widthAnchor.constraint(equalToConstant: width - 32).isActive = true
             labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
             labelStack.layer.borderWidth = 3
-            labelStack.layer.cornerRadius = CGFloat().cornerRadiusAutoSize()
+            labelStack.layer.cornerRadius = UIScreen.screenSize(dividedBy: 30)
             scrollViewPage.addArrangedSubview(makeImageView(withImage: character.imageURL))
             scrollViewPage.addArrangedSubview(labelStack)
             labelStack.addArrangedSubview(makeLabelStack(leadingText: "Name:", trailingText: character.name))
@@ -133,7 +131,7 @@ extension FeedView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = CGFloat().cornerRadiusAutoSize()
+        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 30)
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
         imageView.backgroundColor = .bbdbWhite

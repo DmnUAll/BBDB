@@ -10,7 +10,7 @@ final class WebView: UIView {
         navigationBar.backgroundColor = .clear
         navigationBar.tintColor = .bbdbBlack
         let navigationItem = UINavigationItem(title: "Character's Wiki")
-        navigationBar.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: 30)!, .foregroundColor: UIColor.bbdbBlack]
+        navigationBar.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: UIScreen.screenSize(dividedBy: 25))!, .foregroundColor: UIColor.bbdbBlack]
         navigationBar.setTitleVerticalPositionAdjustment(3, for: .default)
         let refreshButton = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain, target: nil, action: #selector(refreshButtonTapped))
         let backwardButton = UIBarButtonItem(image: UIImage(systemName: "chevron.right"), style: .plain, target: nil, action: #selector(forwardButtonTapped))
