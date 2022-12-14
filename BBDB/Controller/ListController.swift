@@ -85,7 +85,7 @@ extension ListController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let dataFromSelectedRow = presenter?.dataList[indexPath.row] else { return }
         guard let viewController = presenter?.configureViewController(forData: dataFromSelectedRow) else { return }
-        navigationController?.pushViewController(viewController, animated: true)
+        show(viewController, sender: nil)
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

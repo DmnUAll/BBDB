@@ -79,7 +79,7 @@ extension FavoritesController: UICollectionViewDelegateFlowLayout {
 extension FavoritesController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let viewController = presenter?.configureViewController(forSelectedItemAt: indexPath) else { return }
-        navigationController?.pushViewController(viewController, animated: true)
+        show(viewController, sender: nil)
     }
 }
 

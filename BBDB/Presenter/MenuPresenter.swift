@@ -14,27 +14,27 @@ class MenuPresenter {
 
 extension MenuPresenter: MenuViewDelegate {
     func charactersButtonTapped() {
-        viewController?.navigationController?.pushViewController(ListController(for: .charactersList), animated: true)
+        viewController?.show(ListController(for: .charactersList), sender: nil)
     }
     
     func episodesButtonTapped() {
-        viewController?.navigationController?.pushViewController(ListController(for: .episodesList), animated: true)
+        viewController?.show(ListController(for: .episodesList), sender: nil)
 
     }
     
     func nextDoorStoresButtonTapped() {
-        viewController?.navigationController?.pushViewController(ListController(for: .nextDoorStoresList), animated: true)
+        viewController?.show(ListController(for: .nextDoorStoresList), sender: nil)
     }
     
     func pestControlTrucksButtonTapped() {
-        viewController?.navigationController?.pushViewController(ListController(for: .pestControllTrucksList), animated: true)
+        viewController?.show(ListController(for: .pestControllTrucksList), sender: nil)
     }
     
     func endCreditsSequenceButtonTapped() {
-        viewController?.navigationController?.pushViewController(ListController(for: .endCreditsList), animated: true)
+        viewController?.show(ListController(for: .endCreditsList), sender: nil)
     }
     
     func burgersOfTheDayButtonTapped() {
-        viewController?.navigationController?.pushViewController(ListController(for: .burgersOfTheDayList), animated: true)
+        viewController?.show(ListController(for: .burgersOfTheDayList), sender: nil)
     }
 }
