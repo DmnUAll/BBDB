@@ -1,8 +1,10 @@
 import UIKit
 import CoreData
 
+// MARK: - DetailedInfoView
 final class DetailedInfoView: UIView {
     
+    // MARK: - Properties and Initializers
     var infoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.toAutolayout()
@@ -23,6 +25,10 @@ final class DetailedInfoView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Helpers
+extension DetailedInfoView {
     
     private func addSubviews() {
         addSubview(infoStackView)
@@ -151,9 +157,6 @@ final class DetailedInfoView: UIView {
             labelStack.addArrangedSubview(makeLabelStack(leadingText: "Season \(data.season):", trailingText: "Episode: \(data.episode)"))
         }
     }
-}
-
-extension DetailedInfoView {
     
     private func makeStackView(axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution, backgroundColor: UIColor) -> UIStackView {
         let stackView = UIStackView()
@@ -201,5 +204,3 @@ extension DetailedInfoView {
         return stackView
     }
 }
-
-

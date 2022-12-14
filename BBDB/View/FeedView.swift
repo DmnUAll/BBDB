@@ -1,11 +1,14 @@
 import UIKit
 
+// MARK: - FeedViewDelegate protocol
 protocol FeedViewDelegate: AnyObject {
     func webButtonTapped(atPage pageIndex: Int)
 }
 
+// MARK: - FeedView
 final class FeedView: UIView {
     
+    // MARK: - Properties and Initializers
     weak var delegate: FeedViewDelegate?
     
     private let feedActivityIndicator: UIActivityIndicatorView = {
@@ -47,6 +50,10 @@ final class FeedView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Helpers
+extension FeedView {
     
     @objc func webButtonTapped() {
         delegate?.webButtonTapped(atPage: feedPageControl.currentPage)
@@ -104,7 +111,7 @@ final class FeedView: UIView {
             labelStack.addArrangedSubview(makeLabelStack(leadingText: "Voiced by:", trailingText: character.voicedBy ?? "Undefined"))
             feedScrollView.addSubview(scrollViewPage)
             print(scrollViewPage.frame, " = ", feedScrollView.frame)
-
+            
         }
         showOrHideUI()
     }
@@ -113,9 +120,6 @@ final class FeedView: UIView {
         feedScrollView.isHidden.toggle()
         feedPageControl.isHidden.toggle()
     }
-}
-
-extension FeedView {
     
     private func makeStackView(axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution, backgroundColor: UIColor) -> UIStackView {
         let stackView = UIStackView()
@@ -164,6 +168,7 @@ extension FeedView {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension FeedView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         feedPageControl.currentPage = Int(scrollView.contentOffset.x / CGFloat(feedScrollView.bounds.width))

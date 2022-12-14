@@ -1,12 +1,15 @@
 import UIKit
 
+// MARK: - WhoAmIViewDelegate protocol
 protocol WhoAmIViewDelegate: AnyObject {
     func cameraButtonTapped()
     func galleryButtonTapped()
 }
 
+// MARK: - WhoAmIView
 final class WhoAmIView: UIView {
     
+    // MARK: - Properties and Initializers
     weak var delegate: WhoAmIViewDelegate?
     
     private let whoAmIStackView: UIStackView = {
@@ -46,6 +49,10 @@ final class WhoAmIView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Helpers
+extension WhoAmIView {
     
     @objc private func cameraButtonTapped() {
         delegate?.cameraButtonTapped()

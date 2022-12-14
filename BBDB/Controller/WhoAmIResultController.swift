@@ -1,7 +1,8 @@
 import UIKit
 
-
 final class WhoAmIResultController: UIViewController {
+    
+    // MARK: - Properties and Initializers
     let imagePicker = UIImagePickerController()
     lazy var whoAmIResultView: WhoAmIResultView = {
         let whoAmIResultView = WhoAmIResultView()
@@ -14,7 +15,6 @@ final class WhoAmIResultController: UIViewController {
     }
     
     // MARK: - Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
         UIImageView.setAsBackground(withImage: "blueBackground", to: self)
@@ -22,9 +22,10 @@ final class WhoAmIResultController: UIViewController {
         view.addSubview(whoAmIResultView)
         setupConstraints()
     }
-    
-    // MARK: - Helpers
+}
 
+// MARK: - Helpers
+extension WhoAmIResultController {
     private func setupConstraints() {
         let constraints = [
             whoAmIResultView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - StoreModel
 struct StoreModel: Codable {
     let id: Int
     let name: String?

@@ -1,15 +1,15 @@
 import UIKit
 import CoreData
 
+// MARK: - CoreDataManager
 struct CoreDataManager {
-
-    enum Categories {
-        case characters
-        case episodes
-        case stores
-        case trucks
-        case credits
-        case burgers
+    enum Categories: String, CaseIterable {
+        case characters = "Characters"
+        case episodes = "Episodes"
+        case stores = "Next Door Stores"
+        case trucks = "Pest Control Trucks"
+        case credits = "End Credits"
+        case burgers = "Burgers Of The Day"
     }
 
     static var favoritesDictionary: [Categories: [Any]] = [.characters: [],
@@ -24,7 +24,6 @@ struct CoreDataManager {
     // swiftlint:enable force_cast
 
     // MARK: - Data Manipulation Methods
-
     static func saveFavorites() {
         do {
             try context.save()

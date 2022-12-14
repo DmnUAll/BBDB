@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - BurgerOfTheDayModel
 struct BurgerOfTheDayModel: Codable {
     let id: Int
     let name, price: String

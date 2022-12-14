@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - MenuViewDelegate protocol
 protocol MenuViewDelegate: AnyObject {
     func charactersButtonTapped()
     func episodesButtonTapped()
@@ -9,8 +10,10 @@ protocol MenuViewDelegate: AnyObject {
     func burgersOfTheDayButtonTapped()
 }
 
+// MARK: - MenuView
 final class MenuView: UIView {
     
+    // MARK: - Properties and Initializers
     weak var delegate: MenuViewDelegate?
     
     private let menuStackView: UIStackView = {
@@ -33,6 +36,10 @@ final class MenuView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Helpers
+extension MenuView {
     
     @objc private func charactersButtonTapped(tag: Int) {
         delegate?.charactersButtonTapped()
@@ -94,9 +101,6 @@ final class MenuView: UIView {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-}
-
-extension MenuView {
     
     private func makeButton(title: String, subtitle: String, imageName: String, action: Selector) -> UIButton{
         

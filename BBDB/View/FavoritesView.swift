@@ -1,12 +1,15 @@
 import UIKit
 
+// MARK: - FavoritesViewDelegate protocol
 protocol FavoritesViewDelegate: AnyObject {
     func aboutFavoritesButtonTapped()
     func aboutAppButtonTapped()
 }
 
+// MARK: - FavoritesView
 final class FavoritesView: UIView {
     
+    // MARK: - Properties and Initializers
     weak var delegate: FavoritesViewDelegate?
     
     let favoritesCollectionView: UICollectionView = {
@@ -40,6 +43,10 @@ final class FavoritesView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Helpers
+extension FavoritesView {
     
     private func addSubviews() {
         addSubview(favoritesCollectionView)

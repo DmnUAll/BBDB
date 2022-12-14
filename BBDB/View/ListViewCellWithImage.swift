@@ -1,7 +1,9 @@
 import UIKit
 
+// MARK: - ListViewCellWithImage
 final class ListViewCellWithImage: UITableViewCell {
     
+    // MARK: - Properties and Initializers
     let cellImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.toAutolayout()
@@ -31,6 +33,10 @@ final class ListViewCellWithImage: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+}
+
+// MARK: - Helpers
+extension ListViewCellWithImage {
     
     private func addSubviews() {
         addSubview(cellImageView)

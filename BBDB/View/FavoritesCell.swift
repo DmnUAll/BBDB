@@ -1,7 +1,9 @@
 import UIKit
 
+// MARK: - FavoritesCell
 final class FavoritesCell: UICollectionViewCell {
     
+    // MARK: - Properties and Initializers
     let cellImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.toAutolayout()
@@ -31,6 +33,10 @@ final class FavoritesCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+}
+
+// MARK: - Helpers
+extension FavoritesCell {
     
     private func addSubviews() {
         addSubview(cellImageView)

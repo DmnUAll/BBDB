@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - EpisodeModel
 struct EpisodeModel: Codable {
     let id: Int
     let name, productionCode, airDate: String

@@ -1,8 +1,8 @@
 import UIKit
-import CoreML
-import Vision
 
 final class WhoAmIController: UIViewController {
+    
+    // MARK: - Properties and Initializers
     private var presenter: WhoAmIPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     let imagePicker = UIImagePickerController()
@@ -10,13 +10,10 @@ final class WhoAmIController: UIViewController {
         let whoAmIView = WhoAmIView()
         return whoAmIView
     }()
-        
+    
     // MARK: - Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
-
         UIImageView.setAsBackground(withImage: "blueBackground", to: self)
         self.title = "Who am I?"
         view.addSubview(whoAmIView)
@@ -27,9 +24,11 @@ final class WhoAmIController: UIViewController {
         imagePicker.allowsEditing = false
         imagePicker.modalPresentationStyle = .popover
     }
-    
-    // MARK: - Helpers
+}
 
+// MARK: - Helpers
+extension WhoAmIController {
+    
     private func setupConstraints() {
         let constraints = [
             whoAmIView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -42,7 +41,6 @@ final class WhoAmIController: UIViewController {
 }
 
 // MARK: - AlertPresenterDelegate
-
 extension WhoAmIController: AlertPresenterDelegate {
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)
@@ -50,7 +48,6 @@ extension WhoAmIController: AlertPresenterDelegate {
 }
 
 // MARK: - InfoAlertPresenterProtocol
-
 extension WhoAmIController: InfoAlertPresenterProtocol {
     
     func showCurrentControllerInfoAlert() {
@@ -70,10 +67,9 @@ extension WhoAmIController: InfoAlertPresenterProtocol {
     }
 }
 
-extension WhoAmIController: UINavigationControllerDelegate { }
-
+// MARK: - UIImagePickerControllerDelegate
 extension WhoAmIController: UIImagePickerControllerDelegate {
-
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let userPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -85,3 +81,6 @@ extension WhoAmIController: UIImagePickerControllerDelegate {
         imagePicker.dismiss(animated: true)
     }
 }
+
+// MARK: - UINavigationControllerDelegate
+extension WhoAmIController: UINavigationControllerDelegate { }

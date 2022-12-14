@@ -1,7 +1,9 @@
 import UIKit
 
+// MARK: - WhoAmIResultView
 final class WhoAmIResultView: UIView {
     
+    // MARK: - Properties and Initializers
     let whoAmIResultImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.toAutolayout()
@@ -20,7 +22,6 @@ final class WhoAmIResultView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     private func addSubviews() {
         addSubview(whoAmIResultImageView)

@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - NetworkClient
 struct NetworkClient {
     private enum NetworkError: Error {
         case codeError

@@ -1,9 +1,11 @@
 import Foundation
 
+// MARK: - NetworkDataLoading protocol
 protocol NetworkDataLoading {
     func loadList<T: Codable>(handler: @escaping (Result<T, Error>) -> Void)
 }
 
+// MARK: - NetworkDataLoader
 struct NetworkDataLoader: NetworkDataLoading {
     
     private let networkClient = NetworkClient()

@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - EndCreditsModel
 struct EndCreditsModel: Codable {
     let id: Int
     let image: String

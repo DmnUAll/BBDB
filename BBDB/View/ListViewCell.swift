@@ -1,7 +1,9 @@
 import UIKit
 
+// MARK: - ListViewCell
 final class ListViewCell: UITableViewCell {
     
+    // MARK: - Properties and Initializers
     let cellMainLabel: UILabel = {
         let label = UILabel()
         label.toAutolayout()
@@ -27,6 +29,10 @@ final class ListViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+}
+
+// MARK: - Helpers
+extension ListViewCell {
     
     private func addSubviews() {
         addSubview(cellMainLabel)

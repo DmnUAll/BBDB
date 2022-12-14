@@ -1,7 +1,9 @@
 import UIKit
 
+// MARK: - ListView
 final class ListView: UIView {
     
+    // MARK: - Properties and Initializers
     let listTableView: UITableView = {
         let tableView = UITableView()
         tableView.toAutolayout()
@@ -31,6 +33,10 @@ final class ListView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Helpers
+extension ListView {
     
     private func addSubviews() {
         addSubview(listTableView)

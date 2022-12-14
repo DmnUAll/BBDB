@@ -1,7 +1,6 @@
-import Foundation
-
 import UIKit
 
+// MARK: - AlertModel
 struct AlertModel {
     var title: String
     var message: String
@@ -9,6 +8,7 @@ struct AlertModel {
     var completionHandler: ((UIAlertAction) -> Void)?
 }
 
+// MARK: - InfoAlertText
 enum InfoAlertText: String {
     case aboutApp = """
     

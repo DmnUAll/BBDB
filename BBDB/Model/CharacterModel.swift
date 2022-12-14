@@ -1,7 +1,6 @@
 import Foundation
 
 // MARK: - Character
-
 struct CharacterModel: Codable {
     let id: Int
     let name: String

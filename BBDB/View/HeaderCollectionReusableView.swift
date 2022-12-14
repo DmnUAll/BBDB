@@ -1,6 +1,7 @@
 import UIKit
 
-class HeaderCollectionReusableView: UICollectionReusableView {
+// MARK: - HeaderCollectionReusableView
+final class HeaderCollectionReusableView: UICollectionReusableView {
     static let identifier = "headerCollectionReusableView"
     
     private let headerLabel: UILabel = {

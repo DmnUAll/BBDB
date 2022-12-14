@@ -1,5 +1,6 @@
 import Foundation
 
+// MARK: - PestControlTruckModel
 struct PestControlTruckModel: Codable {
     let id: Int
     let name: String?

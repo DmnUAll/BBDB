@@ -1,8 +1,10 @@
 import UIKit
 import WebKit
 
+// MARK: - WebView
 final class WebView: UIView {
     
+    // MARK: - Properties and Initializers
     private let webNavigationBar: UINavigationBar = {
         let navigationBar = UINavigationBar()
         navigationBar.toAutolayout()
@@ -38,6 +40,10 @@ final class WebView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Helpers
+extension WebView {
     
     @objc private func refreshButtonTapped() {
         webView.reload()
@@ -75,6 +81,8 @@ final class WebView: UIView {
         NSLayoutConstraint.activate(constraints)
     }
 }
+
+// MARK: - WKNavigationDelegate
 extension WebView: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
