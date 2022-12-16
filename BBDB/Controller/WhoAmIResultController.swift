@@ -17,7 +17,7 @@ final class WhoAmIResultController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView.setAsBackground(withImage: "blueBackground", to: self)
+        UIImageView.setAsBackground(withImage: "redBackground", to: self)
         self.title = "'Who am I' Result"
         view.addSubview(whoAmIResultView)
         setupConstraints()

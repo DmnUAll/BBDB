@@ -91,7 +91,7 @@ class FavoritesPresenter {
         
         guard let dataFromSelectedRow = CoreDataManager.favoritesDictionary[dictionaryKey]?[indexPath.row] else { return UIViewController() }
         let viewController = DetailedInfoController()
-        viewController.view.backgroundColor = .bbdbRed
+        viewController.view.backgroundColor = .bbdbGreen
         if let dataFromSelectedRow = dataFromSelectedRow as? CDCharacter {
             viewController.title = "Character's Info"
             viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)

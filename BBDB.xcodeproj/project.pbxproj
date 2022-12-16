@@ -67,6 +67,7 @@
 		61DB699E291959AF00AC0832 /* DetailedInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB699D291959AF00AC0832 /* DetailedInfoController.swift */; };
 		61DB69A1291A432000AC0832 /* DetailedInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB69A0291A431F00AC0832 /* DetailedInfoPresenter.swift */; };
 		61E3DDAB293F5E2B00344592 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E3DDAA293F5E2B00344592 /* UIImage+Extensions.swift */; };
+		61EC8731294CA9630088680A /* SplashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EC8730294CA9630088680A /* SplashController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,7 @@
 		61DB699D291959AF00AC0832 /* DetailedInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoController.swift; sourceTree = "<group>"; };
 		61DB69A0291A431F00AC0832 /* DetailedInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoPresenter.swift; sourceTree = "<group>"; };
 		61E3DDAA293F5E2B00344592 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		61EC8730294CA9630088680A /* SplashController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 		618AB5332907E06400EB9C8B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				61EC8730294CA9630088680A /* SplashController.swift */,
 				618AB55429092B9E00EB9C8B /* TabBarController.swift */,
 				610914F529157B0400D451B8 /* NavigationController.swift */,
 				61454F9329126C1A0016F835 /* WebController.swift */,
@@ -414,6 +417,7 @@
 				610914FC2917C60200D451B8 /* ListPresenter.swift in Sources */,
 				618B0E972923B9FA00CDFF1D /* EndCreditsModel.swift in Sources */,
 				61A9B7BC293F5F6900139234 /* WhoAmIResultView.swift in Sources */,
+				61EC8731294CA9630088680A /* SplashController.swift in Sources */,
 				61454F9C2913D7A60016F835 /* MenuController.swift in Sources */,
 				61DB699C2919528A00AC0832 /* DetailedInfoView.swift in Sources */,
 				618AB53C2907E12E00EB9C8B /* UIImageView+Extensions.swift in Sources */,
@@ -562,8 +566,10 @@
 				DEVELOPMENT_TEAM = 7WTLW784B9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BBDB/Supporting Files/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The BBDB App needs access to your camera to compare you with a cartoon character!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The BBDB App needs access to your photo library to compare you with a cartoon character!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -593,8 +599,10 @@
 				DEVELOPMENT_TEAM = 7WTLW784B9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BBDB/Supporting Files/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "The BBDB App needs access to your camera to compare you with a cartoon character!";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The BBDB App needs access to your photo library to compare you with a cartoon character!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

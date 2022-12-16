@@ -13,7 +13,7 @@ final class FavoritesController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView.setAsBackground(withImage: "redBackground", to: self)
+        UIImageView.setAsBackground(withImage: "greenBackground", to: self)
         view.backgroundColor = .bbdbRed
         view.addSubview(favoritesView)
         setupConstraints()
