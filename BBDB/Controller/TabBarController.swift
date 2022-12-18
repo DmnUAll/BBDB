@@ -1,7 +1,10 @@
 import UIKit
+import AVFoundation
 
 final class TabBarController: UITabBarController {
-    
+
+    var player: AVAudioPlayer!
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -11,6 +14,8 @@ final class TabBarController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureTabBarController()
+        playSound(titleLetter: "BBDBTheme")
+        player.delegate = self
     }
 }
 
@@ -35,6 +40,13 @@ extension TabBarController {
         tab.tabBarItem = tabBarItem
         return tab
     }
+    
+    private func playSound(titleLetter: String) {
+        let url = Bundle.main.url(forResource: titleLetter, withExtension: "mp3")
+        player = try! AVAudioPlayer(contentsOf: url!)
+        player.volume = 0.01
+        player.play()
+    }
 }
 
 // MARK: - UITabBarControllerDelegate
@@ -43,5 +55,13 @@ extension TabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         // Need to add some functionality later
         print("Selected \(viewController.description)")
+    }
+}
+
+// MARK: - AVAUdioPlayerDelegate
+extension TabBarController: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        player.play()
+        print(123)
     }
 }

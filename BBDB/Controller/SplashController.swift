@@ -28,7 +28,7 @@ extension SplashController {
     private func animate() {
         UIView.animate(withDuration: 1.0) { [weak self] in
             guard let self = self else { return }
-            let size = self.view.frame.size.width * 3
+            let size = self.view.frame.size.width * 5
             let diffX = size - self.view.frame.size.width
             let diffY = self.view.frame.size.height - size
             
@@ -38,7 +38,7 @@ extension SplashController {
                 width: size,
                 height: size
             )
-            for _ in 1...6 {
+            for _ in 1...4 {
                 self.splashImage.transform = self.splashImage.transform.rotated(by: .pi * -1.5)
             }
         }

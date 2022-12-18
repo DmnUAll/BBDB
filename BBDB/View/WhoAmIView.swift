@@ -15,7 +15,7 @@ final class WhoAmIView: UIView {
     private let whoAmIStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.toAutolayout()
-        stackView.axis = .horizontal
+        stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
         stackView.spacing = 8
@@ -26,7 +26,12 @@ final class WhoAmIView: UIView {
         let imageView = UIImageView()
         imageView.toAutolayout()
         imageView.isUserInteractionEnabled = true
-        imageView.image = UIImage(systemName: "camera")
+        imageView.image = UIImage(named: "makePhoto")
+        imageView.backgroundColor = .bbdbWhite
+        imageView.layer.borderWidth = 7
+        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
+        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 10)
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -55,6 +60,11 @@ final class WhoAmIView: UIView {
 extension WhoAmIView {
     
     @objc private func cameraButtonTapped() {
+        whoAmICameraButton.backgroundColor = .bbdbGray
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
+            guard let self = self else { return }
+            self.whoAmICameraButton.backgroundColor = .bbdbWhite
+        })
         delegate?.cameraButtonTapped()
     }
     
@@ -70,8 +80,8 @@ extension WhoAmIView {
     
     private func setupConstraints() {
         let constraints = [
-            whoAmICameraButton.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 5)),
-            whoAmICameraButton.heightAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 5)),
+            whoAmICameraButton.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 3)),
+            whoAmICameraButton.heightAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 3)),
             whoAmIStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             whoAmIStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]
