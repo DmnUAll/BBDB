@@ -4,6 +4,13 @@ import UIKit
 final class ListView: UIView {
     
     // MARK: - Properties and Initializers
+    let listSearchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.toAutolayout()
+        searchBar.barTintColor = .bbdbBlue
+        return searchBar
+    }()
+
     let listTableView: UITableView = {
         let tableView = UITableView()
         tableView.toAutolayout()
@@ -39,15 +46,19 @@ final class ListView: UIView {
 extension ListView {
     
     private func addSubviews() {
+        addSubview(listSearchBar)
         addSubview(listTableView)
         addSubview(listActivityIndicator)
     }
     
     private func setupConstraints() {
         let constraints = [
+            listSearchBar.topAnchor.constraint(equalTo: topAnchor),
+            listSearchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            listSearchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             listActivityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
             listActivityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
-            listTableView.topAnchor.constraint(equalTo: topAnchor),
+            listTableView.topAnchor.constraint(equalTo: listSearchBar.bottomAnchor),
             listTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             listTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             listTableView.bottomAnchor.constraint(equalTo: bottomAnchor)

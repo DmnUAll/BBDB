@@ -14,6 +14,10 @@
 		610DA047293F329F00516718 /* WhoAmIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610DA046293F329F00516718 /* WhoAmIView.swift */; };
 		610DA04D293F35C300516718 /* WhoAmIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610DA04C293F35C300516718 /* WhoAmIController.swift */; };
 		610DA04F293F35F400516718 /* WhoAmIPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610DA04E293F35F400516718 /* WhoAmIPresenter.swift */; };
+		610FE8B52952FAD5007BC50E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FE8B42952FAD5007BC50E /* SettingsView.swift */; };
+		610FE8B7295306B4007BC50E /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FE8B6295306B4007BC50E /* SettingsController.swift */; };
+		610FE8B929531281007BC50E /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FE8B829531281007BC50E /* SettingsPresenter.swift */; };
+		610FE8BB2953330B007BC50E /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FE8BA2953330B007BC50E /* UserDefaultsManager.swift */; };
 		6112E9F0294F585900934712 /* BBDBTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6112E9EF294F585900934712 /* BBDBTheme.mp3 */; };
 		61454F92291269870016F835 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454F91291269870016F835 /* WebView.swift */; };
 		61454F9429126C1A0016F835 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61454F9329126C1A0016F835 /* WebController.swift */; };
@@ -79,6 +83,10 @@
 		610DA046293F329F00516718 /* WhoAmIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoAmIView.swift; sourceTree = "<group>"; };
 		610DA04C293F35C300516718 /* WhoAmIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoAmIController.swift; sourceTree = "<group>"; };
 		610DA04E293F35F400516718 /* WhoAmIPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoAmIPresenter.swift; sourceTree = "<group>"; };
+		610FE8B42952FAD5007BC50E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		610FE8B6295306B4007BC50E /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		610FE8B829531281007BC50E /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		610FE8BA2953330B007BC50E /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		6112E9EF294F585900934712 /* BBDBTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BBDBTheme.mp3; sourceTree = "<group>"; };
 		61454F91291269870016F835 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		61454F9329126C1A0016F835 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
@@ -167,6 +175,7 @@
 				61DB69A0291A431F00AC0832 /* DetailedInfoPresenter.swift */,
 				619C7CD0292CCDA500BE3ABB /* FavoritesPresenter.swift */,
 				610DA04E293F35F400516718 /* WhoAmIPresenter.swift */,
+				610FE8B829531281007BC50E /* SettingsPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -213,6 +222,7 @@
 				619C7CCE292CCD7C00BE3ABB /* FavoritesController.swift */,
 				610DA04C293F35C300516718 /* WhoAmIController.swift */,
 				61A9B7BD293F602D00139234 /* WhoAmIResultController.swift */,
+				610FE8B6295306B4007BC50E /* SettingsController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -233,6 +243,7 @@
 				61ACD007292CDF0000EA0A04 /* HeaderCollectionReusableView.swift */,
 				610DA046293F329F00516718 /* WhoAmIView.swift */,
 				61A9B7BB293F5F6900139234 /* WhoAmIResultView.swift */,
+				610FE8B42952FAD5007BC50E /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -249,6 +260,7 @@
 				618B0E942923B4BD00CDFF1D /* PestControlTruckModel.swift */,
 				618B0E962923B9FA00CDFF1D /* EndCreditsModel.swift */,
 				618B0E982923BD3B00CDFF1D /* BurgerOfTheDayModel.swift */,
+				610FE8BA2953330B007BC50E /* UserDefaultsManager.swift */,
 				61518C28292519B10013080A /* CoreDataManager.swift */,
 				618AB5582909306300EB9C8B /* NetworkClient.swift */,
 				618AB5592909306300EB9C8B /* NetworkDataLoader+Link.swift */,
@@ -388,6 +400,7 @@
 			files = (
 				618AB5632909503900EB9C8B /* FeedPresenter.swift in Sources */,
 				618AB54D2907E36C00EB9C8B /* FeedView.swift in Sources */,
+				610FE8B7295306B4007BC50E /* SettingsController.swift in Sources */,
 				619C7CD1292CCDA500BE3ABB /* FavoritesPresenter.swift in Sources */,
 				618AB51D2907E05C00EB9C8B /* AppDelegate.swift in Sources */,
 				618AB55B2909306300EB9C8B /* NetworkDataLoader+Link.swift in Sources */,
@@ -411,6 +424,8 @@
 				61454FA2291539530016F835 /* MenuPresenter.swift in Sources */,
 				610914F629157B0400D451B8 /* NavigationController.swift in Sources */,
 				618AB51F2907E05C00EB9C8B /* SceneDelegate.swift in Sources */,
+				610FE8BB2953330B007BC50E /* UserDefaultsManager.swift in Sources */,
+				610FE8B52952FAD5007BC50E /* SettingsView.swift in Sources */,
 				61454F9E2913EBFC0016F835 /* UIScreen+Extensions.swift in Sources */,
 				619C7CD3292CCF9D00BE3ABB /* FavoritesCell.swift in Sources */,
 				618AB55A2909306300EB9C8B /* NetworkClient.swift in Sources */,
@@ -425,6 +440,7 @@
 				619C7CCD292CCC0800BE3ABB /* FavoritesView.swift in Sources */,
 				619C7CCF292CCD7C00BE3ABB /* FavoritesController.swift in Sources */,
 				615C29BC291E87BA006AF07F /* ListViewCell.swift in Sources */,
+				610FE8B929531281007BC50E /* SettingsPresenter.swift in Sources */,
 				61454F92291269870016F835 /* WebView.swift in Sources */,
 				610914FC2917C60200D451B8 /* ListPresenter.swift in Sources */,
 				618B0E972923B9FA00CDFF1D /* EndCreditsModel.swift in Sources */,

@@ -30,7 +30,8 @@ extension TabBarController {
             configureTab(withRootController: FeedController(), title: "Feed", andImage: UIImage(systemName: "newspaper")),
             configureTab(withRootController: MenuController(), title: "Menu", andImage: UIImage(systemName: "menucard")),
             configureTab(withRootController: FavoritesController(), title: "Favorites", andImage: UIImage(systemName: "star")),
-            configureTab(withRootController: WhoAmIController(), title: "Who am I?", andImage: UIImage(systemName: "person.fill.questionmark"))
+            configureTab(withRootController: WhoAmIController(), title: "Who am I?", andImage: UIImage(systemName: "person.fill.questionmark")),
+            configureTab(withRootController: SettingsController(), title: "App Settings", andImage: UIImage(systemName: "gear"))
         ]
     }
     
@@ -44,8 +45,10 @@ extension TabBarController {
     private func playSound(titleLetter: String) {
         let url = Bundle.main.url(forResource: titleLetter, withExtension: "mp3")
         player = try! AVAudioPlayer(contentsOf: url!)
-        player.volume = 0.01
-        player.play()
+        player.volume = UserDefaultsManager.shared.appVolume
+        if UserDefaultsManager.shared.appSound {
+            player.play()
+        }
     }
 }
 

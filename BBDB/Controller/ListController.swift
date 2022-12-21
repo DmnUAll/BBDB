@@ -22,6 +22,7 @@ final class ListController: UIViewController {
         view.backgroundColor = .bbdbBlue
         view.addSubview(listView)
         setupConstraints()
+        listView.listSearchBar.delegate = self
         listView.listTableView.dataSource = self
         listView.listTableView.delegate = self
     }
@@ -58,6 +59,21 @@ extension ListController {
                                     completionHandler: nil
         )
         alertPresenter?.show(alertModel: alertModel)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension ListController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let searchRequest = searchBar.text else {
+//            appLogic.loadItems()
+//            tableView.reloadData()
+            searchBar.resignFirstResponder()
+            return
+        }
+        print(searchRequest)
+//        appLogic.searchNotes(with: searchRequest)
+//        tableView.reloadData()
     }
 }
 

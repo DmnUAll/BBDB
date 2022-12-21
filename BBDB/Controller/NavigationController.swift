@@ -24,6 +24,10 @@ final class NavigationController: UINavigationController {
             self.rootVC = vc
             configureNavigationController(withTitle: "Who am I?", andCurrentMenuTitle: "About 'Who am I?'")
         }
+        if let vc = rootViewController as? SettingsController {
+            self.rootVC = vc
+            configureNavigationController(withTitle: "Settings", andCurrentMenuTitle: "About Settings")
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

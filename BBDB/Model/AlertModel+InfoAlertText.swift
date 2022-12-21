@@ -22,4 +22,5 @@ enum InfoAlertText: String {
     case aboutMenu = "\nThis menu allows you to watch the full info list of any provided category."
     case aboutFavorites = "\n Here stores all items that you're added to your favorites list!"
     case aboutWhoAmI = "\nThis section allows you to know - which character from 'Bob's Burgers' suits you."
+    case aboutSettings = "\nThis section allows you to configure some app properties."
 }
