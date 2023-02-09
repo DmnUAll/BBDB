@@ -66,14 +66,13 @@ extension ListController {
 extension ListController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let searchRequest = searchBar.text else {
-//            appLogic.loadItems()
-//            tableView.reloadData()
+            presenter?.loadData()
+            listView.listTableView.reloadData()
             searchBar.resignFirstResponder()
             return
         }
-        print(searchRequest)
-//        appLogic.searchNotes(with: searchRequest)
-//        tableView.reloadData()
+        presenter?.searchData(forRequest: searchRequest.lowercased())
+        listView.listTableView.reloadData()
     }
 }
 

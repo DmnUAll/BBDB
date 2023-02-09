@@ -8,6 +8,7 @@ class ListPresenter {
     weak var viewController: ListController?
     private let link: Link
     var dataList: [Any] = []
+    var fullList: [Any] = []
     
     init(viewController: ListController, link: Link) {
         CoreDataManager.loadAll()
@@ -27,6 +28,7 @@ class ListPresenter {
                     switch result {
                     case .success(let loadedDataList):
                         self.dataList = loadedDataList
+                        self.fullList = loadedDataList
                         self.viewController?.listView.fillAndReloadTable()
                     case .failure(let error):
                         self.viewController?.showNetworkError(message: error.localizedDescription)
@@ -40,6 +42,7 @@ class ListPresenter {
                     switch result {
                     case .success(let loadedDataList):
                         self.dataList = loadedDataList
+                        self.fullList = loadedDataList
                         self.viewController?.listView.fillAndReloadTable()
                     case .failure(let error):
                         self.viewController?.showNetworkError(message: error.localizedDescription)
@@ -53,6 +56,7 @@ class ListPresenter {
                     switch result {
                     case .success(let loadedDataList):
                         self.dataList = loadedDataList
+                        self.fullList = loadedDataList
                         self.viewController?.listView.fillAndReloadTable()
                     case .failure(let error):
                         self.viewController?.showNetworkError(message: error.localizedDescription)
@@ -66,6 +70,7 @@ class ListPresenter {
                     switch result {
                     case .success(let loadedDataList):
                         self.dataList = loadedDataList
+                        self.fullList = loadedDataList
                         self.viewController?.listView.fillAndReloadTable()
                     case .failure(let error):
                         self.viewController?.showNetworkError(message: error.localizedDescription)
@@ -79,6 +84,7 @@ class ListPresenter {
                     switch result {
                     case .success(let loadedDataList):
                         self.dataList = loadedDataList
+                        self.fullList = loadedDataList
                         self.viewController?.listView.fillAndReloadTable()
                     case .failure(let error):
                         self.viewController?.showNetworkError(message: error.localizedDescription)
@@ -92,6 +98,7 @@ class ListPresenter {
                     switch result {
                     case .success(let loadedDataList):
                         self.dataList = loadedDataList
+                        self.fullList = loadedDataList
                         self.viewController?.listView.fillAndReloadTable()
                     case .failure(let error):
                         self.viewController?.showNetworkError(message: error.localizedDescription)
@@ -302,6 +309,24 @@ class ListPresenter {
             checkForDuplicate(of: newFavorite, at: .burgers)
         default:
             return
+        }
+    }
+    
+    func searchData(forRequest request: String) {
+        dataList = fullList
+        switch link {
+        case .charactersList:
+            dataList = (dataList as! [CharacterModel]).filter { $0.name.lowercased().hasPrefix(request) }
+        case .episodesList:
+            dataList = (dataList as! [EpisodeModel]).filter { $0.name.lowercased().hasPrefix(request) }
+        case .nextDoorStoresList:
+            dataList = (dataList as! [StoreModel]).filter { ($0.name ?? "").lowercased().hasPrefix(request) }
+        case .pestControllTrucksList:
+            dataList = (dataList as! [PestControlTruckModel]).filter { ($0.name ?? "").lowercased().hasPrefix(request) }
+        case .endCreditsList:
+            dataList = (dataList as! [EndCreditsModel]).filter { String($0.id).hasPrefix(request) }
+        case .burgersOfTheDayList:
+            dataList = (dataList as! [BurgerOfTheDayModel]).filter { $0.name.lowercased().hasPrefix(request) }
         }
     }
 }

@@ -174,3 +174,21 @@ extension FeedView: UIScrollViewDelegate {
         feedPageControl.currentPage = Int(scrollView.contentOffset.x / CGFloat(feedScrollView.bounds.width))
     }
 }
+
+//import Network
+//func checkInternetConnection() {
+//    let monitor = NWPathMonitor()
+//    let queue = DispatchQueue(label: "InternetConnectionMonitor")
+//
+//    monitor.pathUpdateHandler = { pathUpdateHandler in
+//        if pathUpdateHandler.status == .satisfied {
+//            print("Internet connection is on.")
+//            return
+//        } else {
+//            DispatchQueue.main.async {
+//                self.showAlert(title: "No Internet connection", message: "Please check your Internet connection and restart the App.")
+//            }
+//        }
+//    }
+//    monitor.start(queue: queue)
+//}
