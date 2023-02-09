@@ -7,6 +7,9 @@ final class HeaderCollectionReusableView: UICollectionReusableView {
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.text = "header"
+        label.textAlignment = .center
+        label.textColor = .bbdbBlack
+        label.font = UIFont(name: "Bob'sBurgers2", size: UIScreen.screenSize(dividedBy: 25))
         return label
     }()
     

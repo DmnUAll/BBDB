@@ -16,7 +16,9 @@ final class FavoritesView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: UIScreen.screenSize(dividedBy: 7), height: UIScreen.screenSize(dividedBy: 7))
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 40, right: 20)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 40
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.toAutolayout()
         collectionView.register(FavoritesCell.self, forCellWithReuseIdentifier: "favoriteCell")

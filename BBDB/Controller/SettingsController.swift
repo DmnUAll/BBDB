@@ -3,6 +3,10 @@ import UIKit
 final class SettingsController: UIViewController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     private var presenter: SettingsPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var settingsView: SettingsView = {

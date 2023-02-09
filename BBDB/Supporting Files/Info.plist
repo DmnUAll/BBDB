@@ -2,10 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>The BBDB App needs access to your camera to compare you with a cartoon character!</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The BBDB App needs access to your photo library to compare you with a cartoon character!</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Bob'sBurgers.ttf</string>
-		<string>Bob'sBurgers2.ttf</string>
+		<string>Bob&apos;sBurgers.ttf</string>
+		<string>Bob&apos;sBurgers2.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
@@ -25,6 +29,6 @@
 		</dict>
 	</dict>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

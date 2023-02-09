@@ -3,6 +3,10 @@ import UIKit
 final class MenuController: UIViewController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     private var presenter: MenuPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var menuView: MenuView = {

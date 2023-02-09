@@ -3,6 +3,10 @@ import UIKit
 final class WhoAmIController: UIViewController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     private var presenter: WhoAmIPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     let imagePicker = UIImagePickerController()

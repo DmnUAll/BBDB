@@ -1,14 +1,19 @@
 import UIKit
 import AVFoundation
+import Network
 
 final class TabBarController: UITabBarController {
-
+    
+    var alertPresenter: AlertPresenterProtocol?
     var player: AVAudioPlayer!
-
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        alertPresenter = AlertPresenter(delegate: self)
+        checkInternetConnection()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -21,11 +26,12 @@ final class TabBarController: UITabBarController {
 
 // MARK: - Helpers
 extension TabBarController {
-
+    
     private func configureTabBarController() {
-        tabBar.backgroundImage = UIImage()
-        tabBar.tintColor = .bbdbBlack
-        tabBar.barTintColor = .bbdbBlack
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Bob'sBurgers", size: 18)!], for: .normal)
+        tabBar.tintColor = .bbdbWhite
+        tabBar.unselectedItemTintColor = .bbdbBlack
+        tabBar.backgroundColor = .clear.withAlphaComponent(0.3)
         self.viewControllers = [
             configureTab(withRootController: FeedController(), title: "Feed", andImage: UIImage(systemName: "newspaper")),
             configureTab(withRootController: MenuController(), title: "Menu", andImage: UIImage(systemName: "menucard")),
@@ -50,11 +56,33 @@ extension TabBarController {
             player.play()
         }
     }
+    
+    private func checkInternetConnection() {
+        let monitor = NWPathMonitor()
+        let queue = DispatchQueue(label: "InternetConnectionMonitor")
+        
+        monitor.pathUpdateHandler = { pathUpdateHandler in
+            if pathUpdateHandler.status == .satisfied {
+                print("Internet connection is on.")
+                return
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    let alertModel = AlertModel(title: "Error",
+                                                message: "No Internet connection!",
+                                                buttonText: "Ok",
+                                                completionHandler: nil)
+                    self.alertPresenter?.show(alertModel: alertModel)
+                }
+            }
+        }
+        monitor.start(queue: queue)
+    }
 }
 
 // MARK: - UITabBarControllerDelegate
 extension TabBarController: UITabBarControllerDelegate {
-
+    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         // Need to add some functionality later
         print("Selected \(viewController.description)")
@@ -65,6 +93,11 @@ extension TabBarController: UITabBarControllerDelegate {
 extension TabBarController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         player.play()
-        print(123)
+    }
+}
+
+extension TabBarController: AlertPresenterDelegate {
+    func presentAlert(_ alert: UIAlertController) {
+        present(alert, animated: true)
     }
 }

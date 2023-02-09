@@ -39,7 +39,12 @@ final class WhoAmIView: UIView {
         let imageView = UIImageView()
         imageView.toAutolayout()
         imageView.isUserInteractionEnabled = true
-        imageView.image = UIImage(systemName: "photo")
+        imageView.image = UIImage(named: "choosePhoto")
+        imageView.backgroundColor = .bbdbWhite
+        imageView.layer.borderWidth = 7
+        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
+        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 10)
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     

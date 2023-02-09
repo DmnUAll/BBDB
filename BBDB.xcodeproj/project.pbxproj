@@ -68,6 +68,7 @@
 		61B16AE52941E22100A1AE9D /* Tina Belcher.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 61B16AE02941E22100A1AE9D /* Tina Belcher.jpg */; };
 		61B16AE62941E22100A1AE9D /* Linda Belcher.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 61B16AE12941E22100A1AE9D /* Linda Belcher.jpg */; };
 		61B16AE72941E22100A1AE9D /* Louise Belcher.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 61B16AE22941E22100A1AE9D /* Louise Belcher.jpg */; };
+		61D1BFAD29951120006C7625 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D1BFAC29951120006C7625 /* PaddingLabel.swift */; };
 		61DB699C2919528A00AC0832 /* DetailedInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB699B2919528A00AC0832 /* DetailedInfoView.swift */; };
 		61DB699E291959AF00AC0832 /* DetailedInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB699D291959AF00AC0832 /* DetailedInfoController.swift */; };
 		61DB69A1291A432000AC0832 /* DetailedInfoPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DB69A0291A431F00AC0832 /* DetailedInfoPresenter.swift */; };
@@ -139,6 +140,7 @@
 		61B16AE02941E22100A1AE9D /* Tina Belcher.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tina Belcher.jpg"; sourceTree = "<group>"; };
 		61B16AE12941E22100A1AE9D /* Linda Belcher.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Linda Belcher.jpg"; sourceTree = "<group>"; };
 		61B16AE22941E22100A1AE9D /* Louise Belcher.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Louise Belcher.jpg"; sourceTree = "<group>"; };
+		61D1BFAC29951120006C7625 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		61DB699B2919528A00AC0832 /* DetailedInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoView.swift; sourceTree = "<group>"; };
 		61DB699D291959AF00AC0832 /* DetailedInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoController.swift; sourceTree = "<group>"; };
 		61DB69A0291A431F00AC0832 /* DetailedInfoPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoPresenter.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				618AB5392907E12E00EB9C8B /* Array+Extensions.swift */,
 				618AB53A2907E12E00EB9C8B /* Date+Extensions.swift */,
 				61E3DDAA293F5E2B00344592 /* UIImage+Extensions.swift */,
+				61D1BFAC29951120006C7625 /* PaddingLabel.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				618AB53D2907E12E00EB9C8B /* Array+Extensions.swift in Sources */,
 				610DA04F293F35F400516718 /* WhoAmIPresenter.swift in Sources */,
 				618AB5512907E3F000EB9C8B /* UIView+Extensions.swift in Sources */,
+				61D1BFAD29951120006C7625 /* PaddingLabel.swift in Sources */,
 				61DB69A1291A432000AC0832 /* DetailedInfoPresenter.swift in Sources */,
 				61DB699E291959AF00AC0832 /* DetailedInfoController.swift in Sources */,
 				61A9B7BE293F602D00139234 /* WhoAmIResultController.swift in Sources */,
@@ -595,7 +599,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BBDB/Supporting Files/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The BBDB App needs access to your camera to compare you with a cartoon character!";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The BBDB App needs access to your photo library to compare you with a cartoon character!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
@@ -628,7 +631,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "BBDB/Supporting Files/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "The BBDB App needs access to your camera to compare you with a cartoon character!";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The BBDB App needs access to your photo library to compare you with a cartoon character!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;

@@ -3,6 +3,10 @@ import UIKit
 final class DetailedInfoController: UIViewController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     private var presenter: DetailedInfoPresenter?
     lazy var detailedInfoView: DetailedInfoView = {
         let detailedInfoView = DetailedInfoView()

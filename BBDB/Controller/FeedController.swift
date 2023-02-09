@@ -3,6 +3,10 @@ import UIKit
 final class FeedController: UIViewController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     private var presenter: FeedPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var feedView: FeedView = {

@@ -1,12 +1,13 @@
 import UIKit
 import CoreML
 import Vision
+import Photos
 
 final class WhoAmIPresenter {
     
     weak var viewController: WhoAmIController?
     let imagePicker = UIImagePickerController()
-
+    
     init(viewController: WhoAmIController) {
         self.viewController = viewController
         viewController.whoAmIView.delegate = self
@@ -40,19 +41,30 @@ final class WhoAmIPresenter {
 }
 
 // MARK: - WhoAmIViewDelegate
-
 extension WhoAmIPresenter: WhoAmIViewDelegate {
     func cameraButtonTapped() {
-        print(#function)
         guard let viewController = viewController else { return }
         viewController.imagePicker.sourceType = .camera
         viewController.present(viewController.imagePicker, animated: true, completion: nil)
     }
     
     func galleryButtonTapped() {
-        print(#function)
         guard let viewController = viewController else { return }
         viewController.imagePicker.sourceType = .photoLibrary
-        viewController.present(viewController.imagePicker, animated: true, completion: nil)
+        let photos = PHPhotoLibrary.authorizationStatus()
+        if photos == .notDetermined {
+            PHPhotoLibrary.requestAuthorization({status in
+                if status == .authorized{
+                    DispatchQueue.main.async {
+                        viewController.present(viewController.imagePicker, animated: true, completion: nil)
+                    }
+                } else {
+                    return
+                }
+            })
+        } else {
+            viewController.present(viewController.imagePicker, animated: true, completion: nil)
+            
+        }
     }
 }

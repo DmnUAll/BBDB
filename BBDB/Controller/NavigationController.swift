@@ -3,6 +3,10 @@ import UIKit
 final class NavigationController: UINavigationController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return topViewController?.preferredStatusBarStyle ?? .default
+    }
+    
     private weak var rootVC: InfoAlertPresenterProtocol?
     
     override init(rootViewController: UIViewController) {

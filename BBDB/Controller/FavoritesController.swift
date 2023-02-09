@@ -3,6 +3,10 @@ import UIKit
 final class FavoritesController: UIViewController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     private var presenter: FavoritesPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var favoritesView: FavoritesView = {

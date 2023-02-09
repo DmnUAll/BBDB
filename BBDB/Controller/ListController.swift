@@ -3,6 +3,10 @@ import UIKit
 final class ListController: UIViewController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     private var presenter: ListPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var listView: ListView = {

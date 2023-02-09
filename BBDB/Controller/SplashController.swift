@@ -3,11 +3,16 @@ import UIKit
 final class SplashController: UIViewController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     private let splashImage: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.screenSize(dividedBy: 4), height: UIScreen.screenSize(dividedBy: 4)))
         imageView.image = UIImage(named: "splashLogo")
         return imageView
     }()
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()

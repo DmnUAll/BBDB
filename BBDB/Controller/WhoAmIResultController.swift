@@ -3,6 +3,10 @@ import UIKit
 final class WhoAmIResultController: UIViewController {
     
     // MARK: - Properties and Initializers
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     let imagePicker = UIImagePickerController()
     lazy var whoAmIResultView: WhoAmIResultView = {
         let whoAmIResultView = WhoAmIResultView()

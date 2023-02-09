@@ -9,7 +9,7 @@ final class FavoritesCell: UICollectionViewCell {
         imageView.toAutolayout()
         imageView.backgroundColor = .bbdbWhite
         imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
-        imageView.layer.borderWidth = 3
+        imageView.layer.borderWidth = 2
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 40)
         imageView.clipsToBounds = true
@@ -17,10 +17,17 @@ final class FavoritesCell: UICollectionViewCell {
     }()
     
     let cellLabel: UILabel = {
-        let label = UILabel()
+        let label = PaddingLabel(withInsets: 3, 3, 3, 3)
         label.toAutolayout()
-        label.font = UIFont(name: "Bob'sBurgers", size: 26)
+        label.font = UIFont(name: "Bob'sBurgers", size: 18)
+        label.textAlignment = .center
+        label.numberOfLines = 2
         label.textColor = .bbdbBlack
+        label.layer.borderColor = UIColor.bbdbBlack.cgColor
+        label.layer.borderWidth = 1
+        label.backgroundColor = .bbdbWhite
+        label.layer.cornerRadius = 5
+        label.clipsToBounds = true
         return label
     }()
     
@@ -46,9 +53,10 @@ extension FavoritesCell {
     private func setupConstraints() {
         let constraints = [
             cellImageView.heightAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 10)),
-            cellImageView.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 10)),
+            cellImageView.widthAnchor.constraint(equalTo: cellImageView.heightAnchor, multiplier: 1),
             cellImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             cellImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            cellLabel.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 6)),
             cellLabel.topAnchor.constraint(equalTo: cellImageView.bottomAnchor, constant: 4),
             cellLabel.centerXAnchor.constraint(equalTo: cellImageView.centerXAnchor, constant: 0)
         ]
