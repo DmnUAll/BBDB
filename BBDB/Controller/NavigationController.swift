@@ -27,6 +27,7 @@ final class NavigationController: UINavigationController {
         if let vc = rootViewController as? WhoAmIController {
             self.rootVC = vc
             configureNavigationController(withTitle: "Who am I?", andCurrentMenuTitle: "About 'Who am I?'")
+
         }
         if let vc = rootViewController as? SettingsController {
             self.rootVC = vc
@@ -48,27 +49,33 @@ final class NavigationController: UINavigationController {
 extension NavigationController {
     
     private func configureNavigationController(withTitle navVCTitle: String, andCurrentMenuTitle menuTitle: String) {
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        navBarAppearance.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: UIScreen.screenSize(dividedBy: 25))!, .foregroundColor: UIColor.bbdbBlack]
+        navBarAppearance.titlePositionAdjustment.vertical = 5
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.backgroundImage = UIImage(named: "topBun")
+        navigationBar.standardAppearance = navBarAppearance
+        navigationBar.scrollEdgeAppearance = navBarAppearance
         navigationBar.tintColor = .bbdbBlack
         navigationBar.topItem?.title = navVCTitle
-        navigationBar.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: UIScreen.screenSize(dividedBy: 25))!, .foregroundColor: UIColor.bbdbBlack]
-        navigationBar.setTitleVerticalPositionAdjustment(3, for: .default)
         navigationBar.topItem?.backButtonTitle = "Back"
+        let iconSize = UIScreen.screenSize(dividedBy: 25)
         let menuItems: [UIAction] = [
-            UIAction(title: menuTitle, image: UIImage(systemName: "clock.badge.questionmark"), handler: { [weak self] _ in
+            UIAction(title: menuTitle, subtitle: "Info about current screen", image: UIImage(named: "currentScreenInfoIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize)), handler: { [weak self] _ in
                 guard let self = self else { return }
                 self.rootVC?.showCurrentControllerInfoAlert()
             }),
-            UIAction(title: "About App", image: UIImage(systemName: "questionmark.app"), handler: { [weak self] _ in
+            UIAction(title: "About App", subtitle: "Info about app", image: UIImage(named: "appInfoIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize)), handler: { [weak self] _ in
                 guard let self = self else { return }
                 self.rootVC?.showAboutAppAlert()
             }),
         ]
         let buttonMenu = UIMenu(title: "Info", image: nil, identifier: nil, options: [], children: menuItems)
-        let infoButton = UIBarButtonItem(title: "Menu", image: UIImage(systemName: "info.circle"), primaryAction: nil, menu: buttonMenu)
+        let infoButton = UIBarButtonItem(title: "Menu", image: UIImage(named: "infoIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize)), primaryAction: nil, menu: buttonMenu)
         navigationBar.topItem?.leftBarButtonItem = infoButton
         if rootVC is FeedController {
-            navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "network"), style: .plain, target: nil, action: #selector(webButtonTapped))
+            navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "networkIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize)), style: .plain, target: nil, action: #selector(webButtonTapped))
         }
     }
     
@@ -76,5 +83,3 @@ extension NavigationController {
         (rootVC as! FeedController).feedView.webButtonTapped()
     }
 }
-
-

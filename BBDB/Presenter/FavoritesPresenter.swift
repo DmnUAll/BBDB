@@ -12,7 +12,7 @@ class FavoritesPresenter {
     
     func configureHeader(forSectionAt indexPath: IndexPath, atCollection collectionView: UICollectionView) -> HeaderCollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as! HeaderCollectionReusableView
-        header.backgroundColor = .bbdbYellow
+        header.backgroundColor = .clear
         header.configure(withText: "\(CoreDataManager.Categories.allCases[indexPath.section].rawValue)")
         return header
     }

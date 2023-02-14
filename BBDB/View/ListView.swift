@@ -8,6 +8,7 @@ final class ListView: UIView {
         let searchBar = UISearchBar()
         searchBar.toAutolayout()
         searchBar.barTintColor = .bbdbBlue
+        searchBar.backgroundImage = UIImage()
         return searchBar
     }()
 
@@ -18,6 +19,7 @@ final class ListView: UIView {
         tableView.register(ListViewCell.self, forCellReuseIdentifier: "listCell")
         tableView.backgroundColor = .clear
         tableView.isHidden = true
+        tableView.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         return tableView
     }()
     

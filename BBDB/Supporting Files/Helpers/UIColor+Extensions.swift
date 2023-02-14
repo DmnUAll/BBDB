@@ -1,7 +1,9 @@
 import UIKit
 
 extension UIColor {
+    
     static var bbdbBlack: UIColor { UIColor(named: "BBDB Black")! }
+    static var bbdbBrown: UIColor { UIColor(named: "BBDB Brown")! }
     static var bbdbBlue: UIColor { UIColor(named: "BBDB Blue")! }
     static var bbdbGray: UIColor { UIColor(named: "BBDB Gray")! }
     static var bbdbGreen: UIColor { UIColor(named: "BBDB Green")!}

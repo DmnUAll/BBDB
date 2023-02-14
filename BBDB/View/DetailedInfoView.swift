@@ -36,10 +36,10 @@ extension DetailedInfoView {
     
     private func setupConstraints() {
         let constraints = [
-            infoStackView.topAnchor.constraint(equalTo: topAnchor),
+            infoStackView.topAnchor.constraint(equalTo: topAnchor, constant: 9),
             infoStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             infoStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            infoStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            infoStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -9)
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -195,10 +195,10 @@ extension DetailedInfoView {
         let stackView = makeStackView(axis: .horizontal,
                                       alignment: .fill,
                                       distribution: .fillEqually,
-                                      backgroundColor: .bbdbBlue)
+                                      backgroundColor: .bbdbRed)
         stackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32).isActive = true
         stackView.layer.borderWidth = 2
-        stackView.layer.borderColor = UIColor.bbdbGray.cgColor
+        stackView.layer.borderColor = UIColor.bbdbSkin.cgColor
         stackView.addArrangedSubview(makeLabel(text: leadingText, font: "Bob'sBurgers2", color: .bbdbBlack, alignment: .center))
         stackView.addArrangedSubview(makeLabel(text: trailingText, font: "Bob'sBurgers", color: .bbdbBlack, alignment: .left))
         return stackView

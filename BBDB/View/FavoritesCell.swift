@@ -22,6 +22,8 @@ final class FavoritesCell: UICollectionViewCell {
         label.font = UIFont(name: "Bob'sBurgers", size: 18)
         label.textAlignment = .center
         label.numberOfLines = 2
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.7
         label.textColor = .bbdbBlack
         label.layer.borderColor = UIColor.bbdbBlack.cgColor
         label.layer.borderWidth = 1
@@ -55,10 +57,10 @@ extension FavoritesCell {
             cellImageView.heightAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 10)),
             cellImageView.widthAnchor.constraint(equalTo: cellImageView.heightAnchor, multiplier: 1),
             cellImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            cellImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            cellImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             cellLabel.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 6)),
             cellLabel.topAnchor.constraint(equalTo: cellImageView.bottomAnchor, constant: 4),
-            cellLabel.centerXAnchor.constraint(equalTo: cellImageView.centerXAnchor, constant: 0)
+            cellLabel.centerXAnchor.constraint(equalTo: cellImageView.centerXAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }

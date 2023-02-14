@@ -11,7 +11,7 @@ extension UIImage {
         }
         return UIImage()
     }
-
+    
     func mergeImage(with secondImage: UIImage, point: CGPoint? = nil) -> UIImage {
         let targetSize = self.size.width < secondImage.size.width ? self.size : secondImage.size
         let firstImage = self.scalePreservingAspectRatio(targetSize: targetSize)
@@ -63,5 +63,11 @@ extension UIImage {
         guard let normalizedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage()}
         UIGraphicsEndImageContext()
         return normalizedImage
+    }
+    
+    func resize(targetSize: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size:targetSize).image { _ in
+            self.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
     }
 }

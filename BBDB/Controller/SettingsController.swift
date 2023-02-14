@@ -17,7 +17,7 @@ final class SettingsController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView.setAsBackground(withImage: "blueBackground", to: self)
+        UIImageView.setAsBackground(withImage: "grayBackground", to: self)
         view.addSubview(settingsView)
         self.title = "Settings"
         setupConstraints()

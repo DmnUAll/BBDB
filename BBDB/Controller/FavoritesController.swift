@@ -66,7 +66,6 @@ extension FavoritesController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         guard let cell = presenter?.configureCell(forIndexPath: indexPath, atCollection: collectionView) else { return UICollectionViewCell() }
         return cell
     }

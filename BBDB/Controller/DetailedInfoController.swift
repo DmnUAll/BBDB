@@ -24,7 +24,11 @@ final class DetailedInfoController: UIViewController {
 
 // MARK: - Helpers
 extension DetailedInfoController {
-    
+
+    @objc private func webButtonTapped() {
+        presenter?.webButtonTapped()
+    }
+
     private func setupConstraints() {
         let constraints = [
             detailedInfoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -38,12 +42,9 @@ extension DetailedInfoController {
     func addWebButton(withLink link: String) {
         presenter = DetailedInfoPresenter(viewController: self)
         presenter?.link = link
-        let webButton = UIBarButtonItem(image: UIImage(systemName: "network"), style: .plain, target: self, action: #selector(webButtonTapped))
+        let iconSize = UIScreen.screenSize(dividedBy: 25)
+        let webButton = UIBarButtonItem(image: UIImage(named: "networkIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize)), style: .plain, target: self, action: #selector(webButtonTapped))
         navigationItem.rightBarButtonItem = webButton
-    }
-    
-    @objc private func webButtonTapped() {
-        presenter?.webButtonTapped()
     }
 }
 

@@ -74,6 +74,11 @@ extension WhoAmIView {
     }
     
     @objc private func galleryButtonTapped() {
+        whoAmIGalleryButton.backgroundColor = .bbdbGray
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
+            guard let self = self else { return }
+            self.whoAmIGalleryButton.backgroundColor = .bbdbWhite
+        })
         delegate?.galleryButtonTapped()
     }
     

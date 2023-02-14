@@ -4,22 +4,43 @@ import UIKit
 final class HeaderCollectionReusableView: UICollectionReusableView {
     static let identifier = "headerCollectionReusableView"
     
+    private let shadowView: UIView = {
+        let uiView = UIView()
+        uiView.toAutolayout()
+        uiView.layer.shadowColor = UIColor.black.cgColor
+        uiView.layer.shadowOpacity = 1
+        uiView.layer.shadowOffset = .zero
+        uiView.layer.shadowRadius = 10
+        return uiView
+    }()
+    
     private let headerLabel: UILabel = {
-        let label = UILabel()
+        let label = PaddingLabel(withInsets: 0, 0, 8, 8)
+        label.toAutolayout()
         label.text = "header"
         label.textAlignment = .center
         label.textColor = .bbdbBlack
+        label.backgroundColor = .bbdbYellow
         label.font = UIFont(name: "Bob'sBurgers2", size: UIScreen.screenSize(dividedBy: 25))
+        label.layer.cornerRadius = 10
+        label.layer.borderWidth = 1
+        label.layer.borderColor = UIColor.bbdbBlack.cgColor
+        label.clipsToBounds = true
         return label
     }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        headerLabel.frame = bounds
+        shadowView.addSubview(headerLabel)
+        addSubview(shadowView)
+        let constraints = [
+            headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            headerLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ]
+        NSLayoutConstraint.activate(constraints)
     }
     
     func configure(withText text: String) {
         headerLabel.text = text
-        addSubview(headerLabel)
     }
 }

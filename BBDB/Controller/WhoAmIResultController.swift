@@ -25,11 +25,25 @@ final class WhoAmIResultController: UIViewController {
         self.title = "'Who am I' Result"
         view.addSubview(whoAmIResultView)
         setupConstraints()
+        addShareButton()
     }
 }
 
 // MARK: - Helpers
 extension WhoAmIResultController {
+    
+    @objc private func shareButtonTapped() {
+        let image = whoAmIResultView.whoAmIResultImageView.image
+        guard let image else { return }
+        let text = "Hey! Look at which character from \"Bob's Burgers\" I look like!"
+        let activityViewController = UIActivityViewController(activityItems: [image, text],
+                                                              applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = view
+        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.airDrop,
+                                                        UIActivity.ActivityType.postToFacebook]
+        present(activityViewController, animated: true, completion: nil)
+    }
+    
     private func setupConstraints() {
         let constraints = [
             whoAmIResultView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -38,5 +52,11 @@ extension WhoAmIResultController {
             whoAmIResultView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ]
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    private func addShareButton() {
+        let iconSize = UIScreen.screenSize(dividedBy: 35)
+        let shareButton = UIBarButtonItem(image: UIImage(named: "shareIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize)), style: .plain, target: self, action: #selector(shareButtonTapped))
+        navigationItem.rightBarButtonItem = shareButton
     }
 }

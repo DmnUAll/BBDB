@@ -12,8 +12,7 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
         self.delegate = self
         alertPresenter = AlertPresenter(delegate: self)
-        checkInternetConnection()
-        
+        checkForInternetConnection()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,16 +27,27 @@ final class TabBarController: UITabBarController {
 extension TabBarController {
     
     private func configureTabBarController() {
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Bob'sBurgers", size: 18)!], for: .normal)
-        tabBar.tintColor = .bbdbWhite
-        tabBar.unselectedItemTintColor = .bbdbBlack
-        tabBar.backgroundColor = .clear.withAlphaComponent(0.3)
+        let tabBarItemAppearance = UITabBarItemAppearance(style: .stacked)
+        tabBarItemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Bob'sBurgers", size: 18)!,
+                                                        NSAttributedString.Key.foregroundColor: UIColor.bbdbBlack]
+        tabBarItemAppearance.normal.iconColor = .bbdbBlack
+        tabBarItemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Bob'sBurgers", size: 18)!,
+                                                             NSAttributedString.Key.foregroundColor: UIColor.bbdbWhite]
+        tabBarItemAppearance.selected.iconColor = .bbdbWhite
+        
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithTransparentBackground()
+        tabBarAppearance.backgroundImage = UIImage(named: "bottomBun")
+        tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
+        tabBar.scrollEdgeAppearance = tabBarAppearance
+        tabBar.standardAppearance = tabBarAppearance
+        let iconSize = UIScreen.screenSize(dividedBy: 35)
         self.viewControllers = [
-            configureTab(withRootController: FeedController(), title: "Feed", andImage: UIImage(systemName: "newspaper")),
-            configureTab(withRootController: MenuController(), title: "Menu", andImage: UIImage(systemName: "menucard")),
-            configureTab(withRootController: FavoritesController(), title: "Favorites", andImage: UIImage(systemName: "star")),
-            configureTab(withRootController: WhoAmIController(), title: "Who am I?", andImage: UIImage(systemName: "person.fill.questionmark")),
-            configureTab(withRootController: SettingsController(), title: "App Settings", andImage: UIImage(systemName: "gear"))
+            configureTab(withRootController: FeedController(), title: "Daily Feed", andImage: UIImage(named: "feedIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
+            configureTab(withRootController: MenuController(), title: "Main Menu", andImage: UIImage(named: "menuIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
+            configureTab(withRootController: FavoritesController(), title: "Favorites", andImage: UIImage(named: "favoritesIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
+            configureTab(withRootController: WhoAmIController(), title: "Who am I?", andImage: UIImage(named: "whoAmIIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
+            configureTab(withRootController: SettingsController(), title: "Settings", andImage: UIImage(named: "settingsIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize)))
         ]
     }
     
@@ -57,7 +67,7 @@ extension TabBarController {
         }
     }
     
-    private func checkInternetConnection() {
+    private func checkForInternetConnection() {
         let monitor = NWPathMonitor()
         let queue = DispatchQueue(label: "InternetConnectionMonitor")
         
@@ -84,7 +94,6 @@ extension TabBarController {
 extension TabBarController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        // Need to add some functionality later
         print("Selected \(viewController.description)")
     }
 }

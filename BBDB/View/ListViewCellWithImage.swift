@@ -21,6 +21,7 @@ final class ListViewCellWithImage: UITableViewCell {
         label.toAutolayout()
         label.font = UIFont(name: "Bob'sBurgers", size: 26)
         label.textColor = .bbdbBlack
+        label.numberOfLines = 2
         return label
     }()
     
@@ -47,10 +48,10 @@ extension ListViewCellWithImage {
         let constraints = [
             cellImageView.heightAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 10)),
             cellImageView.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 10)),
-            cellImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            cellImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             cellImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            cellLabel.leadingAnchor.constraint(equalTo: cellImageView.trailingAnchor, constant: 4),
-            cellLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
+            cellLabel.leadingAnchor.constraint(equalTo: cellImageView.trailingAnchor, constant: 20),
+            cellLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             cellLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]
         NSLayoutConstraint.activate(constraints)

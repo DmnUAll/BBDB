@@ -1,11 +1,13 @@
 import UIKit
 
 protocol InfoAlertPresenterProtocol: AnyObject {
+    
     func showCurrentControllerInfoAlert()
     func showAboutAppAlert()
 }
 
 protocol AlertPresenterProtocol {
+    
     func show(alertModel: AlertModel)
 }
 
@@ -14,6 +16,7 @@ protocol AlertPresenterDelegate: AnyObject {
 }
 
 struct AlertPresenter {
+    
     weak var delegate: AlertPresenterDelegate?
     
     init (delegate: AlertPresenterDelegate) {
@@ -22,6 +25,7 @@ struct AlertPresenter {
 }
 
 extension AlertPresenter: AlertPresenterProtocol {
+    
     func show(alertModel: AlertModel) {
         let alert = UIAlertController(
             title: alertModel.title,

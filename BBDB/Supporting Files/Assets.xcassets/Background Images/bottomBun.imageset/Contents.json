@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "bottomBun.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

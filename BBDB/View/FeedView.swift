@@ -15,7 +15,7 @@ final class FeedView: UIView {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.toAutolayout()
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = .bbdbBlue
+        activityIndicator.color = .bbdbGreen
         return activityIndicator
     }()
     
@@ -33,7 +33,8 @@ final class FeedView: UIView {
         pageControl.toAutolayout()
         pageControl.isEnabled = false
         pageControl.backgroundColor = .clear
-        pageControl.currentPageIndicatorTintColor = .bbdbBlack
+        pageControl.currentPageIndicatorTintColor = .bbdbRed
+        pageControl.pageIndicatorTintColor = .bbdbRed.withAlphaComponent(0.3)
         pageControl.numberOfPages = 5
         return pageControl
     }()
@@ -69,7 +70,7 @@ extension FeedView {
         let constraints = [
             feedActivityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
             feedActivityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
-            feedScrollView.topAnchor.constraint(equalTo: topAnchor),
+            feedScrollView.topAnchor.constraint(equalTo: topAnchor, constant: 9),
             feedScrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
             feedScrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
             feedScrollView.bottomAnchor.constraint(equalTo: feedPageControl.topAnchor, constant: 0),
@@ -159,9 +160,9 @@ extension FeedView {
         let stackView = makeStackView(axis: .horizontal,
                                       alignment: .center,
                                       distribution: .fillProportionally,
-                                      backgroundColor: .bbdbBlue)
+                                      backgroundColor: .bbdbGreen)
         stackView.layer.borderWidth = 2
-        stackView.layer.borderColor = UIColor.bbdbGray.cgColor
+        stackView.layer.borderColor = UIColor.bbdbBrown.cgColor
         stackView.addArrangedSubview(makeLabel(text: leadingText, font: "Bob'sBurgers2", color: .bbdbBlack, alignment: .center))
         stackView.addArrangedSubview(makeLabel(text: trailingText, font: "Bob'sBurgers", color: .bbdbBlack, alignment: .left))
         return stackView

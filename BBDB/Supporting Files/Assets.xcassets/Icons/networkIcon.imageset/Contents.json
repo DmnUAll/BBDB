@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "networkIcon.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

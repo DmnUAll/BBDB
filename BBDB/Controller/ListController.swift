@@ -29,6 +29,7 @@ final class ListController: UIViewController {
         listView.listSearchBar.delegate = self
         listView.listTableView.dataSource = self
         listView.listTableView.delegate = self
+        view.addKeyboardHiddingFeature()
     }
 }
 
@@ -102,6 +103,7 @@ extension ListController: UITableViewDataSource {
 extension ListController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard let dataFromSelectedRow = presenter?.dataList[indexPath.row] else { return }
         guard let viewController = presenter?.configureViewController(forData: dataFromSelectedRow) else { return }
         show(viewController, sender: nil)
