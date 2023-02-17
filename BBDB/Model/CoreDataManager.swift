@@ -31,6 +31,12 @@ struct CoreDataManager {
             print("Error saving cintext: \(error)")
         }
     }
+    
+    static func deleteItem(withKey key: Categories, at index: Int) {
+        context.delete((favoritesDictionary[key]?[index]) as! NSManagedObject)
+        favoritesDictionary[key]?.remove(at: index)
+        saveFavorites()
+    }
 
     static func loadAll() {
         loadFavorites(with: CDBurger.fetchRequest())

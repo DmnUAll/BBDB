@@ -35,8 +35,9 @@ extension WhoAmIResultController {
     @objc private func shareButtonTapped() {
         let image = whoAmIResultView.whoAmIResultImageView.image
         guard let image else { return }
+        let resizedImage = image.resize(targetSize: CGSize(width: image.size.width / 1.6, height: image.size.height / 1.6))
         let text = "Hey! Look at which character from \"Bob's Burgers\" I look like!"
-        let activityViewController = UIActivityViewController(activityItems: [image, text],
+        let activityViewController = UIActivityViewController(activityItems: [resizedImage, text],
                                                               applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = view
         activityViewController.excludedActivityTypes = [UIActivity.ActivityType.airDrop,

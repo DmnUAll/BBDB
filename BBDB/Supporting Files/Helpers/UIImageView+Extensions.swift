@@ -1,21 +1,22 @@
 import UIKit
+import Kingfisher
 
 extension UIImageView {
-    
-//    static var imageLoadedNotification: Notification.Name {
-//        Notification.Name(rawValue: "UIImageViewFinishedImageLoading")
-//    }
 
+    static var imageLoadedNotification: Notification.Name {
+        Notification.Name(rawValue: "UIImageViewFinishedImageLoading")
+    }
+    
     func load(url: URL) {
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-//                        NotificationCenter.default.post(name: UIImageView.imageLoadedNotification,
-//                                                        object: self)
-                    }
+        self.kf.setImage(with: url, placeholder: UIImage(named: "placeholderIcon")) { result in
+            switch result {
+            case .success:
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: UIImageView.imageLoadedNotification,
+                                                    object: self)
                 }
+            case .failure(let error):
+                print(error)
             }
         }
     }
@@ -27,5 +28,3 @@ extension UIImageView {
         viewController.view.insertSubview(backgroundImage, at: 0)
     }
 }
-
-

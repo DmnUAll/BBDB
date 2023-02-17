@@ -13,41 +13,29 @@ final class WhoAmIView: UIView {
     weak var delegate: WhoAmIViewDelegate?
     
     private let whoAmIStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UICreator.shared.makeStackView(distribution: .fillEqually, addingSpacing: 8)
         stackView.toAutolayout()
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
         return stackView
     }()
     
     private let whoAmICameraButton: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UICreator.shared.makeImageView(borderWidth: 7, dividerForCornerRadius: 10)
         imageView.toAutolayout()
         imageView.isUserInteractionEnabled = true
         imageView.image = UIImage(named: "makePhoto")
-        imageView.backgroundColor = .bbdbWhite
-        imageView.layer.borderWidth = 7
-        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
-        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 10)
-        imageView.layer.masksToBounds = true
         return imageView
     }()
     
     private let whoAmIGalleryButton: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UICreator.shared.makeImageView(borderWidth: 7, dividerForCornerRadius: 10)
         imageView.toAutolayout()
         imageView.isUserInteractionEnabled = true
         imageView.image = UIImage(named: "choosePhoto")
-        imageView.backgroundColor = .bbdbWhite
-        imageView.layer.borderWidth = 7
-        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
-        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 10)
-        imageView.layer.masksToBounds = true
         return imageView
     }()
     
+    private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         toAutolayout()
@@ -86,10 +74,15 @@ extension WhoAmIView {
         whoAmIStackView.addArrangedSubview(whoAmICameraButton)
         whoAmIStackView.addArrangedSubview(whoAmIGalleryButton)
         addSubview(whoAmIStackView)
+        addSubview(linkTextView)
     }
     
     private func setupConstraints() {
         let constraints = [
+            linkTextView.heightAnchor.constraint(equalToConstant: 40),
+            linkTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            linkTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            linkTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
             whoAmICameraButton.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 3)),
             whoAmICameraButton.heightAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 3)),
             whoAmIStackView.centerXAnchor.constraint(equalTo: centerXAnchor),

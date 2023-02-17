@@ -314,19 +314,23 @@ class ListPresenter {
     
     func searchData(forRequest request: String) {
         dataList = fullList
+        if request == "" {
+            dataList = fullList
+            return
+        }
         switch link {
         case .charactersList:
-            dataList = (dataList as! [CharacterModel]).filter { $0.name.lowercased().hasPrefix(request) }
+            dataList = (dataList as! [CharacterModel]).filter { $0.name.lowercased().contains(request) }
         case .episodesList:
-            dataList = (dataList as! [EpisodeModel]).filter { $0.name.lowercased().hasPrefix(request) }
+            dataList = (dataList as! [EpisodeModel]).filter { $0.name.lowercased().contains(request) }
         case .nextDoorStoresList:
-            dataList = (dataList as! [StoreModel]).filter { ($0.name ?? "").lowercased().hasPrefix(request) }
+            dataList = (dataList as! [StoreModel]).filter { ($0.name ?? "").lowercased().contains(request) }
         case .pestControllTrucksList:
-            dataList = (dataList as! [PestControlTruckModel]).filter { ($0.name ?? "").lowercased().hasPrefix(request) }
+            dataList = (dataList as! [PestControlTruckModel]).filter { ($0.name ?? "").lowercased().contains(request) }
         case .endCreditsList:
-            dataList = (dataList as! [EndCreditsModel]).filter { String($0.id).hasPrefix(request) }
+            dataList = (dataList as! [EndCreditsModel]).filter { String($0.id).contains(request) }
         case .burgersOfTheDayList:
-            dataList = (dataList as! [BurgerOfTheDayModel]).filter { $0.name.lowercased().hasPrefix(request) }
+            dataList = (dataList as! [BurgerOfTheDayModel]).filter { $0.name.lowercased().contains(request) }
         }
     }
 }

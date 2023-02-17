@@ -1,32 +1,38 @@
 import UIKit
 
-
 class FeedPresenter {
     
     private let userDefaults = UserDefaults.standard
     private let feedLoader: NetworkDataLoading
-//    private var uiImageViewObserver: NSObjectProtocol?
+    private var uiImageViewObserver: NSObjectProtocol?
+    private var notificationsCounter = 0
     weak var viewController: FeedController?
     
     
     init(viewController: FeedController) {
         self.viewController = viewController
         feedLoader = NetworkDataLoader(link: .charactersList)
-        loadFiveOfTheDay()
         viewController.feedView.delegate = self
-//        uiImageViewObserver = NotificationCenter.default.addObserver(
-//            forName: UIImageView.imageLoadedNotification,
-//            object: nil,
-//            queue: .main
-//        ) { [weak self] _ in
-//            guard let self = self else { return }
-//            print(123)
-//            self.viewController?.feedView.showOrHideUI()
-//        }
+        loadFiveOfTheDay()
+        uiImageViewObserver = NotificationCenter.default.addObserver(
+            forName: UIImageView.imageLoadedNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.notificationsCounter += 1
+            if self.notificationsCounter == 5 {
+                self.viewController?.feedView.showOrHideUI()
+                NotificationCenter.default.removeObserver(self)
+                self.uiImageViewObserver = nil
+            }
+        }
     }
+}
+
+extension FeedPresenter {
     
     private func loadData() {
-
         feedLoader.loadList { (result: Result<Characters, Error>) in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
@@ -44,7 +50,6 @@ class FeedPresenter {
     }
     
     func loadFiveOfTheDay() {
-
         guard let savedDate = loadUserDefaults(for: .date, as: Date.self) else {
             loadData()
             return

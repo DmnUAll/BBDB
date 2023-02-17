@@ -4,6 +4,8 @@ import UIKit
 protocol SettingsViewDelegate: AnyObject {
     func soundStateChanged(to state: Bool)
     func volumeValueChanged(to value: Float)
+    func splashStateChanged(to state: Bool)
+    func clearKFCache()
 }
 
 // MARK: - WhoAmIResultView
@@ -13,22 +15,12 @@ final class SettingsView: UIView {
     weak var delegate: SettingsViewDelegate?
     
     private let settingsStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UICreator.shared.makeStackView(addingSpacing: 30)
         stackView.toAutolayout()
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
         return stackView
     }()
     
-    let settingsSoundSwitch: UISwitch = {
-        let uiSwitch = UISwitch()
-        uiSwitch.toAutolayout()
-        uiSwitch.isOn = UserDefaultsManager.shared.appSound
-        uiSwitch.addTarget(nil, action: #selector(switchStateChanged), for: UIControl.Event.valueChanged)
-        return uiSwitch
-    }()
+    private lazy var settingsSoundSwitch: UISwitch = UICreator.shared.makeSwitch(withAction: #selector(soundSwitchStateChanged), andCurrentState: UserDefaultsManager.shared.appSound)
     
     private let settingsSoundSlider: UISlider = {
         let slider = UISlider()
@@ -37,8 +29,16 @@ final class SettingsView: UIView {
         slider.addTarget(nil, action: #selector(sliderValueChanged), for: UIControl.Event.valueChanged)
         slider.minimumValue = 0
         slider.maximumValue = 1
+        slider.thumbTintColor = .bbdbBrown
+        slider.minimumTrackTintColor = .bbdbGreen
         return slider
     }()
+    
+    private lazy var settingsSplashScreenSwitch: UISwitch = UICreator.shared.makeSwitch(withAction: #selector(splashScreenSwitchStateChanged), andCurrentState: UserDefaultsManager.shared.appSplashScreen)
+    
+    private let settingsClearCacheButton: UIButton = UICreator.shared.makeFilledButton(title: "Clear image cache", subtitle: "Delete all images cache from memory and disk", backgroundColor: .bbdbBrown, foregroundColor: .bbdbGray, action: #selector(clearCacheButtonTapped))
+    
+    private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,35 +50,53 @@ final class SettingsView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    @objc func switchStateChanged(mySwitch: UISwitch) {
-        delegate?.soundStateChanged(to: settingsSoundSwitch.isOn)
-    }
-    
-    @objc func sliderValueChanged(slider: UISlider) {
-        delegate?.volumeValueChanged(to: settingsSoundSlider.value)
-    }
 }
 
 // MARK: - Helpers
 extension SettingsView {
+    @objc private func clearCacheButtonTapped() {
+        delegate?.clearKFCache()
+    }
+    
+    @objc private func soundSwitchStateChanged() {
+        delegate?.soundStateChanged(to: settingsSoundSwitch.isOn)
+    }
+    
+    @objc private func sliderValueChanged() {
+        delegate?.volumeValueChanged(to: settingsSoundSlider.value)
+    }
+    
+    @objc private func splashScreenSwitchStateChanged() {
+        delegate?.splashStateChanged(to: settingsSplashScreenSwitch.isOn)
+    }
     
     private func addSubviews() {
         addSubview(settingsStackView)
         
-        let soundStack = makeStackView(axis: .horizontal, alignment: .center, distribution: .fill, backgroundColor: .clear)
+        let soundStack = UICreator.shared.makeStackView(axis: .horizontal, alignment: .center)
         soundStack.addArrangedSubview(makeLabel(withText: "Sound:"))
         soundStack.addArrangedSubview(settingsSoundSwitch)
         settingsStackView.addArrangedSubview(soundStack)
         
-        let volumeStack = makeStackView(axis: .vertical, alignment: .fill, distribution: .fill, backgroundColor: .clear)
+        let volumeStack = UICreator.shared.makeStackView(axis: .horizontal)
         volumeStack.addArrangedSubview(makeLabel(withText: "Volume:"))
         volumeStack.addArrangedSubview(settingsSoundSlider)
         settingsStackView.addArrangedSubview(volumeStack)
+        
+        let splashScreenStack = UICreator.shared.makeStackView(axis: .horizontal, alignment: .center)
+        splashScreenStack.addArrangedSubview(makeLabel(withText: "Show Splash Screen:"))
+        splashScreenStack.addArrangedSubview(settingsSplashScreenSwitch)
+        settingsStackView.addArrangedSubview(splashScreenStack)
+        settingsStackView.addArrangedSubview(settingsClearCacheButton)
+        addSubview(linkTextView)
     }
     
     private func setupConstraints() {
         let constraints = [
+            linkTextView.heightAnchor.constraint(equalToConstant: 40),
+            linkTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            linkTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            linkTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
             settingsStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             settingsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             settingsStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
@@ -87,22 +105,9 @@ extension SettingsView {
         NSLayoutConstraint.activate(constraints)
     }
     
-    private func makeStackView(axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution, backgroundColor: UIColor) -> UIStackView {
-        let stackView = UIStackView()
-        stackView.axis = axis
-        stackView.alignment = alignment
-        stackView.distribution = distribution
-        stackView.backgroundColor = backgroundColor
-        stackView.spacing = 4
-        return stackView
-    }
-    
     private func makeLabel(withText text: String) -> UILabel {
-        let label = UILabel()
+        let label = UICreator.shared.makeLabel(text: text, font: UIFont(name: "Bob'sBurgers", size: 26), alignment: .natural)
         label.toAutolayout()
-        label.font = UIFont(name: "Bob'sBurgers", size: 26)
-        label.textColor = .bbdbBlack
-        label.text = text
         return label
     }
 }

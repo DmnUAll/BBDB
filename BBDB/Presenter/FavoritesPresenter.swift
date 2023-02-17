@@ -124,11 +124,31 @@ class FavoritesPresenter {
         }
         return viewController
     }
+    
+    func deleteItem(at indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            CoreDataManager.deleteItem(withKey: CoreDataManager.Categories.characters, at: indexPath.row)
+        case 1:
+            CoreDataManager.deleteItem(withKey: CoreDataManager.Categories.episodes, at: indexPath.row)
+        case 2:
+            CoreDataManager.deleteItem(withKey: CoreDataManager.Categories.stores, at: indexPath.row)
+        case 3:
+            CoreDataManager.deleteItem(withKey: CoreDataManager.Categories.trucks, at: indexPath.row)
+        case 4:
+            CoreDataManager.deleteItem(withKey: CoreDataManager.Categories.credits, at: indexPath.row)
+        case 5:
+            CoreDataManager.deleteItem(withKey: CoreDataManager.Categories.burgers, at: indexPath.row)
+        default:
+            return
+        }
+    }
 }
 
 // MARK: - FeedViewDelegate
 
 extension FavoritesPresenter: FavoritesViewDelegate {
+    
     func aboutFavoritesButtonTapped() {
         viewController?.showCurrentControllerInfoAlert()
     }

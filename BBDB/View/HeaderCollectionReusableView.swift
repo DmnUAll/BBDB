@@ -23,7 +23,7 @@ final class HeaderCollectionReusableView: UICollectionReusableView {
         label.backgroundColor = .bbdbYellow
         label.font = UIFont(name: "Bob'sBurgers2", size: UIScreen.screenSize(dividedBy: 25))
         label.layer.cornerRadius = 10
-        label.layer.borderWidth = 1
+        label.layer.borderWidth = 3
         label.layer.borderColor = UIColor.bbdbBlack.cgColor
         label.clipsToBounds = true
         return label

@@ -1,6 +1,6 @@
 import UIKit
 
-final class FavoritesController: UIViewController {
+final class FavoritesController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Properties and Initializers
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -83,6 +83,24 @@ extension FavoritesController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let viewController = presenter?.configureViewController(forSelectedItemAt: indexPath) else { return }
         show(viewController, sender: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+            let openAction = UIAction(title: "Open", identifier: .none) { [weak self] _ in
+                guard let self,
+                      let viewController = self.presenter?.configureViewController(forSelectedItemAt: indexPath) else { return }
+                self.show(viewController, sender: nil)
+            }
+            let deleteAction = UIAction(title: "Delete", identifier: .none) { [weak self] _ in
+                guard let self else { return }
+                self.presenter?.deleteItem(at: indexPath)
+                collectionView.reloadData()
+                
+            }
+            return UIMenu(title: "Menu", children: [openAction, deleteAction])
+        }
+        return configuration
     }
 }
 

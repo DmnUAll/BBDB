@@ -6,14 +6,11 @@ final class DetailedInfoView: UIView {
     
     // MARK: - Properties and Initializers
     var infoStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = UICreator.shared.makeStackView(alignment: .center, distribution: .fillEqually)
         stackView.toAutolayout()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.distribution = .fillEqually
-        stackView.spacing = 4
         return stackView
     }()
+    private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,24 +29,25 @@ extension DetailedInfoView {
     
     private func addSubviews() {
         addSubview(infoStackView)
+        addSubview(linkTextView)
     }
     
     private func setupConstraints() {
         let constraints = [
+            linkTextView.heightAnchor.constraint(equalToConstant: 40),
+            linkTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            linkTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            linkTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
             infoStackView.topAnchor.constraint(equalTo: topAnchor, constant: 9),
             infoStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             infoStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            infoStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -9)
+            infoStackView.bottomAnchor.constraint(equalTo: linkTextView.topAnchor, constant: -9)
         ]
         NSLayoutConstraint.activate(constraints)
     }
     
     func fillUI(with data: Codable) {
-        let labelStack = makeStackView(axis: .vertical,
-                                       alignment: .center,
-                                       distribution: .fillProportionally,
-                                       backgroundColor: .bbdbSkin)
-        labelStack.spacing = 0
+        let labelStack = UICreator.shared.makeStackView(alignment: .center, distribution: .fillProportionally, addingSpacing: 0)
         labelStack.clipsToBounds = true
         labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
         labelStack.layer.borderWidth = 3
@@ -102,11 +100,7 @@ extension DetailedInfoView {
     }
     
     func fillUI(with data: NSManagedObject) {
-        let labelStack = makeStackView(axis: .vertical,
-                                       alignment: .center,
-                                       distribution: .fillProportionally,
-                                       backgroundColor: .bbdbSkin)
-        labelStack.spacing = 0
+        let labelStack = UICreator.shared.makeStackView(alignment: .center, distribution: .fillProportionally, addingSpacing: 0)
         labelStack.clipsToBounds = true
         labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
         labelStack.layer.borderWidth = 3
@@ -158,49 +152,15 @@ extension DetailedInfoView {
         }
     }
     
-    private func makeStackView(axis: NSLayoutConstraint.Axis, alignment: UIStackView.Alignment, distribution: UIStackView.Distribution, backgroundColor: UIColor) -> UIStackView {
-        let stackView = UIStackView()
-        stackView.axis = axis
-        stackView.alignment = alignment
-        stackView.distribution = distribution
-        stackView.backgroundColor = backgroundColor
-        stackView.spacing = 4
-        return stackView
-    }
-    
     private func makeImageView(withImage url: URL) -> UIImageView {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 30)
-        imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
-        imageView.backgroundColor = .bbdbWhite
-        imageView.load(url: url)
+        let imageView = UICreator.shared.makeImageView(withImage: url)
         imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32).isActive = true
         return imageView
     }
     
-    private func makeLabel(text: String, font: String, color: UIColor, alignment: NSTextAlignment) -> UILabel {
-        let label = UILabel()
-        label.font = UIFont(name: font, size: 23)
-        label.textColor = color
-        label.textAlignment = alignment
-        label.numberOfLines = 0
-        label.text = text
-        return label
-    }
-    
     private func makeLabelStack(leadingText: String, trailingText: String) -> UIStackView {
-        let stackView = makeStackView(axis: .horizontal,
-                                      alignment: .fill,
-                                      distribution: .fillEqually,
-                                      backgroundColor: .bbdbRed)
+        let stackView = UICreator.shared.makeLabelStack(leadingText: leadingText, trailingText: trailingText, backgroundColor: .bbdbRed, intersectionColor: .bbdbSkin)
         stackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32).isActive = true
-        stackView.layer.borderWidth = 2
-        stackView.layer.borderColor = UIColor.bbdbSkin.cgColor
-        stackView.addArrangedSubview(makeLabel(text: leadingText, font: "Bob'sBurgers2", color: .bbdbBlack, alignment: .center))
-        stackView.addArrangedSubview(makeLabel(text: trailingText, font: "Bob'sBurgers", color: .bbdbBlack, alignment: .left))
         return stackView
     }
 }

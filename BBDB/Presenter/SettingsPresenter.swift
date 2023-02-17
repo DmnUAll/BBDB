@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class SettingsPresenter {
     
@@ -12,8 +13,14 @@ final class SettingsPresenter {
 
 // MARK: - SettingsViewDelegate
 extension SettingsPresenter: SettingsViewDelegate {
+    
+    func clearKFCache() {
+        let cache = ImageCache.default
+        cache.clearMemoryCache()
+        cache.clearDiskCache()
+    }
+    
     func soundStateChanged(to state: Bool) {
-        print(state)
         UserDefaultsManager.shared.setSound(toState: state)
         guard let tabBarController = viewController?.tabBarController as? TabBarController else { return }
         guard state else {
@@ -21,6 +28,10 @@ extension SettingsPresenter: SettingsViewDelegate {
             return
         }
         tabBarController.player.play()
+    }
+    
+    func splashStateChanged(to state: Bool) {
+        UserDefaultsManager.shared.setSplashScreen(toState: state)
     }
     
     func volumeValueChanged(to value: Float) {

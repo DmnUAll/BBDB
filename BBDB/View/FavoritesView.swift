@@ -27,13 +27,9 @@ final class FavoritesView: UIView {
         return collectionView
     }()
     
-    private let favoritesActivityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.toAutolayout()
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = .bbdbYellow
-        return activityIndicator
-    }()
+    private let favoritesActivityIndicator: UIActivityIndicatorView = UICreator.shared.makeActivityIndicator(withColor: .bbdbYellow)
+    
+    private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,16 +49,21 @@ extension FavoritesView {
     private func addSubviews() {
         addSubview(favoritesCollectionView)
         addSubview(favoritesActivityIndicator)
+        addSubview(linkTextView)
     }
     
     private func setupConstraints() {
         let constraints = [
+            linkTextView.heightAnchor.constraint(equalToConstant: 40),
+            linkTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            linkTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            linkTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
             favoritesActivityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
             favoritesActivityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
             favoritesCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
             favoritesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             favoritesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            favoritesCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            favoritesCollectionView.bottomAnchor.constraint(equalTo: linkTextView.topAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }

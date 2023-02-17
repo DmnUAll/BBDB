@@ -5,12 +5,12 @@ final class WhoAmIResultView: UIView {
     
     // MARK: - Properties and Initializers
     let whoAmIResultImageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UICreator.shared.makeImageView(backgroundColor: .bbdbBlack.withAlphaComponent(0.8))
         imageView.toAutolayout()
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
         return imageView
     }()
+    
+    private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,14 +25,21 @@ final class WhoAmIResultView: UIView {
     
     private func addSubviews() {
         addSubview(whoAmIResultImageView)
+        addSubview(linkTextView)
     }
     
     private func setupConstraints() {
         let constraints = [
-            whoAmIResultImageView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            whoAmIResultImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            whoAmIResultImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            whoAmIResultImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+            linkTextView.heightAnchor.constraint(equalToConstant: 40),
+            linkTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            linkTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            linkTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            whoAmIResultImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            whoAmIResultImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            whoAmIResultImageView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 8),
+            whoAmIResultImageView.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8),
+            whoAmIResultImageView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -8),
+            whoAmIResultImageView.bottomAnchor.constraint(lessThanOrEqualTo: linkTextView.topAnchor, constant: -8)
         ]
         NSLayoutConstraint.activate(constraints)
     }

@@ -6,7 +6,7 @@ final class UserDefaultsManager {
     static var shared = UserDefaultsManager()
     
     private enum Keys: String {
-        case appSound, appVolume
+        case appSound, appVolume, appSplashScreen
     }
 
     private let userDefaults = UserDefaults.standard
@@ -25,6 +25,14 @@ final class UserDefaultsManager {
         }
         set {
             saveUserDefaults(value: newValue, at: .appVolume)
+        }
+    }
+    private(set) var appSplashScreen: Bool {
+        get {
+            loadUserDefaults(for: .appSplashScreen, as: Bool.self) ?? true
+        }
+        set {
+            saveUserDefaults(value: newValue, at: .appSplashScreen)
         }
     }
     
@@ -47,9 +55,15 @@ final class UserDefaultsManager {
     
     func setSound(toState state: Bool) {
         appSound = state
+        print(#function)
     }
     
     func setVolume(toValue value: Float) {
         appVolume = value
+    }
+    
+    func setSplashScreen(toState state: Bool) {
+        appSplashScreen = state
+        print(#function)
     }
 }

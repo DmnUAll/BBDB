@@ -1,6 +1,7 @@
 import UIKit
 import AVFoundation
 import Network
+import Kingfisher
 
 final class TabBarController: UITabBarController {
     
@@ -10,6 +11,7 @@ final class TabBarController: UITabBarController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureKFCache()
         self.delegate = self
         alertPresenter = AlertPresenter(delegate: self)
         checkForInternetConnection()
@@ -25,6 +27,14 @@ final class TabBarController: UITabBarController {
 
 // MARK: - Helpers
 extension TabBarController {
+    
+    private func configureKFCache() {
+        let cache = ImageCache.default
+        cache.memoryStorage.config.countLimit = 100
+        cache.diskStorage.config.sizeLimit = 1000 * 1000 * 100
+        cache.diskStorage.config.expiration = .never
+        cache.memoryStorage.config.cleanInterval = 86400
+    }
     
     private func configureTabBarController() {
         let tabBarItemAppearance = UITabBarItemAppearance(style: .stacked)

@@ -5,14 +5,8 @@ final class FavoritesCell: UICollectionViewCell {
     
     // MARK: - Properties and Initializers
     let cellImageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UICreator.shared.makeImageView(borderWidth: 2)
         imageView.toAutolayout()
-        imageView.backgroundColor = .bbdbWhite
-        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
-        imageView.layer.borderWidth = 2
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 40)
-        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -26,9 +20,9 @@ final class FavoritesCell: UICollectionViewCell {
         label.minimumScaleFactor = 0.7
         label.textColor = .bbdbBlack
         label.layer.borderColor = UIColor.bbdbBlack.cgColor
-        label.layer.borderWidth = 1
+        label.layer.borderWidth = 2
         label.backgroundColor = .bbdbWhite
-        label.layer.cornerRadius = 5
+        label.layer.cornerRadius = 10
         label.clipsToBounds = true
         return label
     }()

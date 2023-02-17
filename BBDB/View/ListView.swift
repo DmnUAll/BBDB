@@ -4,39 +4,17 @@ import UIKit
 final class ListView: UIView {
     
     // MARK: - Properties and Initializers
-    let listSearchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.toAutolayout()
-        searchBar.barTintColor = .bbdbBlue
-        searchBar.backgroundImage = UIImage()
-        return searchBar
-    }()
-
-    let listTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.toAutolayout()
-        tableView.register(ListViewCellWithImage.self, forCellReuseIdentifier: "listCellWithImage")
-        tableView.register(ListViewCell.self, forCellReuseIdentifier: "listCell")
-        tableView.backgroundColor = .clear
-        tableView.isHidden = true
-        tableView.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
-        return tableView
-    }()
-    
-    private let listActivityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.toAutolayout()
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.color = .bbdbYellow
-        activityIndicator.startAnimating()
-        return activityIndicator
-    }()
+    let listSearchBar: UISearchBar = UICreator.shared.makeSearchBar()
+    let listTableView: UITableView = UICreator.shared.makeTable()
+    private let listActivityIndicator: UIActivityIndicatorView = UICreator.shared.makeActivityIndicator(withColor: .bbdbYellow)
+    private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         toAutolayout()
         addSubviews()
         setupConstraints()
+        listActivityIndicator.startAnimating()
     }
     
     required init?(coder: NSCoder) {
@@ -51,10 +29,15 @@ extension ListView {
         addSubview(listSearchBar)
         addSubview(listTableView)
         addSubview(listActivityIndicator)
+        addSubview(linkTextView)
     }
     
     private func setupConstraints() {
         let constraints = [
+            linkTextView.heightAnchor.constraint(equalToConstant: 40),
+            linkTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            linkTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            linkTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
             listSearchBar.topAnchor.constraint(equalTo: topAnchor),
             listSearchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             listSearchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -63,7 +46,7 @@ extension ListView {
             listTableView.topAnchor.constraint(equalTo: listSearchBar.bottomAnchor),
             listTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             listTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            listTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            listTableView.bottomAnchor.constraint(equalTo: linkTextView.topAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }

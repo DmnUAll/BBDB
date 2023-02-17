@@ -5,23 +5,14 @@ final class ListViewCellWithImage: UITableViewCell {
     
     // MARK: - Properties and Initializers
     let cellImageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = UICreator.shared.makeImageView()
         imageView.toAutolayout()
-        imageView.backgroundColor = .bbdbWhite
-        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
-        imageView.layer.borderWidth = 3
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: 40)
-        imageView.clipsToBounds = true
         return imageView
     }()
     
     let cellLabel: UILabel = {
-        let label = UILabel()
+        let label = UICreator.shared.makeLabel(font: UIFont(name: "Bob'sBurgers", size: 26), alignment: .natural, andNumberOfLines: 2)
         label.toAutolayout()
-        label.font = UIFont(name: "Bob'sBurgers", size: 26)
-        label.textColor = .bbdbBlack
-        label.numberOfLines = 2
         return label
     }()
     
