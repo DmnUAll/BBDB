@@ -2,19 +2,19 @@ import UIKit
 
 // MARK: - FeedController
 final class FeedController: UIViewController {
-    
+
     // MARK: - Properties and Initializers
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
     }
-    
+
     private var presenter: FeedPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var feedView: FeedView = {
         let feedView = FeedView()
         return feedView
     }()
-    
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,17 +29,17 @@ final class FeedController: UIViewController {
 
 // MARK: - Helpers
 extension FeedController {
-    
+
     private func setupConstraints() {
         let constraints = [
             feedView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             feedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             feedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            feedView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            feedView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     func showNetworkError(message: String) {
         let alertModel = AlertModel(title: "Error",
                                     message: message,
@@ -50,14 +50,17 @@ extension FeedController {
         })
         alertPresenter?.show(alertModel: alertModel)
     }
-    
+
     func fillUI(with feedList: Characters) {
         let width = feedView.feedScrollView.bounds.width
-        for i in 0...4 {
-            let character = feedList[i]
+        for index in 0...4 {
+            let character = feedList[index]
             let scrollViewPage = UICreator.shared.makeStackView(alignment: .center,
-                                               distribution: .fillEqually)
-            scrollViewPage.frame = CGRect(x: width * CGFloat(i), y: 0, width: width, height: feedView.feedScrollView.bounds.height)
+                                                                distribution: .fillEqually)
+            scrollViewPage.frame = CGRect(x: width * CGFloat(index),
+                                          y: 0,
+                                          width: width,
+                                          height: feedView.feedScrollView.bounds.height)
             let labelStack = UICreator.shared.makeStackView(distribution: .fillProportionally)
             labelStack.spacing = 0
             labelStack.clipsToBounds = true
@@ -70,21 +73,31 @@ extension FeedController {
             imageView.widthAnchor.constraint(equalToConstant: feedView.feedScrollView.bounds.width - 32).isActive = true
             scrollViewPage.addArrangedSubview(imageView)
             scrollViewPage.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Name:", trailingText: character.name))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Gender:", trailingText: character.gender))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Age:", trailingText: character.age ?? "Unknown"))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Hair color:", trailingText: character.hairColor ?? "Undefined"))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Occupation:", trailingText: character.occupation ?? "Unknown"))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "1st appearance:", trailingText: character.firstEpisode ?? "Undefined"))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Voiced by:", trailingText: character.voicedBy ?? "Undefined"))
+            let uiCreator = UICreator.shared
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Name:",
+                                                                   trailingText: character.name))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Gender:",
+                                                                   trailingText: character.gender))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Age:",
+                                                                   trailingText: character.age ?? "Unknown"))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Hair color:",
+                                                                   trailingText: character.hairColor ?? "Undefined"))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Occupation:",
+                                                                   trailingText: character.occupation ?? "Unknown"))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "1st appearance:",
+                                                                   trailingText: character.firstEpisode ?? "Undefined"))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Voiced by:",
+                                                                   trailingText: character.voicedBy ?? "Undefined"))
             feedView.feedScrollView.addSubview(scrollViewPage)
-            print(scrollViewPage.frame, " = ", feedView.feedScrollView.frame)
-            
         }
     }
 
     func showOrHideUI() {
-        feedView.feedActivityIndicator.isAnimating ? feedView.feedActivityIndicator.stopAnimating() : feedView.feedActivityIndicator.startAnimating()
+        if feedView.feedActivityIndicator.isAnimating {
+            feedView.feedActivityIndicator.stopAnimating()
+        } else {
+            feedView.feedActivityIndicator.startAnimating()
+        }
         feedView.feedScrollView.isHidden.toggle()
         feedView.feedPageControl.isHidden.toggle()
     }
@@ -92,7 +105,7 @@ extension FeedController {
 
 // MARK: - AlertPresenterDelegate
 extension FeedController: AlertPresenterDelegate {
-    
+
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)
     }
@@ -100,7 +113,7 @@ extension FeedController: AlertPresenterDelegate {
 
 // MARK: - InfoAlertPresenterProtocol
 extension FeedController: InfoAlertPresenterProtocol {
-    
+
     func showCurrentControllerInfoAlert() {
         let alertModel = AlertModel(title: "About Feed",
                                     message: InfoAlertText.aboutFeed.rawValue,
@@ -108,7 +121,7 @@ extension FeedController: InfoAlertPresenterProtocol {
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
     }
-    
+
     func showAboutAppAlert() {
         let alertModel = AlertModel(title: "About App",
                                     message: InfoAlertText.aboutApp.rawValue,

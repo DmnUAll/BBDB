@@ -2,19 +2,19 @@ import UIKit
 
 // MARK: - FavoritesController
 final class FavoritesController: UIViewController {
-    
+
     // MARK: - Properties and Initializers
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
     }
-    
+
     private var presenter: FavoritesPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var favoritesView: FavoritesView = {
         let favoritesView = FavoritesView()
         return favoritesView
     }()
-    
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ final class FavoritesController: UIViewController {
         favoritesView.favoritesCollectionView.dataSource = self
         favoritesView.favoritesCollectionView.delegate = self
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         CoreDataManager.loadAll()
@@ -37,7 +37,7 @@ final class FavoritesController: UIViewController {
 
 // MARK: - Helpers
 extension FavoritesController {
-    
+
     private func setupConstraints() {
         let constraints = [
             favoritesView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -51,30 +51,42 @@ extension FavoritesController {
 
 // MARK: - UICollectionViewDataSource
 extension FavoritesController: UICollectionViewDataSource {
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return CoreDataManager.favoritesDictionary.keys.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = presenter?.configureHeader(forSectionAt: indexPath, atCollection: collectionView) else { return HeaderCollectionReusableView() }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        guard let header = presenter?.configureHeader(
+            forSectionAt: indexPath,
+            atCollection: collectionView) else { return HeaderCollectionReusableView() }
         return header
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let numberOfItems = presenter?.getNumberOfItems(forSection: section) else { return 0 }
         return numberOfItems
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = presenter?.configureCell(forIndexPath: indexPath, atCollection: collectionView) else { return UICollectionViewCell() }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell = presenter?.configureCell(
+            forIndexPath: indexPath,
+            atCollection: collectionView) else { return UICollectionViewCell() }
         return cell
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension FavoritesController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int
+    ) -> CGSize {
         return CGSize(width: view.frame.size.width, height: 50)
     }
 }
@@ -85,19 +97,22 @@ extension FavoritesController: UICollectionViewDelegate {
         guard let viewController = presenter?.configureViewController(forSelectedItemAt: indexPath) else { return }
         show(viewController, sender: nil)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { actions -> UIMenu? in
+
+    func collectionView(_ collectionView: UICollectionView,
+                        contextMenuConfigurationForItemAt indexPath: IndexPath,
+                        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
             let openAction = UIAction(title: "Open", identifier: .none) { [weak self] _ in
                 guard let self,
-                      let viewController = self.presenter?.configureViewController(forSelectedItemAt: indexPath) else { return }
+                      let viewController = self.presenter?.configureViewController(
+                        forSelectedItemAt: indexPath) else { return }
                 self.show(viewController, sender: nil)
             }
             let deleteAction = UIAction(title: "Delete", identifier: .none) { [weak self] _ in
                 guard let self else { return }
                 self.presenter?.deleteItem(at: indexPath)
                 collectionView.reloadData()
-                
             }
             return UIMenu(title: "Menu", children: [openAction, deleteAction])
         }
@@ -121,7 +136,7 @@ extension FavoritesController: InfoAlertPresenterProtocol {
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
     }
-    
+
     func showAboutAppAlert() {
         let alertModel = AlertModel(title: "About App",
                                     message: InfoAlertText.aboutApp.rawValue,

@@ -2,13 +2,16 @@ import UIKit
 
 // MARK: - ListView
 final class ListView: UIView {
-    
+
     // MARK: - Properties and Initializers
     let listSearchBar: UISearchBar = UICreator.shared.makeSearchBar()
-    let listTableView: UITableView = UICreator.shared.makeTable(withCells: (type: ListViewCellWithImage.self, identifier: K.Identifiers.listCellWithImage), (type: ListViewCell.self, identifier: K.Identifiers.listCell))
-    private let listActivityIndicator: UIActivityIndicatorView = UICreator.shared.makeActivityIndicator(withColor: .bbdbYellow)
+    let listTableView: UITableView = UICreator.shared.makeTable(
+        withCells: (type: ListViewCellWithImage.self, identifier: K.Identifiers.listCellWithImage),
+        (type: ListViewCell.self, identifier: K.Identifiers.listCell))
+    private let listActivityIndicator: UIActivityIndicatorView = UICreator.shared.makeActivityIndicator(
+        withColor: .bbdbYellow)
     private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         toAutolayout()
@@ -16,7 +19,7 @@ final class ListView: UIView {
         setupConstraints()
         listActivityIndicator.startAnimating()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -24,14 +27,14 @@ final class ListView: UIView {
 
 // MARK: - Helpers
 extension ListView {
-    
+
     private func addSubviews() {
         addSubview(listSearchBar)
         addSubview(listTableView)
         addSubview(listActivityIndicator)
         addSubview(linkTextView)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             linkTextView.heightAnchor.constraint(equalToConstant: 40),
@@ -50,9 +53,13 @@ extension ListView {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     func fillAndReloadTable() {
-        listActivityIndicator.isAnimating ? listActivityIndicator.stopAnimating() : listActivityIndicator.startAnimating()
+        if listActivityIndicator.isAnimating {
+            listActivityIndicator.stopAnimating()
+        } else {
+            listActivityIndicator.startAnimating()
+        }
         listTableView.reloadData()
         listTableView.isHidden.toggle()
     }

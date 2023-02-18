@@ -2,12 +2,12 @@ import UIKit
 
 // MARK: - WhoAmIController
 final class WhoAmIController: UIViewController {
-    
+
     // MARK: - Properties and Initializers
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
     }
-    
+
     private var presenter: WhoAmIPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     let imagePicker = UIImagePickerController()
@@ -15,7 +15,7 @@ final class WhoAmIController: UIViewController {
         let whoAmIView = WhoAmIView()
         return whoAmIView
     }()
-    
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +33,13 @@ final class WhoAmIController: UIViewController {
 
 // MARK: - Helpers
 extension WhoAmIController {
-    
+
     private func setupConstraints() {
         let constraints = [
             whoAmIView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             whoAmIView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             whoAmIView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            whoAmIView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            whoAmIView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -54,7 +54,7 @@ extension WhoAmIController: AlertPresenterDelegate {
 
 // MARK: - InfoAlertPresenterProtocol
 extension WhoAmIController: InfoAlertPresenterProtocol {
-    
+
     func showCurrentControllerInfoAlert() {
         let alertModel = AlertModel(title: "About 'Who am I?'",
                                     message: InfoAlertText.aboutWhoAmI.rawValue,
@@ -62,7 +62,7 @@ extension WhoAmIController: InfoAlertPresenterProtocol {
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
     }
-    
+
     func showAboutAppAlert() {
         let alertModel = AlertModel(title: "About App",
                                     message: InfoAlertText.aboutApp.rawValue,
@@ -74,8 +74,10 @@ extension WhoAmIController: InfoAlertPresenterProtocol {
 
 // MARK: - UIImagePickerControllerDelegate
 extension WhoAmIController: UIImagePickerControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         if let userPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             guard let ciimage = CIImage(image: userPickedImage.fixOrientation()) else {
                 fatalError("Can't convert UIImage в CIImage")

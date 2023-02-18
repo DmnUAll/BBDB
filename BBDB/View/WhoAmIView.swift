@@ -8,16 +8,16 @@ protocol WhoAmIViewDelegate: AnyObject {
 
 // MARK: - WhoAmIView
 final class WhoAmIView: UIView {
-    
+
     // MARK: - Properties and Initializers
     weak var delegate: WhoAmIViewDelegate?
-    
+
     private let whoAmIStackView: UIStackView = {
         let stackView = UICreator.shared.makeStackView(distribution: .fillEqually, addingSpacing: 8)
         stackView.toAutolayout()
         return stackView
     }()
-    
+
     private let whoAmICameraButton: UIImageView = {
         let imageView = UICreator.shared.makeImageView(borderWidth: 7, dividerForCornerRadius: 10)
         imageView.toAutolayout()
@@ -25,7 +25,7 @@ final class WhoAmIView: UIView {
         imageView.image = UIImage(named: K.ImagesNames.makePhoto)
         return imageView
     }()
-    
+
     private let whoAmIGalleryButton: UIImageView = {
         let imageView = UICreator.shared.makeImageView(borderWidth: 7, dividerForCornerRadius: 10)
         imageView.toAutolayout()
@@ -33,7 +33,7 @@ final class WhoAmIView: UIView {
         imageView.image = UIImage(named: K.ImagesNames.choosePhoto)
         return imageView
     }()
-    
+
     private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
 
     override init(frame: CGRect) {
@@ -43,7 +43,7 @@ final class WhoAmIView: UIView {
         setupConstraints()
         setGestureRecognizers()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,7 +51,7 @@ final class WhoAmIView: UIView {
 
 // MARK: - Helpers
 extension WhoAmIView {
-    
+
     @objc private func cameraButtonTapped() {
         whoAmICameraButton.backgroundColor = .bbdbGray
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
@@ -60,7 +60,7 @@ extension WhoAmIView {
         })
         delegate?.cameraButtonTapped()
     }
-    
+
     @objc private func galleryButtonTapped() {
         whoAmIGalleryButton.backgroundColor = .bbdbGray
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
@@ -69,14 +69,14 @@ extension WhoAmIView {
         })
         delegate?.galleryButtonTapped()
     }
-    
+
     private func addSubviews() {
         whoAmIStackView.addArrangedSubview(whoAmICameraButton)
         whoAmIStackView.addArrangedSubview(whoAmIGalleryButton)
         addSubview(whoAmIStackView)
         addSubview(linkTextView)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             linkTextView.heightAnchor.constraint(equalToConstant: 40),
@@ -90,9 +90,11 @@ extension WhoAmIView {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     private func setGestureRecognizers() {
-        whoAmICameraButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cameraButtonTapped)))
-        whoAmIGalleryButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(galleryButtonTapped)))
+        whoAmICameraButton.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                       action: #selector(cameraButtonTapped)))
+        whoAmIGalleryButton.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                                        action: #selector(galleryButtonTapped)))
     }
 }

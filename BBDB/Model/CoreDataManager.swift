@@ -3,6 +3,7 @@ import CoreData
 
 // MARK: - CoreDataManager
 struct CoreDataManager {
+
     enum Categories: String, CaseIterable {
         case characters = "Characters"
         case episodes = "Episodes"
@@ -31,9 +32,10 @@ struct CoreDataManager {
             print("Error saving cintext: \(error)")
         }
     }
-    
+
     static func deleteItem(withKey key: Categories, at index: Int) {
-        context.delete((favoritesDictionary[key]?[index]) as! NSManagedObject)
+        guard let itemToDelete = (favoritesDictionary[key]?[index]) as? NSManagedObject else { return }
+        context.delete(itemToDelete)
         favoritesDictionary[key]?.remove(at: index)
         saveFavorites()
     }
@@ -45,7 +47,6 @@ struct CoreDataManager {
         loadFavorites(with: CDStore.fetchRequest())
         loadFavorites(with: CDEpisode.fetchRequest())
         loadFavorites(with: CDCharacter.fetchRequest())
-//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
 
     static func loadFavorites(with request: NSFetchRequest<NSFetchRequestResult>) {

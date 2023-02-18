@@ -2,19 +2,19 @@ import UIKit
 
 // MARK: - MenuController
 final class MenuController: UIViewController {
-    
+
     // MARK: - Properties and Initializers
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
     }
-    
+
     private var presenter: MenuPresenter?
     private var alertPresenter: AlertPresenterProtocol?
     lazy var menuView: MenuView = {
         let menuView = MenuView()
         return menuView
     }()
-    
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +29,13 @@ final class MenuController: UIViewController {
 
 // MARK: - Helpers
 extension MenuController {
-    
+
     private func setupConstraints() {
         let constraints = [
             menuView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            menuView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            menuView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -50,7 +50,7 @@ extension MenuController: AlertPresenterDelegate {
 
 // MARK: - InfoAlertPresenterProtocol
 extension MenuController: InfoAlertPresenterProtocol {
-    
+
     func showCurrentControllerInfoAlert() {
         let alertModel = AlertModel(title: "About Menu",
                                     message: InfoAlertText.aboutMenu.rawValue,
@@ -58,7 +58,7 @@ extension MenuController: InfoAlertPresenterProtocol {
                                     completionHandler: nil)
         alertPresenter?.show(alertModel: alertModel)
     }
-    
+
     func showAboutAppAlert() {
         let alertModel = AlertModel(title: "About App",
                                     message: InfoAlertText.aboutApp.rawValue,

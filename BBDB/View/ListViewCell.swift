@@ -2,26 +2,26 @@ import UIKit
 
 // MARK: - ListViewCell
 final class ListViewCell: UITableViewCell {
-    
+
     // MARK: - Properties and Initializers
     lazy var cellMainLabel: UILabel = {
         let label = UICreator.shared.makeLabel(font: UIFont.appFont(.filled, withSize: 26), andNumberOfLines: 2)
         label.toAutolayout()
         return label
     }()
-    
+
     lazy var cellAdditionLabel: UILabel = {
         let label = UICreator.shared.makeLabel(font: UIFont.appFont(.empty, withSize: 26), andNumberOfLines: 2)
         label.toAutolayout()
         return label
     }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
         setupConstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -29,12 +29,12 @@ final class ListViewCell: UITableViewCell {
 
 // MARK: - Helpers
 extension ListViewCell {
-    
+
     private func addSubviews() {
         addSubview(cellMainLabel)
         addSubview(cellAdditionLabel)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             cellMainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),

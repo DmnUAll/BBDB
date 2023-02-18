@@ -10,18 +10,20 @@ protocol SettingsViewDelegate: AnyObject {
 
 // MARK: - SettingsView
 final class SettingsView: UIView {
-    
+
     // MARK: - Properties and Initializers
     weak var delegate: SettingsViewDelegate?
-    
+
     private let settingsStackView: UIStackView = {
         let stackView = UICreator.shared.makeStackView(addingSpacing: 30)
         stackView.toAutolayout()
         return stackView
     }()
-    
-    private lazy var settingsSoundSwitch: UISwitch = UICreator.shared.makeSwitch(withAction: #selector(soundSwitchStateChanged), andCurrentState: UserDefaultsManager.shared.appSound)
-    
+
+    private lazy var settingsSoundSwitch: UISwitch = UICreator.shared.makeSwitch(
+        withAction: #selector(soundSwitchStateChanged),
+        andCurrentState: UserDefaultsManager.shared.appSound)
+
     private let settingsSoundSlider: UISlider = {
         let slider = UISlider()
         slider.toAutolayout()
@@ -33,20 +35,27 @@ final class SettingsView: UIView {
         slider.minimumTrackTintColor = .bbdbGreen
         return slider
     }()
-    
-    private lazy var settingsSplashScreenSwitch: UISwitch = UICreator.shared.makeSwitch(withAction: #selector(splashScreenSwitchStateChanged), andCurrentState: UserDefaultsManager.shared.appSplashScreen)
-    
-    private let settingsClearCacheButton: UIButton = UICreator.shared.makeFilledButton(title: "Clear image cache", subtitle: "Delete all images cache from memory and disk", backgroundColor: .bbdbBrown, foregroundColor: .bbdbGray, action: #selector(clearCacheButtonTapped))
-    
+
+    private lazy var settingsSplashScreenSwitch: UISwitch = UICreator.shared.makeSwitch(
+        withAction: #selector(splashScreenSwitchStateChanged),
+        andCurrentState: UserDefaultsManager.shared.appSplashScreen)
+
+    private let settingsClearCacheButton: UIButton = UICreator.shared.makeFilledButton(
+        title: "Clear image cache",
+        subtitle: "Delete all images cache from memory and disk",
+        backgroundColor: .bbdbBrown,
+        foregroundColor: .bbdbGray,
+        action: #selector(clearCacheButtonTapped))
+
     private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         toAutolayout()
         addSubviews()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -57,32 +66,32 @@ extension SettingsView {
     @objc private func clearCacheButtonTapped() {
         delegate?.clearKFCache()
     }
-    
+
     @objc private func soundSwitchStateChanged() {
         delegate?.soundStateChanged(to: settingsSoundSwitch.isOn)
     }
-    
+
     @objc private func sliderValueChanged() {
         delegate?.volumeValueChanged(to: settingsSoundSlider.value)
     }
-    
+
     @objc private func splashScreenSwitchStateChanged() {
         delegate?.splashStateChanged(to: settingsSplashScreenSwitch.isOn)
     }
-    
+
     private func addSubviews() {
         addSubview(settingsStackView)
-        
+
         let soundStack = UICreator.shared.makeStackView(axis: .horizontal, alignment: .center)
         soundStack.addArrangedSubview(makeLabel(withText: "Sound:"))
         soundStack.addArrangedSubview(settingsSoundSwitch)
         settingsStackView.addArrangedSubview(soundStack)
-        
+
         let volumeStack = UICreator.shared.makeStackView(axis: .horizontal)
         volumeStack.addArrangedSubview(makeLabel(withText: "Volume:"))
         volumeStack.addArrangedSubview(settingsSoundSlider)
         settingsStackView.addArrangedSubview(volumeStack)
-        
+
         let splashScreenStack = UICreator.shared.makeStackView(axis: .horizontal, alignment: .center)
         splashScreenStack.addArrangedSubview(makeLabel(withText: "Show Splash Screen:"))
         splashScreenStack.addArrangedSubview(settingsSplashScreenSwitch)
@@ -90,7 +99,7 @@ extension SettingsView {
         settingsStackView.addArrangedSubview(settingsClearCacheButton)
         addSubview(linkTextView)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             linkTextView.heightAnchor.constraint(equalToConstant: 40),
@@ -100,13 +109,13 @@ extension SettingsView {
             settingsStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             settingsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             settingsStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
-            
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     private func makeLabel(withText text: String) -> UILabel {
-        let label = UICreator.shared.makeLabel(text: text, font: UIFont.appFont(.filled, withSize: 26), alignment: .natural)
+        let label = UICreator.shared.makeLabel(text: text, font: UIFont.appFont(.filled, withSize: 26),
+                                               alignment: .natural)
         label.toAutolayout()
         return label
     }

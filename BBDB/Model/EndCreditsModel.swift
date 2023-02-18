@@ -2,6 +2,7 @@ import Foundation
 
 // MARK: - EndCreditsModel
 struct EndCreditsModel: Codable {
+
     let id: Int
     let image: String
     let season, episode: Int
@@ -14,6 +15,7 @@ struct EndCreditsModel: Codable {
     }
 
     enum CodingKeys: String, CodingKey {
+
         case id, image, season, episode
         case episodeURL = "episodeUrl"
         case url

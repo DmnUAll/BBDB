@@ -2,11 +2,11 @@ import UIKit
 
 // MARK: - DetailedInfoPresenter
 final class DetailedInfoPresenter {
-    
+
     // MARK: - Properties and Initialiers
     private weak var viewController: DetailedInfoController?
     var link: String?
-    
+
     init(viewController: DetailedInfoController) {
         self.viewController = viewController
     }
@@ -14,7 +14,7 @@ final class DetailedInfoPresenter {
 
 // MARK: - Helpers
 extension DetailedInfoPresenter {
-    
+
     @objc func webButtonTapped() {
         let webController = WebController()
         if let webURL = URL(string: link ?? "https://google.com") {

@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIFont {
-    
+
     enum AppFonts: String {
         case empty = "Bob'sBurgers2"
         case filled = "Bob'sBurgers"

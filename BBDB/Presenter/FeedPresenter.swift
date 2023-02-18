@@ -2,14 +2,14 @@ import UIKit
 
 // MARK: - FeedPresenter
 final class FeedPresenter {
-    
+
     // MARK: - Properties and Initializers
     private let userDefaults = UserDefaults.standard
     private let feedLoader: NetworkDataLoading
     private var uiImageViewObserver: NSObjectProtocol?
     private var notificationsCounter = 0
     private weak var viewController: FeedController?
-    
+
     init(viewController: FeedController) {
         self.viewController = viewController
         feedLoader = NetworkDataLoader(link: .charactersList)
@@ -33,7 +33,7 @@ final class FeedPresenter {
 
 // MARK: - Helpers
 extension FeedPresenter {
-    
+
     private func loadData() {
         feedLoader.loadList { (result: Result<Characters, Error>) in
             DispatchQueue.main.async { [weak self] in
@@ -50,7 +50,7 @@ extension FeedPresenter {
             }
         }
     }
-    
+
     func loadFiveOfTheDay() {
         guard let savedDate = loadUserDefaults(for: .date, as: Date.self) else {
             loadData()
@@ -62,13 +62,13 @@ extension FeedPresenter {
         }
         if savedDate.dateDayString == Date().dateDayString {
             DispatchQueue.main.async {
-                self.viewController?.fillUI(with:fiveOfTheDay)
+                self.viewController?.fillUI(with: fiveOfTheDay)
             }
         } else {
             loadData()
         }
     }
-    
+
     private func loadUserDefaults<T: Codable>(for key: Keys, as dataType: T.Type) -> T? {
         guard let data = userDefaults.data(forKey: key.rawValue),
               let count = try? JSONDecoder().decode(dataType.self, from: data) else {
@@ -76,8 +76,8 @@ extension FeedPresenter {
         }
         return count
     }
-    
-    private func saveUserDefaults<T: Codable>(value: T,at key: Keys) {
+
+    private func saveUserDefaults<T: Codable>(value: T, at key: Keys) {
         guard let data = try? JSONEncoder().encode(value) else {
             print("Can't save data to UserDefaults")
             return
@@ -92,7 +92,7 @@ private enum Keys: String {
 
 // MARK: - FeedViewDelegate
 extension FeedPresenter: FeedViewDelegate {
-    
+
     func webButtonTapped(atPage pageIndex: Int) {
         guard let feedCharacters = loadUserDefaults(for: .fiveOfTheDay, as: Characters.self) else { return }
         let webController = WebController()

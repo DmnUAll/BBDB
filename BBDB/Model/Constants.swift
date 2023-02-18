@@ -1,15 +1,19 @@
 import Foundation
 
 // MARK: - K
+// swiftlint: disable type_name
 struct K {
-    
+// swiftlint: enable type_name
+
     // MARK: - SoundsNames
     struct SoundsNames {
+
         static let mainTheme = "BBDBTheme"
     }
-    
+
     // MARK: - IconsNames
     struct IconsNames {
+
         static let feed = "feedIcon"
         static let menu = "menuIcon"
         static let favorites = "favoritesIcon"
@@ -25,6 +29,7 @@ struct K {
 
     // MARK: - ImagesNames
     struct ImagesNames {
+
         static let splashLogo = "splashLogo"
         static let noImage = "noImage"
         static let makePhoto = "makePhoto"
@@ -37,9 +42,10 @@ struct K {
         static let redBackground = "redBackground"
         static let grayBackground = "grayBackground"
     }
-    
+
     // MARK: - CoreDataEntitiesNames
     struct CoreDataEntitiesNames {
+
         static let cdCharacter = "CDCharacter"
         static let cdEpisode = "CDEpisode"
         static let cdStore = "CDStore"
@@ -47,9 +53,10 @@ struct K {
         static let cdCredits = "CDCredits"
         static let cdBurger = "CDBurger"
     }
-    
+
     // MARK: - Identifiers
     struct Identifiers {
+
         static let header = "headerCollectionReusableView"
         static let favoriteCell = "favoriteCell"
         static let listCell = "listCell"

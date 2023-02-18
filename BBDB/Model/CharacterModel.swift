@@ -2,6 +2,7 @@ import Foundation
 
 // MARK: - Character
 struct CharacterModel: Codable {
+
     let id: Int
     let name: String
     let image: String
@@ -18,6 +19,7 @@ struct CharacterModel: Codable {
     let age: String?
 
     enum CodingKeys: String, CodingKey {
+
         case id, name, image, gender, hairColor, occupation, firstEpisode, voicedBy, url
         case wikiURL = "wikiUrl"
         case age

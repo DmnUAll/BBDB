@@ -2,9 +2,9 @@ import Foundation
 
 // MARK: - UserDefaultsManager
 final class UserDefaultsManager {
-    
+
     static var shared = UserDefaultsManager()
-    
+
     private enum Keys: String {
         case appSound, appVolume, appSplashScreen
     }
@@ -35,7 +35,7 @@ final class UserDefaultsManager {
             saveUserDefaults(value: newValue, at: .appSplashScreen)
         }
     }
-    
+
     // MARK: - Data Manipulation Methods
     private func loadUserDefaults<T: Codable>(for key: Keys, as dataType: T.Type) -> T? {
         guard let data = userDefaults.data(forKey: key.rawValue),
@@ -44,26 +44,24 @@ final class UserDefaultsManager {
         }
         return count
     }
-    
-    private func saveUserDefaults<T: Codable>(value: T,at key: Keys) {
+
+    private func saveUserDefaults<T: Codable>(value: T, at key: Keys) {
         guard let data = try? JSONEncoder().encode(value) else {
             print("Unable to save data")
             return
         }
         userDefaults.set(data, forKey: key.rawValue)
     }
-    
+
     func setSound(toState state: Bool) {
         appSound = state
-        print(#function)
     }
-    
+
     func setVolume(toValue value: Float) {
         appVolume = value
     }
-    
+
     func setSplashScreen(toState state: Bool) {
         appSplashScreen = state
-        print(#function)
     }
 }

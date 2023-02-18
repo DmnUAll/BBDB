@@ -2,7 +2,7 @@ import UIKit
 
 // MARK: - HeaderCollectionReusableView
 final class HeaderCollectionReusableView: UICollectionReusableView {
-    
+
     private let shadowView: UIView = {
         let uiView = UIView()
         uiView.toAutolayout()
@@ -12,7 +12,7 @@ final class HeaderCollectionReusableView: UICollectionReusableView {
         uiView.layer.shadowRadius = 10
         return uiView
     }()
-    
+
     private let headerLabel: UILabel = {
         let label = PaddingLabel(withInsets: 0, 0, 8, 8)
         label.toAutolayout()
@@ -27,7 +27,7 @@ final class HeaderCollectionReusableView: UICollectionReusableView {
         label.clipsToBounds = true
         return label
     }()
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         shadowView.addSubview(headerLabel)
@@ -38,7 +38,7 @@ final class HeaderCollectionReusableView: UICollectionReusableView {
         ]
         NSLayoutConstraint.activate(constraints)
     }
-    
+
     func configure(withText text: String) {
         headerLabel.text = text
     }

@@ -3,10 +3,10 @@ import Kingfisher
 
 // MARK: - SettingsPresenter
 final class SettingsPresenter {
-    
+
     // MARK: - Properties and Initializers
     private weak var viewController: SettingsController?
-    
+
     init(viewController: SettingsController) {
         self.viewController = viewController
         viewController.settingsView.delegate = self
@@ -15,31 +15,30 @@ final class SettingsPresenter {
 
 // MARK: - SettingsViewDelegate
 extension SettingsPresenter: SettingsViewDelegate {
-    
+
     func clearKFCache() {
         let cache = ImageCache.default
         cache.clearMemoryCache()
         cache.clearDiskCache()
     }
-    
+
     func soundStateChanged(to state: Bool) {
         UserDefaultsManager.shared.setSound(toState: state)
         guard let tabBarController = viewController?.tabBarController as? TabBarController else { return }
         guard state else {
-            tabBarController.player.stop()
+            tabBarController.player?.stop()
             return
         }
-        tabBarController.player.play()
+        tabBarController.player?.play()
     }
-    
+
     func splashStateChanged(to state: Bool) {
         UserDefaultsManager.shared.setSplashScreen(toState: state)
     }
-    
+
     func volumeValueChanged(to value: Float) {
-        print(value)
         UserDefaultsManager.shared.setVolume(toValue: value)
         guard let tabBarController = viewController?.tabBarController as? TabBarController else { return }
-        tabBarController.player.volume = value
+        tabBarController.player?.volume = value
     }
 }

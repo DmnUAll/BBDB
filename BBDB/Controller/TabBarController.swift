@@ -5,11 +5,11 @@ import Kingfisher
 
 // MARK: - TabBarController
 final class TabBarController: UITabBarController {
-    
+
     // MARK: - Properties and Initializers
     private var alertPresenter: AlertPresenterProtocol?
-    var player: AVAudioPlayer!
-    
+    var player: AVAudioPlayer?
+
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,18 +18,18 @@ final class TabBarController: UITabBarController {
         alertPresenter = AlertPresenter(delegate: self)
         checkForInternetConnection()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureTabBarController()
         playSound(K.SoundsNames.mainTheme)
-        player.delegate = self
+        player?.delegate = self
     }
 }
 
 // MARK: - Helpers
 extension TabBarController {
-    
+
     private func configureKFCache() {
         let cache = ImageCache.default
         cache.memoryStorage.config.countLimit = 100
@@ -37,16 +37,20 @@ extension TabBarController {
         cache.diskStorage.config.expiration = .never
         cache.memoryStorage.config.cleanInterval = 86400
     }
-    
+
     private func configureTabBarController() {
         let tabBarItemAppearance = UITabBarItemAppearance(style: .stacked)
-        tabBarItemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.font: UIFont.appFont(.filled, withSize: 18),
-                                                        NSAttributedString.Key.foregroundColor: UIColor.bbdbBlack]
+        tabBarItemAppearance.normal.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.appFont(.filled, withSize: 18),
+            NSAttributedString.Key.foregroundColor: UIColor.bbdbBlack
+        ]
         tabBarItemAppearance.normal.iconColor = .bbdbBlack
-        tabBarItemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.font: UIFont.appFont(.filled, withSize: 18),
-                                                             NSAttributedString.Key.foregroundColor: UIColor.bbdbWhite]
+        tabBarItemAppearance.selected.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont.appFont(.filled, withSize: 18),
+            NSAttributedString.Key.foregroundColor: UIColor.bbdbWhite
+        ]
         tabBarItemAppearance.selected.iconColor = .bbdbWhite
-        
+
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithTransparentBackground()
         tabBarAppearance.backgroundImage = UIImage(named: K.ImagesNames.bottomBun)
@@ -55,37 +59,65 @@ extension TabBarController {
         tabBar.standardAppearance = tabBarAppearance
         let iconSize = UIScreen.screenHeight(dividedBy: 35)
         self.viewControllers = [
-            configureTab(withRootController: FeedController(), title: "Daily Feed", andImage: UIImage(named: K.IconsNames.feed)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
-            configureTab(withRootController: MenuController(), title: "Main Menu", andImage: UIImage(named: K.IconsNames.menu)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
-            configureTab(withRootController: FavoritesController(), title: "Favorites", andImage: UIImage(named: K.IconsNames.favorites)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
-            configureTab(withRootController: WhoAmIController(), title: "Who am I?", andImage: UIImage(named: K.IconsNames.whoAmI)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
-            configureTab(withRootController: SettingsController(), title: "Settings", andImage: UIImage(named: K.IconsNames.settings)?.resize(targetSize: CGSize(width: iconSize, height: iconSize)))
+            configureTab(
+                withRootController: FeedController(),
+                title: "Daily Feed",
+                andImage: UIImage(
+                    named: K.IconsNames.feed)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
+            ),
+            configureTab(
+                withRootController: MenuController(),
+                title: "Main Menu",
+                andImage: UIImage(
+                    named: K.IconsNames.menu)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
+            ),
+            configureTab(
+                withRootController: FavoritesController(),
+                title: "Favorites",
+                andImage: UIImage(
+                    named: K.IconsNames.favorites)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
+            ),
+            configureTab(
+                withRootController: WhoAmIController(),
+                title: "Who am I?",
+                andImage: UIImage(
+                    named: K.IconsNames.whoAmI)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
+            ),
+            configureTab(
+                withRootController: SettingsController(),
+                title: "Settings",
+                andImage: UIImage(
+                    named: K.IconsNames.settings)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
+            )
         ]
     }
-    
-    private func configureTab(withRootController rootVC: UIViewController, title: String, andImage image: UIImage?) -> NavigationController {
+
+    private func configureTab(withRootController rootVC: UIViewController,
+                              title: String,
+                              andImage image: UIImage?
+    ) -> NavigationController {
         let tab = NavigationController(rootViewController: rootVC)
         let tabBarItem = UITabBarItem(title: title, image: image, selectedImage: image)
         tab.tabBarItem = tabBarItem
         return tab
     }
-    
+
     private func playSound(_ name: String) {
-        let url = Bundle.main.url(forResource: name, withExtension: "mp3")
-        player = try! AVAudioPlayer(contentsOf: url!)
-        player.volume = UserDefaultsManager.shared.appVolume
+        guard let url = Bundle.main.url(forResource: name, withExtension: "mp3"),
+              let playerWithAudio = try? AVAudioPlayer(contentsOf: url) else { return }
+        player = playerWithAudio
+        player?.volume = UserDefaultsManager.shared.appVolume
         if UserDefaultsManager.shared.appSound {
-            player.play()
+            player?.play()
         }
     }
-    
+
     private func checkForInternetConnection() {
         let monitor = NWPathMonitor()
         let queue = DispatchQueue(label: "InternetConnectionMonitor")
-        
+
         monitor.pathUpdateHandler = { pathUpdateHandler in
             if pathUpdateHandler.status == .satisfied {
-                print("Internet connection is on.")
                 return
             } else {
                 DispatchQueue.main.async { [weak self] in
@@ -104,7 +136,7 @@ extension TabBarController {
 
 // MARK: - UITabBarControllerDelegate
 extension TabBarController: UITabBarControllerDelegate {
-    
+
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         print("Selected \(viewController.description)")
     }

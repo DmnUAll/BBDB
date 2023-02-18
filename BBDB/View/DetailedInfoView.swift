@@ -2,7 +2,7 @@ import UIKit
 
 // MARK: - DetailedInfoView
 final class DetailedInfoView: UIView {
-    
+
     // MARK: - Properties and Initializers
     var infoStackView: UIStackView = {
         let stackView = UICreator.shared.makeStackView(alignment: .center, distribution: .fillEqually)
@@ -10,14 +10,14 @@ final class DetailedInfoView: UIView {
         return stackView
     }()
     private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         toAutolayout()
         addSubviews()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -25,12 +25,12 @@ final class DetailedInfoView: UIView {
 
 // MARK: - Helpers
 extension DetailedInfoView {
-    
+
     private func addSubviews() {
         addSubview(infoStackView)
         addSubview(linkTextView)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             linkTextView.heightAnchor.constraint(equalToConstant: 40),

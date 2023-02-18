@@ -8,36 +8,39 @@ protocol FavoritesViewDelegate: AnyObject {
 
 // MARK: - FavoritesView
 final class FavoritesView: UIView {
-    
+
     // MARK: - Properties and Initializers
     weak var delegate: FavoritesViewDelegate?
-    
+
     let favoritesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: UIScreen.screenHeight(dividedBy: 6), height: UIScreen.screenHeight(dividedBy: 6))
+        layout.itemSize = CGSize(width: UIScreen.screenHeight(dividedBy: 6),
+                                 height: UIScreen.screenHeight(dividedBy: 6))
         layout.sectionInset = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 40
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.toAutolayout()
         collectionView.register(FavoritesCell.self, forCellWithReuseIdentifier: K.Identifiers.favoriteCell)
-        collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifiers.header)
+        collectionView.register(HeaderCollectionReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: K.Identifiers.header)
         collectionView.backgroundColor = .clear
         return collectionView
     }()
-    
-    private let favoritesActivityIndicator: UIActivityIndicatorView = UICreator.shared.makeActivityIndicator(withColor: .bbdbYellow)
-    
+
+    private let favoritesActivityIndicator: UIActivityIndicatorView = UICreator.shared.makeActivityIndicator(
+        withColor: .bbdbYellow)
     private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         toAutolayout()
         addSubviews()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -45,13 +48,13 @@ final class FavoritesView: UIView {
 
 // MARK: - Helpers
 extension FavoritesView {
-    
+
     private func addSubviews() {
         addSubview(favoritesCollectionView)
         addSubview(favoritesActivityIndicator)
         addSubview(linkTextView)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             linkTextView.heightAnchor.constraint(equalToConstant: 40),

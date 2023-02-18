@@ -2,6 +2,7 @@ import Foundation
 
 // MARK: - StoreModel
 struct StoreModel: Codable {
+
     let id: Int
     let name: String?
     let image: String
@@ -15,6 +16,7 @@ struct StoreModel: Codable {
     let episodeURL, url: String
 
     enum CodingKeys: String, CodingKey {
+
         case id, name, image, season, episode
         case episodeURL = "episodeUrl"
         case url

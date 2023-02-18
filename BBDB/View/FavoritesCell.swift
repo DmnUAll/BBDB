@@ -2,14 +2,14 @@ import UIKit
 
 // MARK: - FavoritesCell
 final class FavoritesCell: UICollectionViewCell {
-    
+
     // MARK: - Properties and Initializers
     let cellImageView: UIImageView = {
         let imageView = UICreator.shared.makeImageView(borderWidth: 2)
         imageView.toAutolayout()
         return imageView
     }()
-    
+
     let cellLabel: UILabel = {
         let label = PaddingLabel(withInsets: 3, 3, 3, 3)
         label.toAutolayout()
@@ -26,13 +26,13 @@ final class FavoritesCell: UICollectionViewCell {
         label.clipsToBounds = true
         return label
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
         setupConstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -40,12 +40,12 @@ final class FavoritesCell: UICollectionViewCell {
 
 // MARK: - Helpers
 extension FavoritesCell {
-    
+
     private func addSubviews() {
         addSubview(cellImageView)
         addSubview(cellLabel)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             cellImageView.heightAnchor.constraint(equalToConstant: UIScreen.screenHeight(dividedBy: 10)),

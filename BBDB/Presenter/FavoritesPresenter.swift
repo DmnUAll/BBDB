@@ -3,10 +3,10 @@ import CoreData
 
 // MARK: - FavoritesPresenter
 final class FavoritesPresenter {
-    
+
     // MARK: - Properties and Initializers
     private weak var viewController: FavoritesController?
-    
+
     init(viewController: FavoritesController) {
         self.viewController = viewController
         viewController.favoritesView.delegate = self
@@ -15,14 +15,19 @@ final class FavoritesPresenter {
 
 // MARK: - Helpers
 extension FavoritesPresenter {
-    
-    func configureHeader(forSectionAt indexPath: IndexPath, atCollection collectionView: UICollectionView) -> HeaderCollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifiers.header, for: indexPath) as! HeaderCollectionReusableView
+
+    func configureHeader(forSectionAt indexPath: IndexPath,
+                         atCollection collectionView: UICollectionView
+    ) -> HeaderCollectionReusableView? {
+        guard let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: K.Identifiers.header,
+            for: indexPath) as? HeaderCollectionReusableView else { return nil }
         header.backgroundColor = .clear
         header.configure(withText: "\(CoreDataManager.Categories.allCases[indexPath.section].rawValue)")
         return header
     }
-    
+
     func getNumberOfItems(forSection section: Int) -> Int {
         switch section {
         case 0:
@@ -41,33 +46,37 @@ extension FavoritesPresenter {
             return 0
         }
     }
-    
-    func configureCell(forIndexPath indexPath: IndexPath, atCollection collectionView: UICollectionView) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifiers.favoriteCell, for: indexPath) as! FavoritesCell
+
+    func configureCell(forIndexPath indexPath: IndexPath,
+                       atCollection collectionView: UICollectionView
+    ) -> UICollectionViewCell? {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifiers.favoriteCell,
+                                                            for: indexPath) as? FavoritesCell else { return nil }
         cell.backgroundColor = .clear
+        let favorites = CoreDataManager.favoritesDictionary
         switch indexPath.section {
         case 0:
-            let character = CoreDataManager.favoritesDictionary[.characters]?[indexPath.row] as! CDCharacter
+            guard let character = favorites[.characters]?[indexPath.row] as? CDCharacter else { return nil }
             cell.cellImageView.load(url: character.imageURL!)
             cell.cellLabel.text = character.name
         case 1:
-            let episode = CoreDataManager.favoritesDictionary[.episodes]?[indexPath.row] as! CDEpisode
+            guard let episode = favorites[.episodes]?[indexPath.row] as? CDEpisode else { return nil }
             cell.cellImageView.load(url: Bundle.main.url(forResource: K.ImagesNames.noImage, withExtension: "png")!)
             cell.cellLabel.text = episode.name
         case 2:
-            let store = CoreDataManager.favoritesDictionary[.stores]?[indexPath.row] as! CDStore
+            guard let store = favorites[.stores]?[indexPath.row] as? CDStore else { return nil }
             cell.cellImageView.load(url: store.imageURL!)
             cell.cellLabel.text = store.name
         case 3:
-            let truck = CoreDataManager.favoritesDictionary[.trucks]?[indexPath.row] as! CDTruck
+            guard let truck = favorites[.trucks]?[indexPath.row] as? CDTruck else { return nil }
             cell.cellImageView.load(url: truck.imageURL!)
             cell.cellLabel.text = truck.name
         case 4:
-            let credits = CoreDataManager.favoritesDictionary[.credits]?[indexPath.row] as! CDCredits
+            guard let credits = favorites[.credits]?[indexPath.row] as? CDCredits else { return nil }
             cell.cellImageView.load(url: credits.imageURL!)
             cell.cellLabel.text = "S\(credits.season)E\(credits.episode)"
         case 5:
-            let burger = CoreDataManager.favoritesDictionary[.burgers]?[indexPath.row] as! CDBurger
+            guard let burger = favorites[.burgers]?[indexPath.row] as? CDBurger else { return nil }
             cell.cellImageView.load(url: Bundle.main.url(forResource: K.ImagesNames.noImage, withExtension: "png")!)
             cell.cellLabel.text = burger.name
         default:
@@ -75,7 +84,7 @@ extension FavoritesPresenter {
         }
         return cell
     }
-    
+
     func configureViewController(forSelectedItemAt indexPath: IndexPath) -> UIViewController {
         let dictionaryKey: CoreDataManager.Categories
         switch indexPath.section {
@@ -94,8 +103,10 @@ extension FavoritesPresenter {
         default:
             return UIViewController()
         }
-        
-        guard let dataFromSelectedRow = CoreDataManager.favoritesDictionary[dictionaryKey]?[indexPath.row] else { return UIViewController() }
+
+        guard let dataFromSelectedRow = CoreDataManager.favoritesDictionary[dictionaryKey]?[indexPath.row] else {
+            return UIViewController()
+        }
         let viewController = DetailedInfoController()
         viewController.view.backgroundColor = .bbdbGreen
         if let dataFromSelectedRow = dataFromSelectedRow as? CDCharacter {
@@ -130,7 +141,7 @@ extension FavoritesPresenter {
         }
         return viewController
     }
-    
+
     func deleteItem(at indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
@@ -153,11 +164,11 @@ extension FavoritesPresenter {
 
 // MARK: - FeedViewDelegate
 extension FavoritesPresenter: FavoritesViewDelegate {
-    
+
     func aboutFavoritesButtonTapped() {
         viewController?.showCurrentControllerInfoAlert()
     }
-    
+
     func aboutAppButtonTapped() {
         viewController?.showAboutAppAlert()
         viewController?.navigationController?.pushViewController(WhoAmIResultController(), animated: true)

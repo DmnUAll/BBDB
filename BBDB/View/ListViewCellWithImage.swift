@@ -2,26 +2,27 @@ import UIKit
 
 // MARK: - ListViewCellWithImage
 final class ListViewCellWithImage: UITableViewCell {
-    
+
     // MARK: - Properties and Initializers
     let cellImageView: UIImageView = {
         let imageView = UICreator.shared.makeImageView()
         imageView.toAutolayout()
         return imageView
     }()
-    
+
     let cellLabel: UILabel = {
-        let label = UICreator.shared.makeLabel(font: UIFont.appFont(.filled, withSize: 26), alignment: .natural, andNumberOfLines: 2)
+        let label = UICreator.shared.makeLabel(font: UIFont.appFont(.filled, withSize: 26),
+                                               alignment: .natural, andNumberOfLines: 2)
         label.toAutolayout()
         return label
     }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
         setupConstraints()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -29,12 +30,12 @@ final class ListViewCellWithImage: UITableViewCell {
 
 // MARK: - Helpers
 extension ListViewCellWithImage {
-    
+
     private func addSubviews() {
         addSubview(cellImageView)
         addSubview(cellLabel)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             cellImageView.heightAnchor.constraint(equalToConstant: UIScreen.screenHeight(dividedBy: 10)),

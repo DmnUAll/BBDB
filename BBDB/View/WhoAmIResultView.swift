@@ -2,23 +2,23 @@ import UIKit
 
 // MARK: - WhoAmIResultView
 final class WhoAmIResultView: UIView {
-    
+
     // MARK: - Properties and Initializers
     let whoAmIResultImageView: UIImageView = {
         let imageView = UICreator.shared.makeImageView(backgroundColor: .bbdbBlack.withAlphaComponent(0.8))
         imageView.toAutolayout()
         return imageView
     }()
-    
+
     private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         toAutolayout()
         addSubviews()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -26,12 +26,12 @@ final class WhoAmIResultView: UIView {
 
 // MARK: - Helpers
 extension WhoAmIResultView {
-    
+
     private func addSubviews() {
         addSubview(whoAmIResultImageView)
         addSubview(linkTextView)
     }
-    
+
     private func setupConstraints() {
         let constraints = [
             linkTextView.heightAnchor.constraint(equalToConstant: 40),

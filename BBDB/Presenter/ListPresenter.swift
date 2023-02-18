@@ -3,14 +3,14 @@ import CoreData
 
 // MARK: - ListPresenter
 final class ListPresenter {
-    
+
     // MARK: - Properties and Initializers
     private let listLoader: NetworkDataLoading
     private weak var viewController: ListController?
     private let link: Link
     var dataList: [Any] = []
     private var fullList: [Any] = []
-    
+
     init(viewController: ListController, link: Link) {
         CoreDataManager.loadAll()
         self.viewController = viewController
@@ -65,34 +65,33 @@ extension ListPresenter {
             }
         }
     }
-    
+
     private func checkForDuplicate(of data: NSManagedObject, at dictionaryKey: CoreDataManager.Categories) {
         var foundDuplicate = false
-        
         switch type(of: data) {
         case is CDCharacter.Type:
-            let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as! [CDCharacter]
-            let castedData = data as! CDCharacter
+            guard let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as? [CDCharacter],
+                  let castedData = data as? CDCharacter else { return }
             foundDuplicate = favoritesCategoryList.contains(where: {$0.id == castedData.id})
         case is CDEpisode.Type:
-            let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as! [CDEpisode]
-            let castedData = data as! CDEpisode
+            guard let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as? [CDEpisode],
+                  let castedData = data as? CDEpisode else { return }
             foundDuplicate = favoritesCategoryList.contains(where: {$0.id == castedData.id})
         case is CDStore.Type:
-            let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as! [CDStore]
-            let castedData = data as! CDStore
+            guard let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as? [CDStore],
+                  let castedData = data as? CDStore else { return }
             foundDuplicate = favoritesCategoryList.contains(where: {$0.id == castedData.id})
         case is CDTruck.Type:
-            let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as! [CDTruck]
-            let castedData = data as! CDTruck
+            guard let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as? [CDTruck],
+                  let castedData = data as? CDTruck else { return }
             foundDuplicate = favoritesCategoryList.contains(where: {$0.id == castedData.id})
         case is CDCredits.Type:
-            let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as! [CDCredits]
-            let castedData = data as! CDCredits
+            guard let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as? [CDCredits],
+                  let castedData = data as? CDCredits else { return }
             foundDuplicate = favoritesCategoryList.contains(where: {$0.id == castedData.id})
         case is CDBurger.Type:
-            let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as! [CDBurger]
-            let castedData = data as! CDBurger
+            guard let favoritesCategoryList = CoreDataManager.favoritesDictionary[dictionaryKey]! as? [CDBurger],
+                  let castedData = data as? CDBurger else { return }
             foundDuplicate = favoritesCategoryList.contains(where: {$0.id == castedData.id})
         default:
             return
@@ -105,7 +104,7 @@ extension ListPresenter {
             CoreDataManager.saveFavorites()
         }
     }
-    
+
     private func setTitleToVC(basedOnLink link: Link) {
         switch link {
         case .charactersList:
@@ -122,57 +121,71 @@ extension ListPresenter {
             viewController?.title = "Burgers List"
         }
     }
-    
+
     func configureCell(forIndexPath indexPath: IndexPath, atTable tableView: UITableView) -> UITableViewCell {
         switch dataList[0] {
         case is CharacterModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCellWithImage, for: indexPath) as! ListViewCellWithImage
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifiers.listCellWithImage,
+                for: indexPath) as? ListViewCellWithImage else { return UITableViewCell() }
             cell.backgroundColor = .clear
             guard let character = dataList[indexPath.row] as? CharacterModel else { return cell }
             cell.cellImageView.load(url: character.imageURL)
             cell.cellLabel.text = character.name
             return cell
         case is EpisodeModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCell, for: indexPath) as! ListViewCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifiers.listCell,
+                for: indexPath) as? ListViewCell else { return UITableViewCell() }
             cell.backgroundColor = .clear
             guard let episode = dataList[indexPath.row] as? EpisodeModel else { return cell }
             cell.cellMainLabel.text = episode.name
             cell.cellAdditionLabel.text = "Season: \(episode.season) / Episode: \(episode.episode)"
             return cell
         case is StoreModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCellWithImage, for: indexPath) as! ListViewCellWithImage
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifiers.listCellWithImage,
+                for: indexPath) as? ListViewCellWithImage else { return UITableViewCell() }
             cell.backgroundColor = .clear
             guard let store = dataList[indexPath.row] as? StoreModel else { return cell }
             cell.cellImageView.load(url: store.imageURL)
             cell.cellLabel.text = store.name
             return cell
         case is PestControlTruckModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCellWithImage, for: indexPath) as! ListViewCellWithImage
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifiers.listCellWithImage,
+                for: indexPath) as? ListViewCellWithImage else { return UITableViewCell() }
             cell.backgroundColor = .clear
             guard let truck = dataList[indexPath.row] as? PestControlTruckModel else { return cell }
             cell.cellImageView.load(url: truck.imageURL)
             cell.cellLabel.text = truck.name
             return cell
         case is EndCreditsModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCellWithImage, for: indexPath) as! ListViewCellWithImage
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifiers.listCellWithImage,
+                for: indexPath) as? ListViewCellWithImage else { return UITableViewCell() }
             cell.backgroundColor = .clear
             guard let credits = dataList[indexPath.row] as? EndCreditsModel else { return cell }
             cell.cellImageView.load(url: credits.imageURL)
             cell.cellLabel.text = "Season: \(credits.season) Episode: \(credits.episode)"
             return cell
         case is BurgerOfTheDayModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCell, for: indexPath) as! ListViewCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifiers.listCell,
+                for: indexPath) as? ListViewCell else { return UITableViewCell() }
             cell.backgroundColor = .clear
             guard let burger = dataList[indexPath.row] as? BurgerOfTheDayModel else { return cell }
             cell.cellMainLabel.text = burger.name
             cell.cellAdditionLabel.text = "Seaseon: \(burger.season) Episode: \(burger.episode)"
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCell, for: indexPath) as! ListViewCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: K.Identifiers.listCell,
+                for: indexPath) as? ListViewCell else { return UITableViewCell() }
             return cell
         }
     }
-    
+
     func configureViewController(forData data: Any) -> DetailedInfoController {
         let viewController = DetailedInfoController()
         if let data = data as? CharacterModel {
@@ -203,11 +216,11 @@ extension ListPresenter {
         }
         return viewController
     }
-    
+
     func proceedSavingToFavorites(toCategory category: String?, fromRow index: Int) {
         switch category {
         case "Characters List":
-            let character = dataList[index] as! CharacterModel
+            guard let character = dataList[index] as? CharacterModel else { return }
             let newFavorite = CDCharacter(context: CoreDataManager.context)
             newFavorite.id = Int64(character.id)
             newFavorite.name = character.name
@@ -221,7 +234,7 @@ extension ListPresenter {
             newFavorite.wikiURL = character.wikiURL
             checkForDuplicate(of: newFavorite, at: .characters)
         case "Episodes List":
-            let episode = dataList[index] as! EpisodeModel
+            guard let episode = dataList[index] as? EpisodeModel  else { return }
             let newFavorite = CDEpisode(context: CoreDataManager.context)
             newFavorite.id = Int64(episode.id)
             newFavorite.name = episode.name
@@ -232,7 +245,7 @@ extension ListPresenter {
             newFavorite.wikiURL = episode.wikiURL
             checkForDuplicate(of: newFavorite, at: .episodes)
         case "Stores List":
-            let store = dataList[index] as! StoreModel
+            guard let store = dataList[index] as? StoreModel  else { return }
             let newFavorite = CDStore(context: CoreDataManager.context)
             newFavorite.id = Int64(store.id)
             newFavorite.name = store.name
@@ -241,7 +254,7 @@ extension ListPresenter {
             newFavorite.imageURL = store.imageURL
             checkForDuplicate(of: newFavorite, at: .stores)
         case "Trucks List":
-            let truck = dataList[index] as! PestControlTruckModel
+            guard let truck = dataList[index] as? PestControlTruckModel  else { return }
             let newFavorite = CDTruck(context: CoreDataManager.context)
             newFavorite.id = Int64(truck.id)
             newFavorite.name = truck.name
@@ -249,7 +262,7 @@ extension ListPresenter {
             newFavorite.imageURL = truck.imageURL
             checkForDuplicate(of: newFavorite, at: .trucks)
         case "End Credits List":
-            let credits = dataList[index] as! EndCreditsModel
+            guard let credits = dataList[index] as? EndCreditsModel  else { return }
             let newFavorite = CDCredits(context: CoreDataManager.context)
             newFavorite.id = Int64(credits.id)
             newFavorite.episode = Int64(credits.episode)
@@ -257,7 +270,7 @@ extension ListPresenter {
             newFavorite.imageURL = credits.imageURL
             checkForDuplicate(of: newFavorite, at: .credits)
         case "Burgers List":
-            let burger = dataList[index] as! BurgerOfTheDayModel
+            guard let burger = dataList[index] as? BurgerOfTheDayModel  else { return }
             let newFavorite = CDBurger(context: CoreDataManager.context)
             newFavorite.id = Int64(burger.id)
             newFavorite.episode = Int64(burger.episode)
@@ -269,7 +282,7 @@ extension ListPresenter {
             return
         }
     }
-    
+
     func searchData(forRequest request: String) {
         dataList = fullList
         if request == "" {
@@ -278,17 +291,23 @@ extension ListPresenter {
         }
         switch link {
         case .charactersList:
-            dataList = (dataList as! [CharacterModel]).filter { $0.name.lowercased().contains(request) }
+            guard let castedList = dataList as? [CharacterModel] else { return }
+            dataList = castedList.filter { $0.name.lowercased().contains(request) }
         case .episodesList:
-            dataList = (dataList as! [EpisodeModel]).filter { $0.name.lowercased().contains(request) }
+            guard let castedList = dataList as? [EpisodeModel] else { return }
+            dataList = castedList.filter { $0.name.lowercased().contains(request) }
         case .nextDoorStoresList:
-            dataList = (dataList as! [StoreModel]).filter { ($0.name ?? "").lowercased().contains(request) }
+            guard let castedList = dataList as? [StoreModel] else { return }
+            dataList = castedList.filter { ($0.name ?? "").lowercased().contains(request) }
         case .pestControllTrucksList:
-            dataList = (dataList as! [PestControlTruckModel]).filter { ($0.name ?? "").lowercased().contains(request) }
+            guard let castedList = dataList as? [PestControlTruckModel] else { return }
+            dataList = castedList.filter { ($0.name ?? "").lowercased().contains(request) }
         case .endCreditsList:
-            dataList = (dataList as! [EndCreditsModel]).filter { String($0.id).contains(request) }
+            guard let castedList = dataList as? [EndCreditsModel] else { return }
+            dataList = castedList.filter { String($0.id).contains(request) }
         case .burgersOfTheDayList:
-            dataList = (dataList as! [BurgerOfTheDayModel]).filter { $0.name.lowercased().contains(request) }
+            guard let castedList = dataList as? [BurgerOfTheDayModel] else { return }
+            dataList = castedList.filter { $0.name.lowercased().contains(request) }
         }
     }
 }

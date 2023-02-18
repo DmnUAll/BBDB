@@ -6,7 +6,7 @@ extension UIImageView {
     static var imageLoadedNotification: Notification.Name {
         Notification.Name(rawValue: "UIImageViewFinishedImageLoading")
     }
-    
+
     func load(url: URL) {
         self.kf.setImage(with: url, placeholder: UIImage(named: K.IconsNames.placeholder)) { result in
             switch result {
@@ -20,7 +20,7 @@ extension UIImageView {
             }
         }
     }
-    
+
     static func setAsBackground(withImage imageName: String, to viewController: UIViewController) {
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.contentMode = .scaleAspectFill

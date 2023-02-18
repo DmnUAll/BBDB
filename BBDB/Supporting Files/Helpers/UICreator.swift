@@ -2,10 +2,15 @@ import UIKit
 
 // MARK: - UICreator
 struct UICreator {
-    
+
     static let shared = UICreator()
-    
-    func makeLabel(text: String? = nil, font: UIFont?, color: UIColor = .bbdbBlack, alignment: NSTextAlignment = .center, andNumberOfLines numberOfLines: Int = 0) -> UILabel {
+
+    func makeLabel(text: String? = nil,
+                   font: UIFont?,
+                   color: UIColor = .bbdbBlack,
+                   alignment: NSTextAlignment = .center,
+                   andNumberOfLines numberOfLines: Int = 0
+    ) -> UILabel {
         let label = UILabel()
         label.font = font
         label.textColor = color
@@ -16,8 +21,12 @@ struct UICreator {
         label.text = text
         return label
     }
-    
-    func makeImageView(withImage url: URL? = nil, backgroundColor: UIColor = .bbdbWhite, borderWidth: CGFloat = 3, dividerForCornerRadius divider: CGFloat = 30) -> UIImageView {
+
+    func makeImageView(withImage url: URL? = nil,
+                       backgroundColor: UIColor = .bbdbWhite,
+                       borderWidth: CGFloat = 3,
+                       dividerForCornerRadius divider: CGFloat = 30
+    ) -> UIImageView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
@@ -30,8 +39,13 @@ struct UICreator {
         }
         return imageView
     }
-    
-    func makeFilledButton(title: String, subtitle: String, backgroundColor: UIColor = .bbdbGray, foregroundColor: UIColor = .bbdbBlack, action: Selector) -> UIButton{
+
+    func makeFilledButton(title: String,
+                          subtitle: String,
+                          backgroundColor: UIColor = .bbdbGray,
+                          foregroundColor: UIColor = .bbdbBlack,
+                          action: Selector
+    ) -> UIButton {
         var filled = UIButton.Configuration.filled()
         filled.buttonSize = .medium
         filled.baseBackgroundColor = backgroundColor
@@ -46,7 +60,7 @@ struct UICreator {
         button.addTarget(self, action: action, for: .touchUpInside)
         return button
     }
-    
+
     func makeTable(withCells cells: (type: UITableViewCell.Type, identifier: String)...) -> UITableView {
         let tableView = UITableView()
         tableView.toAutolayout()
@@ -58,7 +72,7 @@ struct UICreator {
         tableView.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
         return tableView
     }
-    
+
     func makeActivityIndicator(withColor color: UIColor) -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.toAutolayout()
@@ -66,7 +80,7 @@ struct UICreator {
         activityIndicator.color = color
         return activityIndicator
     }
-    
+
     func makeSearchBar() -> UISearchBar {
         let searchBar = UISearchBar()
         searchBar.toAutolayout()
@@ -74,7 +88,7 @@ struct UICreator {
         searchBar.backgroundImage = UIImage()
         return searchBar
     }
-    
+
     func makePageControll() -> UIPageControl {
         let pageControl = UIPageControl()
         pageControl.toAutolayout()
@@ -85,7 +99,7 @@ struct UICreator {
         pageControl.numberOfPages = 5
         return pageControl
     }
-    
+
     func makeSwitch(withAction action: Selector, andCurrentState state: Bool) -> UISwitch {
         let uiSwitch = UISwitch()
         uiSwitch.toAutolayout()
@@ -95,8 +109,13 @@ struct UICreator {
         uiSwitch.thumbTintColor = .bbdbBrown
         return uiSwitch
     }
-    
-    func makeStackView(axis: NSLayoutConstraint.Axis = .vertical, alignment: UIStackView.Alignment = .fill, distribution: UIStackView.Distribution = .fill, backgroundColor: UIColor = .clear, addingSpacing spacing: CGFloat = 4) -> UIStackView {
+
+    func makeStackView(axis: NSLayoutConstraint.Axis = .vertical,
+                       alignment: UIStackView.Alignment = .fill,
+                       distribution: UIStackView.Distribution = .fill,
+                       backgroundColor: UIColor = .clear,
+                       addingSpacing spacing: CGFloat = 4
+    ) -> UIStackView {
         let stackView = UIStackView()
         stackView.axis = axis
         stackView.alignment = alignment
@@ -105,19 +124,28 @@ struct UICreator {
         stackView.spacing = spacing
         return stackView
     }
-    
-    func makeLabelStack(leadingText: String, trailingText: String, backgroundColor: UIColor = .bbdbGreen, intersectionColor: UIColor = .bbdbBrown) -> UIStackView {
+
+    func makeLabelStack(leadingText: String,
+                        trailingText: String,
+                        backgroundColor: UIColor = .bbdbGreen,
+                        intersectionColor: UIColor = .bbdbBrown
+    ) -> UIStackView {
         let stackView = makeStackView(axis: .horizontal,
                                       alignment: .fill,
                                       distribution: .fillEqually,
                                       backgroundColor: backgroundColor)
         stackView.layer.borderWidth = 2
         stackView.layer.borderColor = intersectionColor.cgColor
-        stackView.addArrangedSubview(makeLabel(text: leadingText, font: UIFont.appFont(.empty, withSize: 23), color: .bbdbBlack))
-        stackView.addArrangedSubview(makeLabel(text: trailingText, font: UIFont.appFont(.filled, withSize: 23), color: .bbdbBlack, alignment: .left))
+        stackView.addArrangedSubview(makeLabel(text: leadingText,
+                                               font: UIFont.appFont(.empty, withSize: 23),
+                                               color: .bbdbBlack))
+        stackView.addArrangedSubview(makeLabel(text: trailingText,
+                                               font: UIFont.appFont(.filled, withSize: 23),
+                                               color: .bbdbBlack,
+                                               alignment: .left))
         return stackView
     }
-    
+
     func makeScrollView() -> UIScrollView {
         let scrollView = UIScrollView()
         scrollView.toAutolayout()
@@ -126,10 +154,12 @@ struct UICreator {
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }
-    
+
     func makeTextViewWithLink() -> UITextView {
         let attributedString = NSMutableAttributedString(string: "This app was made, using bobsburgersapi.com API")
-        attributedString.addAttribute(.link, value: "https://www.bobsburgersapi.com", range: NSRange(location: 25, length: 18))
+        attributedString.addAttribute(.link,
+                                      value: "https://www.bobsburgersapi.com",
+                                      range: NSRange(location: 25, length: 18))
         let textView = UITextView()
         textView.toAutolayout()
         textView.backgroundColor = .clear
