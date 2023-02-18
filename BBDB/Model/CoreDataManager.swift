@@ -50,37 +50,37 @@ struct CoreDataManager {
 
     static func loadFavorites(with request: NSFetchRequest<NSFetchRequestResult>) {
         switch request.entityName {
-        case "CDCharacter":
+        case K.CoreDataEntitiesNames.cdCharacter:
             do {
                 favoritesDictionary[.characters] = try context.fetch(request)
             } catch {
                 print("Error fetching data from context: \(error)")
             }
-        case "CDEpisode":
+        case K.CoreDataEntitiesNames.cdEpisode:
             do {
                 favoritesDictionary[.episodes] = try context.fetch(request)
             } catch {
                 print("Error fetching data from context: \(error)")
             }
-        case "CDStore":
+        case K.CoreDataEntitiesNames.cdStore:
             do {
                 favoritesDictionary[.stores] = try context.fetch(request)
             } catch {
                 print("Error fetching data from context: \(error)")
             }
-        case "CDTruck":
+        case K.CoreDataEntitiesNames.cdTruck:
             do {
                 favoritesDictionary[.trucks] = try context.fetch(request)
             } catch {
                 print("Error fetching data from context: \(error)")
             }
-        case "CDCredits":
+        case K.CoreDataEntitiesNames.cdCredits:
             do {
                 favoritesDictionary[.credits] = try context.fetch(request)
             } catch {
                 print("Error fetching data from context: \(error)")
             }
-        case "CDBurger":
+        case K.CoreDataEntitiesNames.cdBurger:
             do {
                 favoritesDictionary[.burgers] = try context.fetch(request)
             } catch {

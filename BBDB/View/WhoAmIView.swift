@@ -22,7 +22,7 @@ final class WhoAmIView: UIView {
         let imageView = UICreator.shared.makeImageView(borderWidth: 7, dividerForCornerRadius: 10)
         imageView.toAutolayout()
         imageView.isUserInteractionEnabled = true
-        imageView.image = UIImage(named: "makePhoto")
+        imageView.image = UIImage(named: K.ImagesNames.makePhoto)
         return imageView
     }()
     
@@ -30,7 +30,7 @@ final class WhoAmIView: UIView {
         let imageView = UICreator.shared.makeImageView(borderWidth: 7, dividerForCornerRadius: 10)
         imageView.toAutolayout()
         imageView.isUserInteractionEnabled = true
-        imageView.image = UIImage(named: "choosePhoto")
+        imageView.image = UIImage(named: K.ImagesNames.choosePhoto)
         return imageView
     }()
     
@@ -83,8 +83,8 @@ extension WhoAmIView {
             linkTextView.leadingAnchor.constraint(equalTo: leadingAnchor),
             linkTextView.trailingAnchor.constraint(equalTo: trailingAnchor),
             linkTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            whoAmICameraButton.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 3)),
-            whoAmICameraButton.heightAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 3)),
+            whoAmICameraButton.widthAnchor.constraint(equalToConstant: UIScreen.screenHeight(dividedBy: 3)),
+            whoAmICameraButton.heightAnchor.constraint(equalToConstant: UIScreen.screenHeight(dividedBy: 3)),
             whoAmIStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             whoAmIStackView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ]

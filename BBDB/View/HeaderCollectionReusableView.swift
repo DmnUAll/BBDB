@@ -2,7 +2,6 @@ import UIKit
 
 // MARK: - HeaderCollectionReusableView
 final class HeaderCollectionReusableView: UICollectionReusableView {
-    static let identifier = "headerCollectionReusableView"
     
     private let shadowView: UIView = {
         let uiView = UIView()
@@ -21,7 +20,7 @@ final class HeaderCollectionReusableView: UICollectionReusableView {
         label.textAlignment = .center
         label.textColor = .bbdbBlack
         label.backgroundColor = .bbdbYellow
-        label.font = UIFont(name: "Bob'sBurgers2", size: UIScreen.screenSize(dividedBy: 25))
+        label.font = UIFont.appFont(.empty, withSize: UIScreen.screenHeight(dividedBy: 25))
         label.layer.cornerRadius = 10
         label.layer.borderWidth = 3
         label.layer.borderColor = UIColor.bbdbBlack.cgColor

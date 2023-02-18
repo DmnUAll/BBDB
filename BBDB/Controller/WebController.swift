@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - WebController
 final class WebController: UIViewController {
     
     // MARK: - Properties and Initializers

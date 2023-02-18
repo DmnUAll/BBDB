@@ -1,14 +1,15 @@
 import UIKit
 import CoreData
 
-
-class ListPresenter {
+// MARK: - ListPresenter
+final class ListPresenter {
     
+    // MARK: - Properties and Initializers
     private let listLoader: NetworkDataLoading
-    weak var viewController: ListController?
+    private weak var viewController: ListController?
     private let link: Link
     var dataList: [Any] = []
-    var fullList: [Any] = []
+    private var fullList: [Any] = []
     
     init(viewController: ListController, link: Link) {
         CoreDataManager.loadAll()
@@ -18,97 +19,54 @@ class ListPresenter {
         self.setTitleToVC(basedOnLink: self.link)
         loadData()
     }
-    
+}
+
+// MARK: - Helpers
+extension ListPresenter {
+
     func loadData() {
+        func proceedRequest<T: Codable>(forResult result: Result<T, Error>) {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let loadedDataList):
+                    guard let castedDataList = loadedDataList as? [Any] else { return }
+                    self.dataList = castedDataList
+                    self.fullList = castedDataList
+                    self.viewController?.listView.fillAndReloadTable()
+                case .failure(let error):
+                    self.viewController?.showNetworkError(message: error.localizedDescription)
+                }
+            }
+        }
         switch link {
         case . charactersList:
             listLoader.loadList { (result: Result<Characters, Error>) in
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let loadedDataList):
-                        self.dataList = loadedDataList
-                        self.fullList = loadedDataList
-                        self.viewController?.listView.fillAndReloadTable()
-                    case .failure(let error):
-                        self.viewController?.showNetworkError(message: error.localizedDescription)
-                    }
-                }
+                proceedRequest(forResult: result)
             }
         case .episodesList:
             listLoader.loadList { (result: Result<Episodes, Error>) in
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let loadedDataList):
-                        self.dataList = loadedDataList
-                        self.fullList = loadedDataList
-                        self.viewController?.listView.fillAndReloadTable()
-                    case .failure(let error):
-                        self.viewController?.showNetworkError(message: error.localizedDescription)
-                    }
-                }
+                proceedRequest(forResult: result)
             }
         case .nextDoorStoresList:
             listLoader.loadList { (result: Result<Stores, Error>) in
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let loadedDataList):
-                        self.dataList = loadedDataList
-                        self.fullList = loadedDataList
-                        self.viewController?.listView.fillAndReloadTable()
-                    case .failure(let error):
-                        self.viewController?.showNetworkError(message: error.localizedDescription)
-                    }
-                }
+                proceedRequest(forResult: result)
             }
         case .pestControllTrucksList:
             listLoader.loadList { (result: Result<PestControlTrucks, Error>) in
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let loadedDataList):
-                        self.dataList = loadedDataList
-                        self.fullList = loadedDataList
-                        self.viewController?.listView.fillAndReloadTable()
-                    case .failure(let error):
-                        self.viewController?.showNetworkError(message: error.localizedDescription)
-                    }
-                }
+                proceedRequest(forResult: result)
             }
         case .endCreditsList:
             listLoader.loadList { (result: Result<EndCredits, Error>) in
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let loadedDataList):
-                        self.dataList = loadedDataList
-                        self.fullList = loadedDataList
-                        self.viewController?.listView.fillAndReloadTable()
-                    case .failure(let error):
-                        self.viewController?.showNetworkError(message: error.localizedDescription)
-                    }
-                }
+                proceedRequest(forResult: result)
             }
         case .burgersOfTheDayList:
             listLoader.loadList { (result: Result<BurgersOfTheDay, Error>) in
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    switch result {
-                    case .success(let loadedDataList):
-                        self.dataList = loadedDataList
-                        self.fullList = loadedDataList
-                        self.viewController?.listView.fillAndReloadTable()
-                    case .failure(let error):
-                        self.viewController?.showNetworkError(message: error.localizedDescription)
-                    }
-                }
+                proceedRequest(forResult: result)
             }
         }
     }
     
-    func checkForDuplicate(of data: NSManagedObject, at dictionaryKey: CoreDataManager.Categories) {
+    private func checkForDuplicate(of data: NSManagedObject, at dictionaryKey: CoreDataManager.Categories) {
         var foundDuplicate = false
         
         switch type(of: data) {
@@ -168,49 +126,49 @@ class ListPresenter {
     func configureCell(forIndexPath indexPath: IndexPath, atTable tableView: UITableView) -> UITableViewCell {
         switch dataList[0] {
         case is CharacterModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCellWithImage", for: indexPath) as! ListViewCellWithImage
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCellWithImage, for: indexPath) as! ListViewCellWithImage
             cell.backgroundColor = .clear
             guard let character = dataList[indexPath.row] as? CharacterModel else { return cell }
             cell.cellImageView.load(url: character.imageURL)
             cell.cellLabel.text = character.name
             return cell
         case is EpisodeModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCell, for: indexPath) as! ListViewCell
             cell.backgroundColor = .clear
             guard let episode = dataList[indexPath.row] as? EpisodeModel else { return cell }
             cell.cellMainLabel.text = episode.name
             cell.cellAdditionLabel.text = "Season: \(episode.season) / Episode: \(episode.episode)"
             return cell
         case is StoreModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCellWithImage", for: indexPath) as! ListViewCellWithImage
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCellWithImage, for: indexPath) as! ListViewCellWithImage
             cell.backgroundColor = .clear
             guard let store = dataList[indexPath.row] as? StoreModel else { return cell }
             cell.cellImageView.load(url: store.imageURL)
             cell.cellLabel.text = store.name
             return cell
         case is PestControlTruckModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCellWithImage", for: indexPath) as! ListViewCellWithImage
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCellWithImage, for: indexPath) as! ListViewCellWithImage
             cell.backgroundColor = .clear
             guard let truck = dataList[indexPath.row] as? PestControlTruckModel else { return cell }
             cell.cellImageView.load(url: truck.imageURL)
             cell.cellLabel.text = truck.name
             return cell
         case is EndCreditsModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCellWithImage", for: indexPath) as! ListViewCellWithImage
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCellWithImage, for: indexPath) as! ListViewCellWithImage
             cell.backgroundColor = .clear
             guard let credits = dataList[indexPath.row] as? EndCreditsModel else { return cell }
             cell.cellImageView.load(url: credits.imageURL)
             cell.cellLabel.text = "Season: \(credits.season) Episode: \(credits.episode)"
             return cell
         case is BurgerOfTheDayModel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCell, for: indexPath) as! ListViewCell
             cell.backgroundColor = .clear
             guard let burger = dataList[indexPath.row] as? BurgerOfTheDayModel else { return cell }
             cell.cellMainLabel.text = burger.name
             cell.cellAdditionLabel.text = "Seaseon: \(burger.season) Episode: \(burger.episode)"
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! ListViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.listCell, for: indexPath) as! ListViewCell
             return cell
         }
     }
@@ -219,29 +177,29 @@ class ListPresenter {
         let viewController = DetailedInfoController()
         if let data = data as? CharacterModel {
             viewController.title = "Character's Info"
-            viewController.detailedInfoView.fillUI(with: data)
+            viewController.fillUI(with: data)
             viewController.addWebButton(withLink: data.wikiURL)
         }
         if let data = data as? EpisodeModel {
             viewController.title = "Episode Info"
-            viewController.detailedInfoView.fillUI(with: data)
+            viewController.fillUI(with: data)
             viewController.addWebButton(withLink: data.wikiURL)
         }
         if let data = data as? StoreModel {
             viewController.title = "Store Info"
-            viewController.detailedInfoView.fillUI(with: data)
+            viewController.fillUI(with: data)
         }
         if let data = data as? PestControlTruckModel {
             viewController.title = "Truck Info"
-            viewController.detailedInfoView.fillUI(with: data)
+            viewController.fillUI(with: data)
         }
         if let data = data as? EndCreditsModel {
             viewController.title = "End Credits Info"
-            viewController.detailedInfoView.fillUI(with: data)
+            viewController.fillUI(with: data)
         }
         if let data = data as? BurgerOfTheDayModel {
             viewController.title = "Burger Info"
-            viewController.detailedInfoView.fillUI(with: data)
+            viewController.fillUI(with: data)
         }
         return viewController
     }

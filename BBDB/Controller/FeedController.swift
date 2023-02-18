@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - FeedController
 final class FeedController: UIViewController {
     
     // MARK: - Properties and Initializers
@@ -17,11 +18,12 @@ final class FeedController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView.setAsBackground(withImage: "yellowBackground", to: self)
+        UIImageView.setAsBackground(withImage: K.ImagesNames.yellowBackground, to: self)
         view.addSubview(feedView)
         setupConstraints()
         presenter = FeedPresenter(viewController: self)
         alertPresenter = AlertPresenter(delegate: self)
+        showOrHideUI()
     }
 }
 
@@ -47,6 +49,44 @@ extension FeedController {
             self.presenter?.loadFiveOfTheDay()
         })
         alertPresenter?.show(alertModel: alertModel)
+    }
+    
+    func fillUI(with feedList: Characters) {
+        let width = feedView.feedScrollView.bounds.width
+        for i in 0...4 {
+            let character = feedList[i]
+            let scrollViewPage = UICreator.shared.makeStackView(alignment: .center,
+                                               distribution: .fillEqually)
+            scrollViewPage.frame = CGRect(x: width * CGFloat(i), y: 0, width: width, height: feedView.feedScrollView.bounds.height)
+            let labelStack = UICreator.shared.makeStackView(distribution: .fillProportionally)
+            labelStack.spacing = 0
+            labelStack.clipsToBounds = true
+            labelStack.toAutolayout()
+            labelStack.widthAnchor.constraint(equalToConstant: width - 32).isActive = true
+            labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
+            labelStack.layer.borderWidth = 3
+            labelStack.layer.cornerRadius = UIScreen.screenHeight(dividedBy: 30)
+            let imageView = UICreator.shared.makeImageView(withImage: character.imageURL)
+            imageView.widthAnchor.constraint(equalToConstant: feedView.feedScrollView.bounds.width - 32).isActive = true
+            scrollViewPage.addArrangedSubview(imageView)
+            scrollViewPage.addArrangedSubview(labelStack)
+            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Name:", trailingText: character.name))
+            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Gender:", trailingText: character.gender))
+            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Age:", trailingText: character.age ?? "Unknown"))
+            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Hair color:", trailingText: character.hairColor ?? "Undefined"))
+            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Occupation:", trailingText: character.occupation ?? "Unknown"))
+            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "1st appearance:", trailingText: character.firstEpisode ?? "Undefined"))
+            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Voiced by:", trailingText: character.voicedBy ?? "Undefined"))
+            feedView.feedScrollView.addSubview(scrollViewPage)
+            print(scrollViewPage.frame, " = ", feedView.feedScrollView.frame)
+            
+        }
+    }
+
+    func showOrHideUI() {
+        feedView.feedActivityIndicator.isAnimating ? feedView.feedActivityIndicator.stopAnimating() : feedView.feedActivityIndicator.startAnimating()
+        feedView.feedScrollView.isHidden.toggle()
+        feedView.feedPageControl.isHidden.toggle()
     }
 }
 

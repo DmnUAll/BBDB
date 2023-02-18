@@ -11,9 +11,9 @@ final class FeedView: UIView {
     // MARK: - Properties and Initializers
     weak var delegate: FeedViewDelegate?
     
-    private let feedActivityIndicator: UIActivityIndicatorView = UICreator.shared.makeActivityIndicator(withColor: .bbdbGreen)
-    private let feedScrollView: UIScrollView = UICreator.shared.makeScrollView()
-    private let feedPageControl: UIPageControl = UICreator.shared.makePageControll()
+    let feedActivityIndicator: UIActivityIndicatorView = UICreator.shared.makeActivityIndicator(withColor: .bbdbGreen)
+    let feedScrollView: UIScrollView = UICreator.shared.makeScrollView()
+    let feedPageControl: UIPageControl = UICreator.shared.makePageControll()
     private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
     
     override init(frame: CGRect) {
@@ -22,7 +22,6 @@ final class FeedView: UIView {
         toAutolayout()
         addSubviews()
         setupConstraints()
-        showOrHideUI()
     }
     
     required init?(coder: NSCoder) {
@@ -61,44 +60,6 @@ extension FeedView {
             feedPageControl.bottomAnchor.constraint(equalTo: linkTextView.topAnchor, constant: 0)
         ]
         NSLayoutConstraint.activate(constraints)
-    }
-    
-    func fillUI(with feedList: Characters) {
-        let width = feedScrollView.bounds.width
-        for i in 0...4 {
-            let character = feedList[i]
-            let scrollViewPage = UICreator.shared.makeStackView(alignment: .center,
-                                               distribution: .fillEqually)
-            scrollViewPage.frame = CGRect(x: width * CGFloat(i), y: 0, width: width, height: feedScrollView.bounds.height)
-            let labelStack = UICreator.shared.makeStackView(distribution: .fillProportionally)
-            labelStack.spacing = 0
-            labelStack.clipsToBounds = true
-            labelStack.toAutolayout()
-            labelStack.widthAnchor.constraint(equalToConstant: width - 32).isActive = true
-            labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
-            labelStack.layer.borderWidth = 3
-            labelStack.layer.cornerRadius = UIScreen.screenSize(dividedBy: 30)
-            let imageView = UICreator.shared.makeImageView(withImage: character.imageURL)
-            imageView.widthAnchor.constraint(equalToConstant: feedScrollView.bounds.width - 32).isActive = true
-            scrollViewPage.addArrangedSubview(imageView)
-            scrollViewPage.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Name:", trailingText: character.name))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Gender:", trailingText: character.gender))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Age:", trailingText: character.age ?? "Unknown"))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Hair color:", trailingText: character.hairColor ?? "Undefined"))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Occupation:", trailingText: character.occupation ?? "Unknown"))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "1st appearance:", trailingText: character.firstEpisode ?? "Undefined"))
-            labelStack.addArrangedSubview(UICreator.shared.makeLabelStack(leadingText: "Voiced by:", trailingText: character.voicedBy ?? "Undefined"))
-            feedScrollView.addSubview(scrollViewPage)
-            print(scrollViewPage.frame, " = ", feedScrollView.frame)
-            
-        }
-    }
-
-    func showOrHideUI() {
-        feedActivityIndicator.isAnimating ? feedActivityIndicator.stopAnimating() : feedActivityIndicator.startAnimating()
-        feedScrollView.isHidden.toggle()
-        feedPageControl.isHidden.toggle()
     }
 }
 

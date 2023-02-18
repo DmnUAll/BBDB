@@ -1,12 +1,19 @@
 import UIKit
 
-class DetailedInfoPresenter {
-    weak var viewController: DetailedInfoController?
+// MARK: - DetailedInfoPresenter
+final class DetailedInfoPresenter {
+    
+    // MARK: - Properties and Initialiers
+    private weak var viewController: DetailedInfoController?
     var link: String?
     
     init(viewController: DetailedInfoController) {
         self.viewController = viewController
     }
+}
+
+// MARK: - Helpers
+extension DetailedInfoPresenter {
     
     @objc func webButtonTapped() {
         let webController = WebController()

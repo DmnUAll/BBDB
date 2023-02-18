@@ -11,7 +11,7 @@ final class ListViewCellWithImage: UITableViewCell {
     }()
     
     let cellLabel: UILabel = {
-        let label = UICreator.shared.makeLabel(font: UIFont(name: "Bob'sBurgers", size: 26), alignment: .natural, andNumberOfLines: 2)
+        let label = UICreator.shared.makeLabel(font: UIFont.appFont(.filled, withSize: 26), alignment: .natural, andNumberOfLines: 2)
         label.toAutolayout()
         return label
     }()
@@ -37,8 +37,8 @@ extension ListViewCellWithImage {
     
     private func setupConstraints() {
         let constraints = [
-            cellImageView.heightAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 10)),
-            cellImageView.widthAnchor.constraint(equalToConstant: UIScreen.screenSize(dividedBy: 10)),
+            cellImageView.heightAnchor.constraint(equalToConstant: UIScreen.screenHeight(dividedBy: 10)),
+            cellImageView.widthAnchor.constraint(equalToConstant: UIScreen.screenHeight(dividedBy: 10)),
             cellImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             cellImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             cellLabel.leadingAnchor.constraint(equalTo: cellImageView.trailingAnchor, constant: 20),

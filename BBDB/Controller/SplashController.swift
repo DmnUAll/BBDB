@@ -1,6 +1,7 @@
 import UIKit
 import Kingfisher
 
+// MARK: - SplashController
 final class SplashController: UIViewController {
     
     // MARK: - Properties and Initializers
@@ -9,8 +10,8 @@ final class SplashController: UIViewController {
     }
     
     private let splashImage: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.screenSize(dividedBy: 4), height: UIScreen.screenSize(dividedBy: 4)))
-        imageView.image = UIImage(named: "splashLogo")
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: UIScreen.screenHeight(dividedBy: 4), height: UIScreen.screenHeight(dividedBy: 4)))
+        imageView.image = UIImage(named: K.ImagesNames.splashLogo)
         return imageView
     }()
     

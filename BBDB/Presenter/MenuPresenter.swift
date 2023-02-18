@@ -1,8 +1,10 @@
 import UIKit
 
-class MenuPresenter {
+// MARK: - MenuPresenter
+final class MenuPresenter {
     
-    weak var viewController: MenuController?
+    // MARK: - Properties and Initializers
+    private weak var viewController: MenuController?
     
     init(viewController: MenuController) {
         self.viewController = viewController
@@ -11,7 +13,6 @@ class MenuPresenter {
 }
 
 // MARK: - MenuViewDelegate
-
 extension MenuPresenter: MenuViewDelegate {
     func charactersButtonTapped() {
         viewController?.show(ListController(for: .charactersList), sender: nil)

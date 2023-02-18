@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - UICreator
 struct UICreator {
     
     static let shared = UICreator()
@@ -20,7 +21,7 @@ struct UICreator {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = UIScreen.screenSize(dividedBy: divider)
+        imageView.layer.cornerRadius = UIScreen.screenHeight(dividedBy: divider)
         imageView.layer.borderWidth = borderWidth
         imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
         imageView.backgroundColor = backgroundColor
@@ -37,20 +38,21 @@ struct UICreator {
         filled.baseForegroundColor = foregroundColor
         filled.titleAlignment = .center
         filled.title = title
-        filled.attributedTitle?.font = UIFont(name: "Bob'sBurgers2", size: UIScreen.screenSize(dividedBy: 25))
+        filled.attributedTitle?.font = UIFont.appFont(.empty, withSize: UIScreen.screenHeight(dividedBy: 25))
         filled.subtitle = subtitle
-        filled.attributedSubtitle?.font = UIFont(name: "Bob'sBurgers", size: UIScreen.screenSize(dividedBy: 40))
+        filled.attributedSubtitle?.font = UIFont.appFont(.filled, withSize: UIScreen.screenHeight(dividedBy: 40))
         let button = UIButton(configuration: filled, primaryAction: nil)
-        button.layer.cornerRadius = UIScreen.screenSize(dividedBy: 70)
+        button.layer.cornerRadius = UIScreen.screenHeight(dividedBy: 70)
         button.addTarget(self, action: action, for: .touchUpInside)
         return button
     }
     
-    func makeTable() -> UITableView {
+    func makeTable(withCells cells: (type: UITableViewCell.Type, identifier: String)...) -> UITableView {
         let tableView = UITableView()
         tableView.toAutolayout()
-        tableView.register(ListViewCellWithImage.self, forCellReuseIdentifier: "listCellWithImage")
-        tableView.register(ListViewCell.self, forCellReuseIdentifier: "listCell")
+        for singleCell in cells {
+            tableView.register(singleCell.type, forCellReuseIdentifier: singleCell.identifier)
+        }
         tableView.backgroundColor = .clear
         tableView.isHidden = true
         tableView.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
@@ -111,8 +113,8 @@ struct UICreator {
                                       backgroundColor: backgroundColor)
         stackView.layer.borderWidth = 2
         stackView.layer.borderColor = intersectionColor.cgColor
-        stackView.addArrangedSubview(makeLabel(text: leadingText, font: UIFont(name: "Bob'sBurgers2", size: 23), color: .bbdbBlack))
-        stackView.addArrangedSubview(makeLabel(text: trailingText, font: UIFont(name: "Bob'sBurgers", size: 23), color: .bbdbBlack, alignment: .left))
+        stackView.addArrangedSubview(makeLabel(text: leadingText, font: UIFont.appFont(.empty, withSize: 23), color: .bbdbBlack))
+        stackView.addArrangedSubview(makeLabel(text: trailingText, font: UIFont.appFont(.filled, withSize: 23), color: .bbdbBlack, alignment: .left))
         return stackView
     }
     

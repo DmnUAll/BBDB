@@ -1,17 +1,23 @@
 import UIKit
 import CoreData
 
-class FavoritesPresenter {
+// MARK: - FavoritesPresenter
+final class FavoritesPresenter {
     
-    weak var viewController: FavoritesController?
+    // MARK: - Properties and Initializers
+    private weak var viewController: FavoritesController?
     
     init(viewController: FavoritesController) {
         self.viewController = viewController
         viewController.favoritesView.delegate = self
     }
+}
+
+// MARK: - Helpers
+extension FavoritesPresenter {
     
     func configureHeader(forSectionAt indexPath: IndexPath, atCollection collectionView: UICollectionView) -> HeaderCollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as! HeaderCollectionReusableView
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: K.Identifiers.header, for: indexPath) as! HeaderCollectionReusableView
         header.backgroundColor = .clear
         header.configure(withText: "\(CoreDataManager.Categories.allCases[indexPath.section].rawValue)")
         return header
@@ -37,7 +43,7 @@ class FavoritesPresenter {
     }
     
     func configureCell(forIndexPath indexPath: IndexPath, atCollection collectionView: UICollectionView) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "favoriteCell", for: indexPath) as! FavoritesCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifiers.favoriteCell, for: indexPath) as! FavoritesCell
         cell.backgroundColor = .clear
         switch indexPath.section {
         case 0:
@@ -46,7 +52,7 @@ class FavoritesPresenter {
             cell.cellLabel.text = character.name
         case 1:
             let episode = CoreDataManager.favoritesDictionary[.episodes]?[indexPath.row] as! CDEpisode
-            cell.cellImageView.load(url: Bundle.main.url(forResource: "noImage", withExtension: "png")!)
+            cell.cellImageView.load(url: Bundle.main.url(forResource: K.ImagesNames.noImage, withExtension: "png")!)
             cell.cellLabel.text = episode.name
         case 2:
             let store = CoreDataManager.favoritesDictionary[.stores]?[indexPath.row] as! CDStore
@@ -62,7 +68,7 @@ class FavoritesPresenter {
             cell.cellLabel.text = "S\(credits.season)E\(credits.episode)"
         case 5:
             let burger = CoreDataManager.favoritesDictionary[.burgers]?[indexPath.row] as! CDBurger
-            cell.cellImageView.load(url: Bundle.main.url(forResource: "noImage", withExtension: "png")!)
+            cell.cellImageView.load(url: Bundle.main.url(forResource: K.ImagesNames.noImage, withExtension: "png")!)
             cell.cellLabel.text = burger.name
         default:
             return cell
@@ -94,33 +100,33 @@ class FavoritesPresenter {
         viewController.view.backgroundColor = .bbdbGreen
         if let dataFromSelectedRow = dataFromSelectedRow as? CDCharacter {
             viewController.title = "Character's Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+            viewController.fillUI(with: dataFromSelectedRow)
             if let wikiURL = dataFromSelectedRow.wikiURL {
                 viewController.addWebButton(withLink: wikiURL)
             }
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDEpisode {
             viewController.title = "Episode Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+            viewController.fillUI(with: dataFromSelectedRow)
             if let wikiURL = dataFromSelectedRow.wikiURL {
                 viewController.addWebButton(withLink: wikiURL)
             }
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDStore {
             viewController.title = "Store Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+            viewController.fillUI(with: dataFromSelectedRow)
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDTruck {
             viewController.title = "Truck Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+            viewController.fillUI(with: dataFromSelectedRow)
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDCredits {
             viewController.title = "End Credits Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+            viewController.fillUI(with: dataFromSelectedRow)
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDBurger {
             viewController.title = "Burger Info"
-            viewController.detailedInfoView.fillUI(with: dataFromSelectedRow)
+            viewController.fillUI(with: dataFromSelectedRow)
         }
         return viewController
     }
@@ -146,7 +152,6 @@ class FavoritesPresenter {
 }
 
 // MARK: - FeedViewDelegate
-
 extension FavoritesPresenter: FavoritesViewDelegate {
     
     func aboutFavoritesButtonTapped() {

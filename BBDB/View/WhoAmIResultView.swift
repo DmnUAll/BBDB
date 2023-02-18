@@ -22,6 +22,10 @@ final class WhoAmIResultView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - Helpers
+extension WhoAmIResultView {
     
     private func addSubviews() {
         addSubview(whoAmIResultImageView)

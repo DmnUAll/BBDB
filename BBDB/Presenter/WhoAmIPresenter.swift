@@ -3,15 +3,21 @@ import CoreML
 import Vision
 import Photos
 
+// MARK: - WhoAmIPresenter
 final class WhoAmIPresenter {
     
-    weak var viewController: WhoAmIController?
-    let imagePicker = UIImagePickerController()
+    // MARK: - Properties and Initializers
+    private weak var viewController: WhoAmIController?
+    private let imagePicker = UIImagePickerController()
     
     init(viewController: WhoAmIController) {
         self.viewController = viewController
         viewController.whoAmIView.delegate = self
     }
+}
+
+// MARK: - Helpers
+extension WhoAmIPresenter {
     
     func detectImage(image: CIImage) {
         guard let model = try? VNCoreMLModel(for: BBDBImageClassifier(configuration: MLModelConfiguration()).model) else {

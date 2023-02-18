@@ -1,29 +1,36 @@
 import UIKit
 
+// MARK: - InfoAlertPresenterProtocol protocol
 protocol InfoAlertPresenterProtocol: AnyObject {
     
     func showCurrentControllerInfoAlert()
     func showAboutAppAlert()
 }
 
+// MARK: - AlertPresenterProtocol protocol
 protocol AlertPresenterProtocol {
     
     func show(alertModel: AlertModel)
 }
 
+// MARK: - AlertPresemterDelegate protocol
 protocol AlertPresenterDelegate: AnyObject {
+    
     func presentAlert(_ alert: UIAlertController)
 }
 
+// MARK: - AlertPresenter
 struct AlertPresenter {
     
-    weak var delegate: AlertPresenterDelegate?
+    // MARK: - Properties and Inintnalizers
+    private weak var delegate: AlertPresenterDelegate?
     
     init (delegate: AlertPresenterDelegate) {
         self.delegate = delegate
     }
 }
 
+// MARK: - AlertPresenterProtocol
 extension AlertPresenter: AlertPresenterProtocol {
     
     func show(alertModel: AlertModel) {

@@ -8,7 +8,7 @@ struct EndCreditsModel: Codable {
     let episodeURL, url: String
     var imageURL: URL {
         guard let url = URL(string: image) else {
-            return Bundle.main.url(forResource: "noImage", withExtension: "png")!
+            return Bundle.main.url(forResource: K.ImagesNames.noImage, withExtension: "png")!
         }
         return url
     }

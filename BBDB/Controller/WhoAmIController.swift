@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - WhoAmIController
 final class WhoAmIController: UIViewController {
     
     // MARK: - Properties and Initializers
@@ -18,7 +19,7 @@ final class WhoAmIController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView.setAsBackground(withImage: "redBackground", to: self)
+        UIImageView.setAsBackground(withImage: K.ImagesNames.redBackground, to: self)
         self.title = "Who am I?"
         view.addSubview(whoAmIView)
         setupConstraints()
@@ -73,7 +74,6 @@ extension WhoAmIController: InfoAlertPresenterProtocol {
 
 // MARK: - UIImagePickerControllerDelegate
 extension WhoAmIController: UIImagePickerControllerDelegate {
-    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let userPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {

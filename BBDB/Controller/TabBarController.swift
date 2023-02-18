@@ -3,9 +3,11 @@ import AVFoundation
 import Network
 import Kingfisher
 
+// MARK: - TabBarController
 final class TabBarController: UITabBarController {
     
-    var alertPresenter: AlertPresenterProtocol?
+    // MARK: - Properties and Initializers
+    private var alertPresenter: AlertPresenterProtocol?
     var player: AVAudioPlayer!
     
     // MARK: - Life Cycle
@@ -20,7 +22,7 @@ final class TabBarController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureTabBarController()
-        playSound(titleLetter: "BBDBTheme")
+        playSound(K.SoundsNames.mainTheme)
         player.delegate = self
     }
 }
@@ -38,26 +40,26 @@ extension TabBarController {
     
     private func configureTabBarController() {
         let tabBarItemAppearance = UITabBarItemAppearance(style: .stacked)
-        tabBarItemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Bob'sBurgers", size: 18)!,
+        tabBarItemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.font: UIFont.appFont(.filled, withSize: 18),
                                                         NSAttributedString.Key.foregroundColor: UIColor.bbdbBlack]
         tabBarItemAppearance.normal.iconColor = .bbdbBlack
-        tabBarItemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Bob'sBurgers", size: 18)!,
+        tabBarItemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.font: UIFont.appFont(.filled, withSize: 18),
                                                              NSAttributedString.Key.foregroundColor: UIColor.bbdbWhite]
         tabBarItemAppearance.selected.iconColor = .bbdbWhite
         
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithTransparentBackground()
-        tabBarAppearance.backgroundImage = UIImage(named: "bottomBun")
+        tabBarAppearance.backgroundImage = UIImage(named: K.ImagesNames.bottomBun)
         tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
         tabBar.scrollEdgeAppearance = tabBarAppearance
         tabBar.standardAppearance = tabBarAppearance
-        let iconSize = UIScreen.screenSize(dividedBy: 35)
+        let iconSize = UIScreen.screenHeight(dividedBy: 35)
         self.viewControllers = [
-            configureTab(withRootController: FeedController(), title: "Daily Feed", andImage: UIImage(named: "feedIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
-            configureTab(withRootController: MenuController(), title: "Main Menu", andImage: UIImage(named: "menuIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
-            configureTab(withRootController: FavoritesController(), title: "Favorites", andImage: UIImage(named: "favoritesIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
-            configureTab(withRootController: WhoAmIController(), title: "Who am I?", andImage: UIImage(named: "whoAmIIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
-            configureTab(withRootController: SettingsController(), title: "Settings", andImage: UIImage(named: "settingsIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize)))
+            configureTab(withRootController: FeedController(), title: "Daily Feed", andImage: UIImage(named: K.IconsNames.feed)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
+            configureTab(withRootController: MenuController(), title: "Main Menu", andImage: UIImage(named: K.IconsNames.menu)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
+            configureTab(withRootController: FavoritesController(), title: "Favorites", andImage: UIImage(named: K.IconsNames.favorites)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
+            configureTab(withRootController: WhoAmIController(), title: "Who am I?", andImage: UIImage(named: K.IconsNames.whoAmI)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
+            configureTab(withRootController: SettingsController(), title: "Settings", andImage: UIImage(named: K.IconsNames.settings)?.resize(targetSize: CGSize(width: iconSize, height: iconSize)))
         ]
     }
     
@@ -68,8 +70,8 @@ extension TabBarController {
         return tab
     }
     
-    private func playSound(titleLetter: String) {
-        let url = Bundle.main.url(forResource: titleLetter, withExtension: "mp3")
+    private func playSound(_ name: String) {
+        let url = Bundle.main.url(forResource: name, withExtension: "mp3")
         player = try! AVAudioPlayer(contentsOf: url!)
         player.volume = UserDefaultsManager.shared.appVolume
         if UserDefaultsManager.shared.appSound {
@@ -115,6 +117,7 @@ extension TabBarController: AVAudioPlayerDelegate {
     }
 }
 
+// MARK: - AlertPresenterDelegate
 extension TabBarController: AlertPresenterDelegate {
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)

@@ -5,13 +5,13 @@ final class ListViewCell: UITableViewCell {
     
     // MARK: - Properties and Initializers
     lazy var cellMainLabel: UILabel = {
-        let label = UICreator.shared.makeLabel(font: UIFont(name: "Bob'sBurgers", size: 26), andNumberOfLines: 2)
+        let label = UICreator.shared.makeLabel(font: UIFont.appFont(.filled, withSize: 26), andNumberOfLines: 2)
         label.toAutolayout()
         return label
     }()
     
     lazy var cellAdditionLabel: UILabel = {
-        let label = UICreator.shared.makeLabel(font: UIFont(name: "Bob'sBurgers2", size: 26), andNumberOfLines: 2)
+        let label = UICreator.shared.makeLabel(font: UIFont.appFont(.empty, withSize: 26), andNumberOfLines: 2)
         label.toAutolayout()
         return label
     }()

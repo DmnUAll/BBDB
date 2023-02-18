@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - SettingsController
 final class SettingsController: UIViewController {
     
     // MARK: - Properties and Initializers
@@ -17,7 +18,7 @@ final class SettingsController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView.setAsBackground(withImage: "grayBackground", to: self)
+        UIImageView.setAsBackground(withImage: K.ImagesNames.grayBackground, to: self)
         view.addSubview(settingsView)
         self.title = "Settings"
         setupConstraints()

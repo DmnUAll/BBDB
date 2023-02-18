@@ -1,6 +1,7 @@
 import UIKit
 
-final class FavoritesController: UIViewController, UIGestureRecognizerDelegate {
+// MARK: - FavoritesController
+final class FavoritesController: UIViewController {
     
     // MARK: - Properties and Initializers
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -17,7 +18,7 @@ final class FavoritesController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView.setAsBackground(withImage: "greenBackground", to: self)
+        UIImageView.setAsBackground(withImage: K.ImagesNames.greenBackground, to: self)
         view.backgroundColor = .bbdbRed
         view.addSubview(favoritesView)
         setupConstraints()

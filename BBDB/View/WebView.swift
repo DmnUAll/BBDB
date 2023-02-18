@@ -12,7 +12,7 @@ final class WebView: UIView {
         navigationBar.backgroundColor = .clear
         navigationBar.tintColor = .bbdbBlack
         let navigationItem = UINavigationItem(title: "Bob's Burgers Wiki")
-        navigationBar.titleTextAttributes = [.font: UIFont(name: "Bob'sBurgers", size: UIScreen.screenSize(dividedBy: 25))!, .foregroundColor: UIColor.bbdbBlack]
+        navigationBar.titleTextAttributes = [.font: UIFont.appFont(.filled, withSize: UIScreen.screenHeight(dividedBy: 25)), .foregroundColor: UIColor.bbdbBlack]
         navigationBar.setTitleVerticalPositionAdjustment(3, for: .default)
         let refreshButton = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain, target: nil, action: #selector(refreshButtonTapped))
         let backwardButton = UIBarButtonItem(image: UIImage(systemName: "chevron.right"), style: .plain, target: nil, action: #selector(forwardButtonTapped))
@@ -62,7 +62,7 @@ extension WebView {
         addSubview(webView)
     }
     
-    func updateButtons() {
+    private func updateButtons() {
         guard let webControlButtons = webNavigationBar.items?[0].leftBarButtonItems else { return }
         webControlButtons.first?.isEnabled = webView.canGoBack
         webControlButtons.last?.isEnabled = webView.canGoForward

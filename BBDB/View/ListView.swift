@@ -5,7 +5,7 @@ final class ListView: UIView {
     
     // MARK: - Properties and Initializers
     let listSearchBar: UISearchBar = UICreator.shared.makeSearchBar()
-    let listTableView: UITableView = UICreator.shared.makeTable()
+    let listTableView: UITableView = UICreator.shared.makeTable(withCells: (type: ListViewCellWithImage.self, identifier: K.Identifiers.listCellWithImage), (type: ListViewCell.self, identifier: K.Identifiers.listCell))
     private let listActivityIndicator: UIActivityIndicatorView = UICreator.shared.makeActivityIndicator(withColor: .bbdbYellow)
     private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
     

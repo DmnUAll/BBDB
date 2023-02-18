@@ -1,13 +1,14 @@
 import UIKit
 
-class FeedPresenter {
+// MARK: - FeedPresenter
+final class FeedPresenter {
     
+    // MARK: - Properties and Initializers
     private let userDefaults = UserDefaults.standard
     private let feedLoader: NetworkDataLoading
     private var uiImageViewObserver: NSObjectProtocol?
     private var notificationsCounter = 0
-    weak var viewController: FeedController?
-    
+    private weak var viewController: FeedController?
     
     init(viewController: FeedController) {
         self.viewController = viewController
@@ -22,7 +23,7 @@ class FeedPresenter {
             guard let self = self else { return }
             self.notificationsCounter += 1
             if self.notificationsCounter == 5 {
-                self.viewController?.feedView.showOrHideUI()
+                self.viewController?.showOrHideUI()
                 NotificationCenter.default.removeObserver(self)
                 self.uiImageViewObserver = nil
             }
@@ -30,6 +31,7 @@ class FeedPresenter {
     }
 }
 
+// MARK: - Helpers
 extension FeedPresenter {
     
     private func loadData() {
@@ -41,7 +43,7 @@ extension FeedPresenter {
                     let fiveOfTheDay = Characters(charactersList.shuffled()[0...4])
                     self.saveUserDefaults(value: Date(), at: .date)
                     self.saveUserDefaults(value: fiveOfTheDay, at: .fiveOfTheDay)
-                    self.viewController?.feedView.fillUI(with: fiveOfTheDay)
+                    self.viewController?.fillUI(with: fiveOfTheDay)
                 case .failure(let error):
                     self.viewController?.showNetworkError(message: error.localizedDescription)
                 }
@@ -60,7 +62,7 @@ extension FeedPresenter {
         }
         if savedDate.dateDayString == Date().dateDayString {
             DispatchQueue.main.async {
-                self.viewController?.feedView.fillUI(with:fiveOfTheDay)
+                self.viewController?.fillUI(with:fiveOfTheDay)
             }
         } else {
             loadData()
@@ -89,7 +91,6 @@ private enum Keys: String {
 }
 
 // MARK: - FeedViewDelegate
-
 extension FeedPresenter: FeedViewDelegate {
     
     func webButtonTapped(atPage pageIndex: Int) {

@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - MenuController
 final class MenuController: UIViewController {
     
     // MARK: - Properties and Initializers
@@ -17,7 +18,7 @@ final class MenuController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView.setAsBackground(withImage: "blueBackground", to: self)
+        UIImageView.setAsBackground(withImage: K.ImagesNames.blueBackground, to: self)
         view.addSubview(menuView)
         self.title = "Main Menu"
         setupConstraints()

@@ -8,7 +8,7 @@ protocol SettingsViewDelegate: AnyObject {
     func clearKFCache()
 }
 
-// MARK: - WhoAmIResultView
+// MARK: - SettingsView
 final class SettingsView: UIView {
     
     // MARK: - Properties and Initializers
@@ -106,7 +106,7 @@ extension SettingsView {
     }
     
     private func makeLabel(withText text: String) -> UILabel {
-        let label = UICreator.shared.makeLabel(text: text, font: UIFont(name: "Bob'sBurgers", size: 26), alignment: .natural)
+        let label = UICreator.shared.makeLabel(text: text, font: UIFont.appFont(.filled, withSize: 26), alignment: .natural)
         label.toAutolayout()
         return label
     }

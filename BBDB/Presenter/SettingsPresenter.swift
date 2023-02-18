@@ -1,9 +1,11 @@
 import UIKit
 import Kingfisher
 
+// MARK: - SettingsPresenter
 final class SettingsPresenter {
     
-    weak var viewController: SettingsController?
+    // MARK: - Properties and Initializers
+    private weak var viewController: SettingsController?
     
     init(viewController: SettingsController) {
         self.viewController = viewController

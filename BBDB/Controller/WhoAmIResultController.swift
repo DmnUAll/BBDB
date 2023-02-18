@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - WhoAmIResultController
 final class WhoAmIResultController: UIViewController {
     
     // MARK: - Properties and Initializers
@@ -7,7 +8,7 @@ final class WhoAmIResultController: UIViewController {
         return .darkContent
     }
     
-    let imagePicker = UIImagePickerController()
+    private let imagePicker = UIImagePickerController()
     lazy var whoAmIResultView: WhoAmIResultView = {
         let whoAmIResultView = WhoAmIResultView()
         return whoAmIResultView
@@ -21,7 +22,7 @@ final class WhoAmIResultController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIImageView.setAsBackground(withImage: "redBackground", to: self)
+        UIImageView.setAsBackground(withImage: K.ImagesNames.redBackground, to: self)
         self.title = "'Who am I' Result"
         view.addSubview(whoAmIResultView)
         setupConstraints()
@@ -56,8 +57,8 @@ extension WhoAmIResultController {
     }
     
     private func addShareButton() {
-        let iconSize = UIScreen.screenSize(dividedBy: 35)
-        let shareButton = UIBarButtonItem(image: UIImage(named: "shareIcon")?.resize(targetSize: CGSize(width: iconSize, height: iconSize)), style: .plain, target: self, action: #selector(shareButtonTapped))
+        let iconSize = UIScreen.screenHeight(dividedBy: 35)
+        let shareButton = UIBarButtonItem(image: UIImage(named: K.IconsNames.share)?.resize(targetSize: CGSize(width: iconSize, height: iconSize)), style: .plain, target: self, action: #selector(shareButtonTapped))
         navigationItem.rightBarButtonItem = shareButton
     }
 }

@@ -1,5 +1,6 @@
 import UIKit
 
+// MARK: - ListController
 final class ListController: UIViewController {
     
     // MARK: - Properties and Initializers
@@ -23,7 +24,7 @@ final class ListController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .bbdbBlue
+        UIImageView.setAsBackground(withImage: K.ImagesNames.blueBackground, to: self)
         view.addSubview(listView)
         setupConstraints()
         listView.listSearchBar.delegate = self
@@ -95,7 +96,7 @@ extension ListController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UIScreen.screenSize(dividedBy: 8)
+        return UIScreen.screenHeight(dividedBy: 8)
     }
 }
 

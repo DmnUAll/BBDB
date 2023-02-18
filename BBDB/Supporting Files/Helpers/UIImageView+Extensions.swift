@@ -8,7 +8,7 @@ extension UIImageView {
     }
     
     func load(url: URL) {
-        self.kf.setImage(with: url, placeholder: UIImage(named: "placeholderIcon")) { result in
+        self.kf.setImage(with: url, placeholder: UIImage(named: K.IconsNames.placeholder)) { result in
             switch result {
             case .success:
                 DispatchQueue.main.async {
