@@ -24,8 +24,6 @@ final class FeedPresenter {
             self.notificationsCounter += 1
             if self.notificationsCounter == 5 {
                 self.viewController?.showOrHideUI()
-                NotificationCenter.default.removeObserver(self)
-                self.uiImageViewObserver = nil
             }
         }
     }

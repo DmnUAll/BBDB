@@ -48,9 +48,8 @@ extension FavoritesCell {
 
     private func setupConstraints() {
         let constraints = [
-            cellImageView.heightAnchor.constraint(equalToConstant: UIScreen.screenHeight(dividedBy: 10)),
+            cellImageView.heightAnchor.constraint(equalToConstant: UIScreen.screenHeight(dividedBy: 8)),
             cellImageView.widthAnchor.constraint(equalTo: cellImageView.heightAnchor, multiplier: 1),
-            cellImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             cellImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             cellLabel.widthAnchor.constraint(equalToConstant: UIScreen.screenHeight(dividedBy: 6)),
             cellLabel.topAnchor.constraint(equalTo: cellImageView.bottomAnchor, constant: 4),

@@ -61,6 +61,7 @@ extension DetailedInfoController {
         navigationItem.rightBarButtonItem = webButton
     }
 
+    // swiftlint:disable:next function_body_length
     func fillUI(with data: Codable) {
         let imageUrl = Bundle.main.url(forResource: K.ImagesNames.noImage, withExtension: "png")!
         let labelStack = UICreator.shared.makeStackView(alignment: .center,
@@ -137,6 +138,7 @@ extension DetailedInfoController {
         }
     }
 
+    // swiftlint:disable:next function_body_length
     func fillUI(with data: NSManagedObject) {
         let imageUrl = Bundle.main.url(forResource: K.ImagesNames.noImage, withExtension: "png")!
         let labelStack = UICreator.shared.makeStackView(alignment: .center,

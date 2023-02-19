@@ -66,6 +66,7 @@ extension ListPresenter {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     private func checkForDuplicate(of data: NSManagedObject, at dictionaryKey: CoreDataManager.Categories) {
         var foundDuplicate = false
         switch type(of: data) {
@@ -122,6 +123,8 @@ extension ListPresenter {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable:next function_body_length
     func configureCell(forIndexPath indexPath: IndexPath, atTable tableView: UITableView) -> UITableViewCell {
         switch dataList[0] {
         case is CharacterModel:
@@ -217,6 +220,8 @@ extension ListPresenter {
         return viewController
     }
 
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable:next function_body_length
     func proceedSavingToFavorites(toCategory category: String?, fromRow index: Int) {
         switch category {
         case "Characters List":
@@ -283,6 +288,7 @@ extension ListPresenter {
         }
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     func searchData(forRequest request: String) {
         dataList = fullList
         if request == "" {

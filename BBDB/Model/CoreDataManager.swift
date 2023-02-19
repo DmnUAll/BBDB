@@ -49,6 +49,7 @@ struct CoreDataManager {
         loadFavorites(with: CDCharacter.fetchRequest())
     }
 
+    // swiftlint:disable:next cyclomatic_complexity
     static func loadFavorites(with request: NSFetchRequest<NSFetchRequestResult>) {
         switch request.entityName {
         case K.CoreDataEntitiesNames.cdCharacter:

@@ -47,6 +47,7 @@ extension FavoritesPresenter {
         }
     }
 
+    // swiftlint:disable cyclomatic_complexity
     func configureCell(forIndexPath indexPath: IndexPath,
                        atCollection collectionView: UICollectionView
     ) -> UICollectionViewCell? {
@@ -85,6 +86,7 @@ extension FavoritesPresenter {
         return cell
     }
 
+    // swiftlint:disable:next function_body_length
     func configureViewController(forSelectedItemAt indexPath: IndexPath) -> UIViewController {
         let dictionaryKey: CoreDataManager.Categories
         switch indexPath.section {

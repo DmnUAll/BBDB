@@ -138,7 +138,12 @@ extension TabBarController {
 extension TabBarController: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        print("Selected \(viewController.description)")
+        // Need to fix bug!!!
+        // Select the MainMenu tab and choose any category
+        // Select any item from tableView
+        // Select any other tab from tabViewController
+        // The index of selected tab is valid but there is no selection for this tab (untill tapped twice)
+        print(selectedIndex)
     }
 }
 

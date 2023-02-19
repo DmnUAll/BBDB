@@ -58,7 +58,7 @@ extension UIImage {
             return self
         }
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
-        self.draw(in: CGRectMake(0, 0, self.size.width, self.size.height))
+        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
         guard let normalizedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage()}
         UIGraphicsEndImageContext()
         return normalizedImage
