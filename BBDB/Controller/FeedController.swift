@@ -66,10 +66,10 @@ extension FeedController {
             labelStack.clipsToBounds = true
             labelStack.toAutolayout()
             labelStack.widthAnchor.constraint(equalToConstant: width - 32).isActive = true
-            labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
+            labelStack.layer.borderColor = UIColor.bbdbBrown.cgColor
             labelStack.layer.borderWidth = 3
             labelStack.layer.cornerRadius = UIScreen.screenHeight(dividedBy: 30)
-            let imageView = UICreator.shared.makeImageView(withImage: character.imageURL)
+            let imageView = UICreator.shared.makeImageView(withImage: character.imageURL, borderColor: .bbdbGreen)
             imageView.widthAnchor.constraint(equalToConstant: feedView.feedScrollView.bounds.width - 32).isActive = true
             scrollViewPage.addArrangedSubview(imageView)
             scrollViewPage.addArrangedSubview(labelStack)

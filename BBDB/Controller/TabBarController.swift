@@ -42,14 +42,14 @@ extension TabBarController {
         let tabBarItemAppearance = UITabBarItemAppearance(style: .stacked)
         tabBarItemAppearance.normal.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.appFont(.filled, withSize: 18),
-            NSAttributedString.Key.foregroundColor: UIColor.bbdbBlack
+            NSAttributedString.Key.foregroundColor: UIColor.bbdbBrown
         ]
-        tabBarItemAppearance.normal.iconColor = .bbdbBlack
+        tabBarItemAppearance.normal.iconColor = .bbdbBrown
         tabBarItemAppearance.selected.titleTextAttributes = [
             NSAttributedString.Key.font: UIFont.appFont(.filled, withSize: 18),
-            NSAttributedString.Key.foregroundColor: UIColor.bbdbWhite
+            NSAttributedString.Key.foregroundColor: UIColor.bbdbGray
         ]
-        tabBarItemAppearance.selected.iconColor = .bbdbWhite
+        tabBarItemAppearance.selected.iconColor = .bbdbGray
 
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithTransparentBackground()
@@ -134,7 +134,7 @@ extension TabBarController {
 extension TabBarController: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        // Need to fix bug!!!
+        // Need to fix the bug!!!
         // Select the MainMenu tab and choose any category
         // Select any item from tableView
         // Select any other tab from tabViewController

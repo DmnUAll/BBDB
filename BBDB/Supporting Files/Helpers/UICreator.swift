@@ -25,14 +25,15 @@ struct UICreator {
     func makeImageView(withImage url: URL? = nil,
                        backgroundColor: UIColor = .bbdbWhite,
                        borderWidth: CGFloat = 3,
-                       dividerForCornerRadius divider: CGFloat = 30
+                       dividerForCornerRadius divider: CGFloat = 30,
+                       borderColor: UIColor = .bbdbBlack
     ) -> UIImageView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = UIScreen.screenHeight(dividedBy: divider)
         imageView.layer.borderWidth = borderWidth
-        imageView.layer.borderColor = UIColor.bbdbBlack.cgColor
+        imageView.layer.borderColor = borderColor.cgColor
         imageView.backgroundColor = backgroundColor
         if let url {
             imageView.load(url: url)
@@ -107,8 +108,8 @@ struct UICreator {
         uiSwitch.toAutolayout()
         uiSwitch.isOn = state
         uiSwitch.addTarget(nil, action: action, for: UIControl.Event.valueChanged)
-        uiSwitch.onTintColor = .bbdbGreen
-        uiSwitch.thumbTintColor = .bbdbBrown
+        uiSwitch.onTintColor = .bbdbBlack
+        uiSwitch.thumbTintColor = .bbdbWhite
         return uiSwitch
     }
 
@@ -129,6 +130,7 @@ struct UICreator {
 
     func makeLabelStack(leadingText: String,
                         trailingText: String,
+                        textColor: UIColor = .bbdbBlack,
                         backgroundColor: UIColor = .bbdbGreen,
                         intersectionColor: UIColor = .bbdbBrown
     ) -> UIStackView {
@@ -140,10 +142,10 @@ struct UICreator {
         stackView.layer.borderColor = intersectionColor.cgColor
         stackView.addArrangedSubview(makeLabel(text: leadingText,
                                                font: UIFont.appFont(.empty, withSize: 23),
-                                               color: .bbdbBlack))
+                                               color: textColor))
         stackView.addArrangedSubview(makeLabel(text: trailingText,
                                                font: UIFont.appFont(.filled, withSize: 23),
-                                               color: .bbdbBlack,
+                                               color: textColor,
                                                alignment: .left))
         return stackView
     }

@@ -68,7 +68,7 @@ extension DetailedInfoController {
                                                         distribution: .fillProportionally,
                                                         addingSpacing: 0)
         labelStack.clipsToBounds = true
-        labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
+        labelStack.layer.borderColor = UIColor.bbdbSkin.cgColor
         labelStack.layer.borderWidth = 3
         labelStack.layer.cornerRadius = UIScreen.screenHeight(dividedBy: 30)
         if let data = data as? CharacterModel {
@@ -145,7 +145,7 @@ extension DetailedInfoController {
                                                         distribution: .fillProportionally,
                                                         addingSpacing: 0)
         labelStack.clipsToBounds = true
-        labelStack.layer.borderColor = UIColor.bbdbBlack.cgColor
+        labelStack.layer.borderColor = UIColor.bbdbSkin.cgColor
         labelStack.layer.borderWidth = 3
         labelStack.layer.cornerRadius = UIScreen.screenHeight(dividedBy: 30)
         if let data = data as? CDCharacter {
@@ -215,7 +215,7 @@ extension DetailedInfoController {
     }
 
     private func makeImageView(withImage url: URL) -> UIImageView {
-        let imageView = UICreator.shared.makeImageView(withImage: url)
+        let imageView = UICreator.shared.makeImageView(withImage: url, borderColor: .bbdbYellow)
         imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32).isActive = true
         return imageView
     }

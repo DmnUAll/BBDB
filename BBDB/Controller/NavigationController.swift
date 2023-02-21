@@ -53,14 +53,14 @@ extension NavigationController {
         navBarAppearance.configureWithTransparentBackground()
         navBarAppearance.titleTextAttributes = [
             .font: UIFont.appFont(.filled, withSize: UIScreen.screenHeight(dividedBy: 25)),
-            .foregroundColor: UIColor.bbdbBlack
+            .foregroundColor: UIColor.bbdbBrown
         ]
         navBarAppearance.titlePositionAdjustment.vertical = 5
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navBarAppearance.backgroundImage = UIImage(named: K.ImagesNames.topBun)
         navigationBar.standardAppearance = navBarAppearance
         navigationBar.scrollEdgeAppearance = navBarAppearance
-        navigationBar.tintColor = .bbdbBlack
+        navigationBar.tintColor = .bbdbBrown
         navigationBar.topItem?.title = navVCTitle
         navigationBar.topItem?.backButtonTitle = "Back"
         let iconSize = UIScreen.screenHeight(dividedBy: 25)

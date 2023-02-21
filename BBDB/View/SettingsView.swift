@@ -31,8 +31,8 @@ final class SettingsView: UIView {
         slider.addTarget(nil, action: #selector(sliderValueChanged), for: UIControl.Event.valueChanged)
         slider.minimumValue = 0
         slider.maximumValue = 1
-        slider.thumbTintColor = .bbdbBrown
-        slider.minimumTrackTintColor = .bbdbGreen
+        slider.thumbTintColor = .bbdbWhite
+        slider.minimumTrackTintColor = .bbdbBlack
         slider.accessibilityIdentifier = K.AccessibilityIdentifiers.volumeSlider
         return slider
     }()
@@ -44,7 +44,7 @@ final class SettingsView: UIView {
     private let settingsClearCacheButton: UIButton = UICreator.shared.makeFilledButton(
         title: "Clear image cache",
         subtitle: "Delete all images cache from memory and disk",
-        backgroundColor: .bbdbBrown,
+        backgroundColor: .bbdbBlack,
         foregroundColor: .bbdbGray,
         action: #selector(clearCacheButtonTapped),
         identifier: K.AccessibilityIdentifiers.clearCacheButton)

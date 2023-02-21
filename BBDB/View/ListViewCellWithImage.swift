@@ -5,7 +5,7 @@ final class ListViewCellWithImage: UITableViewCell {
 
     // MARK: - Properties and Initializers
     let cellImageView: UIImageView = {
-        let imageView = UICreator.shared.makeImageView()
+        let imageView = UICreator.shared.makeImageView(borderColor: .bbdbBrown)
         imageView.toAutolayout()
         return imageView
     }()

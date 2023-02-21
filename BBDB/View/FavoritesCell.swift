@@ -5,7 +5,7 @@ final class FavoritesCell: UICollectionViewCell {
 
     // MARK: - Properties and Initializers
     let cellImageView: UIImageView = {
-        let imageView = UICreator.shared.makeImageView(borderWidth: 2)
+        let imageView = UICreator.shared.makeImageView(borderWidth: 2, borderColor: .bbdbBrown)
         imageView.toAutolayout()
         return imageView
     }()
@@ -19,7 +19,7 @@ final class FavoritesCell: UICollectionViewCell {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.7
         label.textColor = .bbdbBlack
-        label.layer.borderColor = UIColor.bbdbBlack.cgColor
+        label.layer.borderColor = UIColor.bbdbBrown.cgColor
         label.layer.borderWidth = 2
         label.backgroundColor = .bbdbWhite
         label.layer.cornerRadius = 10
