@@ -38,6 +38,7 @@ final class WebView: UIView {
     let webView: WKWebView = {
         let webView = WKWebView()
         webView.toAutolayout()
+        webView.accessibilityIdentifier = K.AccessibilityIdentifiers.webView
         return webView
     }()
 

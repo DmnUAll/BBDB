@@ -63,33 +63,29 @@ extension TabBarController {
                 withRootController: FeedController(),
                 title: "Daily Feed",
                 andImage: UIImage(
-                    named: K.IconsNames.feed)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
-            ),
+                    named: K.IconsNames.feed)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
             configureTab(
                 withRootController: MenuController(),
                 title: "Main Menu",
                 andImage: UIImage(
-                    named: K.IconsNames.menu)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
-            ),
+                    named: K.IconsNames.menu)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
             configureTab(
                 withRootController: FavoritesController(),
                 title: "Favorites",
                 andImage: UIImage(
-                    named: K.IconsNames.favorites)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
-            ),
+                    named: K.IconsNames.favorites)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
             configureTab(
                 withRootController: WhoAmIController(),
                 title: "Who am I?",
                 andImage: UIImage(
-                    named: K.IconsNames.whoAmI)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
-            ),
+                    named: K.IconsNames.whoAmI)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
             configureTab(
                 withRootController: SettingsController(),
                 title: "Settings",
                 andImage: UIImage(
-                    named: K.IconsNames.settings)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))
-            )
+                    named: K.IconsNames.settings)?.resize(targetSize: CGSize(width: iconSize, height: iconSize)))
         ]
+        tabBar.accessibilityIdentifier = K.AccessibilityIdentifiers.tabBar
     }
 
     private func configureTab(withRootController rootVC: UIViewController,

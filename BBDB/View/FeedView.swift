@@ -18,6 +18,8 @@ final class FeedView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        feedScrollView.accessibilityIdentifier = K.AccessibilityIdentifiers.feedScrollView
+        feedPageControl.accessibilityIdentifier = K.AccessibilityIdentifiers.feedPageControl
         feedScrollView.delegate = self
         toAutolayout()
         addSubviews()

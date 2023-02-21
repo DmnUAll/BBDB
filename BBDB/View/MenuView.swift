@@ -65,24 +65,36 @@ extension MenuView {
 
     private func addSubviews() {
         let uiCreator = UICreator.shared
-        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(title: "Characters",
-                                                                    subtitle: "List of all characters",
-                                                                    action: #selector(charactersButtonTapped)))
-        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(title: "Episodes",
-                                                                    subtitle: "List of all episodes",
-                                                                    action: #selector(episodesButtonTapped)))
-        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(title: "Next Door Stores",
-                                                                    subtitle: "List of stores around",
-                                                                    action: #selector(nextDoorStoresButtonTapped)))
-        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(title: "Pest Control Trucks",
-                                                                    subtitle: "List of all pest trucks",
-                                                                    action: #selector(pestControlTrucksButtonTapped)))
-        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(title: "End Credits",
-                                                                    subtitle: "Something from end credits",
-                                                                    action: #selector(endCreditsSequenceButtonTapped)))
-        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(title: "Burgers Of The Day",
-                                                                    subtitle: "List of all burgers names",
-                                                                    action: #selector(burgersOfTheDayButtonTapped)))
+        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
+            title: "Characters",
+            subtitle: "List of all characters",
+            action: #selector(charactersButtonTapped),
+            identifier: K.AccessibilityIdentifiers.charactersButton))
+        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
+            title: "Episodes",
+            subtitle: "List of all episodes",
+            action: #selector(episodesButtonTapped),
+            identifier: K.AccessibilityIdentifiers.episodesButton))
+        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
+            title: "Next Door Stores",
+            subtitle: "List of stores around",
+            action: #selector(nextDoorStoresButtonTapped),
+            identifier: K.AccessibilityIdentifiers.storesButton))
+        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
+            title: "Pest Control Trucks",
+            subtitle: "List of all pest trucks",
+            action: #selector(pestControlTrucksButtonTapped),
+            identifier: K.AccessibilityIdentifiers.trucksButton))
+        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
+            title: "End Credits",
+            subtitle: "Something from end credits",
+            action: #selector(endCreditsSequenceButtonTapped),
+            identifier: K.AccessibilityIdentifiers.creditsButton))
+        menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
+            title: "Burgers Of The Day",
+            subtitle: "List of all burgers names",
+            action: #selector(burgersOfTheDayButtonTapped),
+            identifier: K.AccessibilityIdentifiers.burgersButton))
         addSubview(menuStackView)
         addSubview(linkTextView)
     }

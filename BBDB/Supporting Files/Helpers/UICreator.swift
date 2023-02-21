@@ -44,7 +44,8 @@ struct UICreator {
                           subtitle: String,
                           backgroundColor: UIColor = .bbdbGray,
                           foregroundColor: UIColor = .bbdbBlack,
-                          action: Selector
+                          action: Selector,
+                          identifier: String? = nil
     ) -> UIButton {
         var filled = UIButton.Configuration.filled()
         filled.buttonSize = .medium
@@ -58,6 +59,7 @@ struct UICreator {
         let button = UIButton(configuration: filled, primaryAction: nil)
         button.layer.cornerRadius = UIScreen.screenHeight(dividedBy: 70)
         button.addTarget(self, action: action, for: .touchUpInside)
+        button.accessibilityIdentifier = identifier
         return button
     }
 

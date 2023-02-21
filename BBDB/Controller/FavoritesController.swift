@@ -109,6 +109,7 @@ extension FavoritesController: UICollectionViewDelegate {
                         forSelectedItemAt: indexPath) else { return }
                 self.show(viewController, sender: nil)
             }
+            openAction.accessibilityIdentifier = "123"
             let deleteAction = UIAction(title: "Delete", identifier: .none) { [weak self] _ in
                 guard let self else { return }
                 self.presenter?.deleteItem(at: indexPath)

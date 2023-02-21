@@ -62,4 +62,26 @@ struct K {
         static let listCell = "listCell"
         static let listCellWithImage = "listCellWithImage"
     }
+
+    struct AccessibilityIdentifiers {
+        static let tabBar = "tabBar"
+        static let feedScrollView = "feedScrollView"
+        static let feedPageControl = "feedPageControl"
+        static let webView = "webView"
+        static let charactersButton = "charactersButton"
+        static let episodesButton = "episodesButton"
+        static let storesButton = "storesButton"
+        static let trucksButton = "trucksButton"
+        static let creditsButton = "creditsButton"
+        static let burgersButton = "burgersButton"
+        static let makePhoto = "makePhoto"
+        static let choosePhoto = "choosePhoto"
+        static let resultPhoto = "resultPhoto"
+        static let moduleInfo = "moduleInfo"
+        static let appInfo = "appInfo"
+        static let clearCacheButton = "clearCacheButton"
+        static let soundSwitch = "soundSwitch"
+        static let splashSwitch  = "splashSwitch"
+        static let volumeSlider = "volumeSlider"
+    }
 }

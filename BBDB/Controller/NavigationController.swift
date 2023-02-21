@@ -64,26 +64,27 @@ extension NavigationController {
         navigationBar.topItem?.title = navVCTitle
         navigationBar.topItem?.backButtonTitle = "Back"
         let iconSize = UIScreen.screenHeight(dividedBy: 25)
-        let menuItems: [UIAction] = [
-            UIAction(
-                title: menuTitle,
-                subtitle: "Info about current screen",
-                image: UIImage(named: K.IconsNames.currentScreenInfo)?.resize(targetSize: CGSize(width: iconSize,
-                                                                                                 height: iconSize)),
-                handler: { [weak self] _ in
-                    guard let self = self else { return }
-                    self.rootVC?.showCurrentControllerInfoAlert()
-                }),
-            UIAction(
-                title: "About App",
-                subtitle: "Info about app",
-                image: UIImage(named: K.IconsNames.appInfo)?.resize(targetSize: CGSize(width: iconSize,
-                                                                                       height: iconSize)),
-                handler: { [weak self] _ in
-                    guard let self = self else { return }
-                    self.rootVC?.showAboutAppAlert()
-                })
-        ]
+        let currentModuleInfo = UIAction(
+            title: menuTitle,
+            subtitle: "Info about current screen",
+            image: UIImage(named: K.IconsNames.currentScreenInfo)?.resize(targetSize: CGSize(width: iconSize,
+                                                                                             height: iconSize)),
+            handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.rootVC?.showCurrentControllerInfoAlert()
+            })
+        currentModuleInfo.accessibilityIdentifier = K.AccessibilityIdentifiers.moduleInfo
+        let appInfo = UIAction(
+            title: "About App",
+            subtitle: "Info about app",
+            image: UIImage(named: K.IconsNames.appInfo)?.resize(targetSize: CGSize(width: iconSize,
+                                                                                   height: iconSize)),
+            handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.rootVC?.showAboutAppAlert()
+            })
+        appInfo.accessibilityIdentifier = K.AccessibilityIdentifiers.appInfo
+        let menuItems: [UIAction] = [currentModuleInfo, appInfo]
         let buttonMenu = UIMenu(title: "Info", image: nil, identifier: nil, options: [], children: menuItems)
         let infoButton = UIBarButtonItem(
             title: "Menu",

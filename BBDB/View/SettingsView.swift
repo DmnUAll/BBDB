@@ -33,6 +33,7 @@ final class SettingsView: UIView {
         slider.maximumValue = 1
         slider.thumbTintColor = .bbdbBrown
         slider.minimumTrackTintColor = .bbdbGreen
+        slider.accessibilityIdentifier = K.AccessibilityIdentifiers.volumeSlider
         return slider
     }()
 
@@ -45,7 +46,8 @@ final class SettingsView: UIView {
         subtitle: "Delete all images cache from memory and disk",
         backgroundColor: .bbdbBrown,
         foregroundColor: .bbdbGray,
-        action: #selector(clearCacheButtonTapped))
+        action: #selector(clearCacheButtonTapped),
+        identifier: K.AccessibilityIdentifiers.clearCacheButton)
 
     private lazy var linkTextView: UITextView = UICreator.shared.makeTextViewWithLink()
 
@@ -54,6 +56,8 @@ final class SettingsView: UIView {
         toAutolayout()
         addSubviews()
         setupConstraints()
+        settingsSoundSwitch.accessibilityIdentifier = K.AccessibilityIdentifiers.soundSwitch
+        settingsSplashScreenSwitch.accessibilityIdentifier = K.AccessibilityIdentifiers.splashSwitch
     }
 
     required init?(coder: NSCoder) {

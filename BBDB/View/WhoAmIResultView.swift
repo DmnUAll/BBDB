@@ -7,6 +7,7 @@ final class WhoAmIResultView: UIView {
     let whoAmIResultImageView: UIImageView = {
         let imageView = UICreator.shared.makeImageView(backgroundColor: .bbdbBlack.withAlphaComponent(0.8))
         imageView.toAutolayout()
+        imageView.accessibilityIdentifier = K.AccessibilityIdentifiers.resultPhoto
         return imageView
     }()
 

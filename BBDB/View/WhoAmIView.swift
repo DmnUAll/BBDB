@@ -23,6 +23,7 @@ final class WhoAmIView: UIView {
         imageView.toAutolayout()
         imageView.isUserInteractionEnabled = true
         imageView.image = UIImage(named: K.ImagesNames.makePhoto)
+        imageView.accessibilityIdentifier = K.AccessibilityIdentifiers.makePhoto
         return imageView
     }()
 
@@ -31,6 +32,7 @@ final class WhoAmIView: UIView {
         imageView.toAutolayout()
         imageView.isUserInteractionEnabled = true
         imageView.image = UIImage(named: K.ImagesNames.choosePhoto)
+        imageView.accessibilityIdentifier = K.AccessibilityIdentifiers.choosePhoto
         return imageView
     }()
 
