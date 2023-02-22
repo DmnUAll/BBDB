@@ -14,7 +14,6 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureKFCache()
-        self.delegate = self
         alertPresenter = AlertPresenter(delegate: self)
         checkForInternetConnection()
     }
@@ -127,19 +126,6 @@ extension TabBarController {
             }
         }
         monitor.start(queue: queue)
-    }
-}
-
-// MARK: - UITabBarControllerDelegate
-extension TabBarController: UITabBarControllerDelegate {
-
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        // Need to fix the bug!!!
-        // Select the MainMenu tab and choose any category
-        // Select any item from tableView
-        // Select any other tab from tabViewController
-        // The index of selected tab is valid but there is no selection for this tab (untill tapped twice)
-        print(selectedIndex)
     }
 }
 

@@ -40,7 +40,7 @@ final class NavigationController: UINavigationController {
     }
 
     // MARK: - Life Cycle
-    override func viewWillDisappear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.popToRootViewController(animated: false)
     }
 }
