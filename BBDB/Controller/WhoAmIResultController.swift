@@ -23,7 +23,7 @@ final class WhoAmIResultController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UIImageView.setAsBackground(withImage: K.ImagesNames.redBackground, to: self)
-        self.title = "'Who am I' Result"
+        self.title = String.vcTitle
         view.addSubview(whoAmIResultView)
         setupConstraints()
         addShareButton()
@@ -38,7 +38,7 @@ extension WhoAmIResultController {
         guard let image else { return }
         let resizedImage = image.resize(targetSize: CGSize(width: image.size.width / 1.6,
                                                            height: image.size.height / 1.6))
-        let text = "Hey! Look at which character from \"Bob's Burgers\" I look like!"
+        let text = String.textToShare
         let activityViewController = UIActivityViewController(activityItems: [resizedImage, text],
                                                               applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = view
@@ -66,4 +66,10 @@ extension WhoAmIResultController {
             action: #selector(shareButtonTapped))
         navigationItem.rightBarButtonItem = shareButton
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let vcTitle = "'Who am I' Result"
+    static let textToShare = "Hey! Look at which character from \"Bob's Burgers\" I look like!"
 }

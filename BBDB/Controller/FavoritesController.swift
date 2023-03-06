@@ -103,19 +103,19 @@ extension FavoritesController: UICollectionViewDelegate {
                         point: CGPoint
     ) -> UIContextMenuConfiguration? {
         let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            let openAction = UIAction(title: "Open", identifier: .none) { [weak self] _ in
+            let openAction = UIAction(title: String.open, identifier: .none) { [weak self] _ in
                 guard let self,
                       let viewController = self.presenter?.configureViewController(
                         forSelectedItemAt: indexPath) else { return }
                 self.show(viewController, sender: nil)
             }
             openAction.accessibilityIdentifier = "123"
-            let deleteAction = UIAction(title: "Delete", identifier: .none) { [weak self] _ in
+            let deleteAction = UIAction(title: String.delete, identifier: .none) { [weak self] _ in
                 guard let self else { return }
                 self.presenter?.deleteItem(at: indexPath)
                 collectionView.reloadData()
             }
-            return UIMenu(title: "Menu", children: [openAction, deleteAction])
+            return UIMenu(title: String.menuTitle, children: [openAction, deleteAction])
         }
         return configuration
     }
@@ -131,18 +131,21 @@ extension FavoritesController: AlertPresenterDelegate {
 // MARK: - InfoAlertPresenterProtocol
 extension FavoritesController: InfoAlertPresenterProtocol {
     func showCurrentControllerInfoAlert() {
-        let alertModel = AlertModel(title: "About Favorites",
-                                    message: InfoAlertText.aboutFavorites.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(title: String.aboutFavorites,
+                                    message: InfoAlertText.aboutFavorites.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
 
     func showAboutAppAlert() {
-        let alertModel = AlertModel(title: "About App",
-                                    message: InfoAlertText.aboutApp.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(message: InfoAlertText.aboutApp.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let open = "Open"
+    static let delete = "Delete"
+    static let menuTitle = "Menu"
+    static let aboutFavorites = "About Favorites"
 }

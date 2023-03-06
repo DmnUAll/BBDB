@@ -23,12 +23,12 @@ extension WhoAmIPresenter {
         guard let model = try? VNCoreMLModel(
             for: BBDBImageClassifier(configuration: MLModelConfiguration()).model
         ) else {
-            fatalError("CoreML model loading error")
+            fatalError(String.modelLoadingError)
         }
 
         let request = VNCoreMLRequest(model: model) { request, _ in
             guard let results = request.results as? [VNClassificationObservation] else {
-                fatalError("Photo processing error")
+                fatalError(String.photoProcessingError)
             }
             if let firstResult = results.first?.identifier {
                 let firstPhoto = UIImage.loadImage(withName: firstResult)
@@ -44,7 +44,7 @@ extension WhoAmIPresenter {
         do {
             try handler.perform([request])
         } catch {
-            fatalError("Request processing error")
+            fatalError(String.requestProcessingError)
         }
     }
 
@@ -135,8 +135,12 @@ extension WhoAmIPresenter: WhoAmIViewDelegate {
     }
 }
 
+// MARK: - String fileprivate extension
 fileprivate extension String {
     static let alertTitle = "Access Denied!"
     static let alertMessageCamera = "Please give an access to camera!"
     static let alertMessageGallery = "Please give an access to photo gallery!"
+    static let modelLoadingError = "CoreML model loading error"
+    static let photoProcessingError = "Photo processing error"
+    static let requestProcessingError = "Request processing error"
 }

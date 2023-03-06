@@ -3,9 +3,9 @@ import UIKit
 // MARK: - AlertModel
 struct AlertModel {
 
-    var title: String
+    var title: String = "About App"
     var message: String
-    var buttonText: String
+    var buttonText: String = "Got it!"
     var completionHandler: ((UIAlertAction) -> Void)?
 }
 

@@ -99,7 +99,7 @@ extension ListPresenter {
         }
         if foundDuplicate {
             CoreDataManager.context.delete(data)
-            viewController?.showDuplicatingFavoriteError(message: "That item is already in your Favorites!")
+            viewController?.showDuplicatingFavoriteError(message: String.duplicateError)
         } else {
             CoreDataManager.favoritesDictionary[dictionaryKey]?.append(data)
             CoreDataManager.saveFavorites()
@@ -109,17 +109,17 @@ extension ListPresenter {
     private func setTitleToVC(basedOnLink link: Link) {
         switch link {
         case .charactersList:
-            viewController?.title = "Characters List"
+            viewController?.title = String.charactersList
         case .episodesList:
-            viewController?.title = "Episodes List"
+            viewController?.title = String.episodesList
         case .nextDoorStoresList:
-            viewController?.title = "Stores List"
+            viewController?.title = String.storesList
         case .pestControllTrucksList:
-            viewController?.title = "Trucks List"
+            viewController?.title = String.trucksList
         case .endCreditsList:
-            viewController?.title = "End Credits List"
+            viewController?.title = String.creditsList
         case .burgersOfTheDayList:
-            viewController?.title = "Burgers List"
+            viewController?.title = String.burgersList
         }
     }
 
@@ -143,7 +143,7 @@ extension ListPresenter {
             cell.backgroundColor = .clear
             guard let episode = dataList[indexPath.row] as? EpisodeModel else { return cell }
             cell.cellMainLabel.text = episode.name
-            cell.cellAdditionLabel.text = "Season: \(episode.season) / Episode: \(episode.episode)"
+            cell.cellAdditionLabel.text = "\(String.season) \(episode.season) / \(String.episode) \(episode.episode)"
             return cell
         case is StoreModel:
             guard let cell = tableView.dequeueReusableCell(
@@ -170,7 +170,7 @@ extension ListPresenter {
             cell.backgroundColor = .clear
             guard let credits = dataList[indexPath.row] as? EndCreditsModel else { return cell }
             cell.cellImageView.load(url: credits.imageURL)
-            cell.cellLabel.text = "Season: \(credits.season) Episode: \(credits.episode)"
+            cell.cellLabel.text = "\(String.season) \(credits.season) \(String.episode) \(credits.episode)"
             return cell
         case is BurgerOfTheDayModel:
             guard let cell = tableView.dequeueReusableCell(
@@ -179,7 +179,7 @@ extension ListPresenter {
             cell.backgroundColor = .clear
             guard let burger = dataList[indexPath.row] as? BurgerOfTheDayModel else { return cell }
             cell.cellMainLabel.text = burger.name
-            cell.cellAdditionLabel.text = "Seaseon: \(burger.season) Episode: \(burger.episode)"
+            cell.cellAdditionLabel.text = "\(String.season) \(burger.season) \(String.episode) \(burger.episode)"
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(
@@ -192,29 +192,29 @@ extension ListPresenter {
     func configureViewController(forData data: Any) -> DetailedInfoController {
         let viewController = DetailedInfoController()
         if let data = data as? CharacterModel {
-            viewController.title = "Character's Info"
+            viewController.title = String.charactersInfo
             viewController.fillUI(with: data)
             viewController.addWebButton(withLink: data.wikiURL)
         }
         if let data = data as? EpisodeModel {
-            viewController.title = "Episode Info"
+            viewController.title = String.episodeInfo
             viewController.fillUI(with: data)
             viewController.addWebButton(withLink: data.wikiURL)
         }
         if let data = data as? StoreModel {
-            viewController.title = "Store Info"
+            viewController.title = String.storeInfo
             viewController.fillUI(with: data)
         }
         if let data = data as? PestControlTruckModel {
-            viewController.title = "Truck Info"
+            viewController.title = String.truckInfo
             viewController.fillUI(with: data)
         }
         if let data = data as? EndCreditsModel {
-            viewController.title = "End Credits Info"
+            viewController.title = String.creditsInfo
             viewController.fillUI(with: data)
         }
         if let data = data as? BurgerOfTheDayModel {
-            viewController.title = "Burger Info"
+            viewController.title = String.burgerInfo
             viewController.fillUI(with: data)
         }
         return viewController
@@ -224,21 +224,21 @@ extension ListPresenter {
     // swiftlint:disable:next function_body_length
     func proceedSavingToFavorites(toCategory category: String?, fromRow index: Int) {
         switch category {
-        case "Characters List":
+        case String.charactersList:
             guard let character = dataList[index] as? CharacterModel else { return }
             let newFavorite = CDCharacter(context: CoreDataManager.context)
             newFavorite.id = Int64(character.id)
             newFavorite.name = character.name
             newFavorite.gender = character.gender
-            newFavorite.age = character.age ?? "Unknown"
-            newFavorite.hairColor = character.hairColor ?? "Undefined"
-            newFavorite.occupation = character.occupation ?? "Unknown"
-            newFavorite.firstEpisode = character.firstEpisode ?? "Undefined"
-            newFavorite.voicedBy = character.voicedBy ?? "Undefined"
+            newFavorite.age = character.age ?? String.unknown
+            newFavorite.hairColor = character.hairColor ?? String.undefined
+            newFavorite.occupation = character.occupation ?? String.unknown
+            newFavorite.firstEpisode = character.firstEpisode ?? String.undefined
+            newFavorite.voicedBy = character.voicedBy ?? String.undefined
             newFavorite.imageURL = character.imageURL
             newFavorite.wikiURL = character.wikiURL
             checkForDuplicate(of: newFavorite, at: .characters)
-        case "Episodes List":
+        case String.episodesList:
             guard let episode = dataList[index] as? EpisodeModel  else { return }
             let newFavorite = CDEpisode(context: CoreDataManager.context)
             newFavorite.id = Int64(episode.id)
@@ -249,7 +249,7 @@ extension ListPresenter {
             newFavorite.totalViewers = episode.totalViewers
             newFavorite.wikiURL = episode.wikiURL
             checkForDuplicate(of: newFavorite, at: .episodes)
-        case "Stores List":
+        case String.storesList:
             guard let store = dataList[index] as? StoreModel  else { return }
             let newFavorite = CDStore(context: CoreDataManager.context)
             newFavorite.id = Int64(store.id)
@@ -258,7 +258,7 @@ extension ListPresenter {
             newFavorite.episode = Int64(store.episode)
             newFavorite.imageURL = store.imageURL
             checkForDuplicate(of: newFavorite, at: .stores)
-        case "Trucks List":
+        case String.trucksList:
             guard let truck = dataList[index] as? PestControlTruckModel  else { return }
             let newFavorite = CDTruck(context: CoreDataManager.context)
             newFavorite.id = Int64(truck.id)
@@ -266,7 +266,7 @@ extension ListPresenter {
             newFavorite.season = Int64(truck.season)
             newFavorite.imageURL = truck.imageURL
             checkForDuplicate(of: newFavorite, at: .trucks)
-        case "End Credits List":
+        case String.creditsList:
             guard let credits = dataList[index] as? EndCreditsModel  else { return }
             let newFavorite = CDCredits(context: CoreDataManager.context)
             newFavorite.id = Int64(credits.id)
@@ -274,7 +274,7 @@ extension ListPresenter {
             newFavorite.season = Int64(credits.season)
             newFavorite.imageURL = credits.imageURL
             checkForDuplicate(of: newFavorite, at: .credits)
-        case "Burgers List":
+        case String.burgersList:
             guard let burger = dataList[index] as? BurgerOfTheDayModel  else { return }
             let newFavorite = CDBurger(context: CoreDataManager.context)
             newFavorite.id = Int64(burger.id)
@@ -316,4 +316,25 @@ extension ListPresenter {
             dataList = castedList.filter { $0.name.lowercased().contains(request) }
         }
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let duplicateError = "That item is already in your Favorites!"
+    static let charactersList = "Characters List"
+    static let episodesList = "Episodes List"
+    static let storesList = "Stores List"
+    static let trucksList = "Trucks List"
+    static let creditsList = "End Credits List"
+    static let burgersList = "Burgers List"
+    static let charactersInfo = "Character's Info"
+    static let episodeInfo = "Episode Info"
+    static let storeInfo = "Store Info"
+    static let truckInfo = "Truck Info"
+    static let creditsInfo = "End Credits Info"
+    static let burgerInfo = "Burger Info"
+    static let season = "Season:"
+    static let episode = "Episode:"
+    static let unknown = "Unknown"
+    static let undefined = "Undefined"
 }

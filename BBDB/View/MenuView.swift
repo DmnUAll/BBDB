@@ -66,33 +66,33 @@ extension MenuView {
     private func addSubviews() {
         let uiCreator = UICreator.shared
         menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
-            title: "Characters",
-            subtitle: "List of all characters",
+            title: String.charactersTitle,
+            subtitle: String.charactersSubtitle,
             action: #selector(charactersButtonTapped),
             identifier: K.AccessibilityIdentifiers.charactersButton))
         menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
-            title: "Episodes",
-            subtitle: "List of all episodes",
+            title: String.episodesTitle,
+            subtitle: String.episodesSubtotle,
             action: #selector(episodesButtonTapped),
             identifier: K.AccessibilityIdentifiers.episodesButton))
         menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
-            title: "Next Door Stores",
-            subtitle: "List of stores around",
+            title: String.storesTitle,
+            subtitle: String.storesSubtitle,
             action: #selector(nextDoorStoresButtonTapped),
             identifier: K.AccessibilityIdentifiers.storesButton))
         menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
-            title: "Pest Control Trucks",
-            subtitle: "List of all pest trucks",
+            title: String.trucksTitle,
+            subtitle: String.trucksSubtitle,
             action: #selector(pestControlTrucksButtonTapped),
             identifier: K.AccessibilityIdentifiers.trucksButton))
         menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
-            title: "End Credits",
-            subtitle: "Something from end credits",
+            title: String.creditsTitle,
+            subtitle: String.creditsSubtitle,
             action: #selector(endCreditsSequenceButtonTapped),
             identifier: K.AccessibilityIdentifiers.creditsButton))
         menuStackView.addArrangedSubview(uiCreator.makeFilledButton(
-            title: "Burgers Of The Day",
-            subtitle: "List of all burgers names",
+            title: String.burgersTitle,
+            subtitle: String.burgersSubtitle,
             action: #selector(burgersOfTheDayButtonTapped),
             identifier: K.AccessibilityIdentifiers.burgersButton))
         addSubview(menuStackView)
@@ -111,4 +111,20 @@ extension MenuView {
         ]
         NSLayoutConstraint.activate(constraints)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let charactersTitle = "Characters"
+    static let charactersSubtitle = "List of all characters"
+    static let episodesTitle = "Episodes"
+    static let episodesSubtotle = "List of all episodes"
+    static let storesTitle = "Next Door Stores"
+    static let storesSubtitle = "List of stores around"
+    static let trucksTitle = "Pest Control Trucks"
+    static let trucksSubtitle = "List of all pest trucks"
+    static let creditsTitle = "End Credits"
+    static let creditsSubtitle = "Something from end credits"
+    static let burgersTitle = "Burgers Of The Day"
+    static let burgersSubtitle = "List of all burgers names"
 }

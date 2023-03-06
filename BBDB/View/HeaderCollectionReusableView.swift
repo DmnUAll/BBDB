@@ -16,7 +16,6 @@ final class HeaderCollectionReusableView: UICollectionReusableView {
     private let headerLabel: UILabel = {
         let label = PaddingLabel(withInsets: 0, 0, 8, 8)
         label.toAutolayout()
-        label.text = "header"
         label.textAlignment = .center
         label.textColor = .bbdbBlack
         label.backgroundColor = .bbdbYellow

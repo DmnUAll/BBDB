@@ -20,7 +20,6 @@ final class MenuController: UIViewController {
         super.viewDidLoad()
         UIImageView.setAsBackground(withImage: K.ImagesNames.blueBackground, to: self)
         view.addSubview(menuView)
-        self.title = "Main Menu"
         setupConstraints()
         presenter = MenuPresenter(viewController: self)
         alertPresenter = AlertPresenter(delegate: self)
@@ -52,18 +51,18 @@ extension MenuController: AlertPresenterDelegate {
 extension MenuController: InfoAlertPresenterProtocol {
 
     func showCurrentControllerInfoAlert() {
-        let alertModel = AlertModel(title: "About Menu",
-                                    message: InfoAlertText.aboutMenu.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(title: String.aboutMenu,
+                                    message: InfoAlertText.aboutMenu.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
 
     func showAboutAppAlert() {
-        let alertModel = AlertModel(title: "About App",
-                                    message: InfoAlertText.aboutApp.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(message: InfoAlertText.aboutApp.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let aboutMenu = "About Menu"
 }

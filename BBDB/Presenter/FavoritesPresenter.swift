@@ -112,33 +112,33 @@ extension FavoritesPresenter {
         let viewController = DetailedInfoController()
         viewController.view.backgroundColor = .bbdbGreen
         if let dataFromSelectedRow = dataFromSelectedRow as? CDCharacter {
-            viewController.title = "Character's Info"
+            viewController.title = String.charactersInfo
             viewController.fillUI(with: dataFromSelectedRow)
             if let wikiURL = dataFromSelectedRow.wikiURL {
                 viewController.addWebButton(withLink: wikiURL)
             }
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDEpisode {
-            viewController.title = "Episode Info"
+            viewController.title = String.episodesInfo
             viewController.fillUI(with: dataFromSelectedRow)
             if let wikiURL = dataFromSelectedRow.wikiURL {
                 viewController.addWebButton(withLink: wikiURL)
             }
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDStore {
-            viewController.title = "Store Info"
+            viewController.title = String.storeInfo
             viewController.fillUI(with: dataFromSelectedRow)
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDTruck {
-            viewController.title = "Truck Info"
+            viewController.title = String.truckInfo
             viewController.fillUI(with: dataFromSelectedRow)
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDCredits {
-            viewController.title = "End Credits Info"
+            viewController.title = String.creditsInfo
             viewController.fillUI(with: dataFromSelectedRow)
         }
         if let dataFromSelectedRow = dataFromSelectedRow as? CDBurger {
-            viewController.title = "Burger Info"
+            viewController.title = String.burgersInfo
             viewController.fillUI(with: dataFromSelectedRow)
         }
         return viewController
@@ -175,4 +175,14 @@ extension FavoritesPresenter: FavoritesViewDelegate {
         viewController?.showAboutAppAlert()
         viewController?.navigationController?.pushViewController(WhoAmIResultController(), animated: true)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let charactersInfo = "Character's Info"
+    static let episodesInfo = "Episode Info"
+    static let storeInfo = "Store Info"
+    static let truckInfo = "Truck Info"
+    static let creditsInfo = "End Credits Info"
+    static let burgersInfo = "Burgers Info"
 }

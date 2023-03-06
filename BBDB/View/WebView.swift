@@ -11,21 +11,21 @@ final class WebView: UIView {
         navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationBar.backgroundColor = .clear
         navigationBar.tintColor = .bbdbBlack
-        let navigationItem = UINavigationItem(title: "Bob's Burgers Wiki")
+        let navigationItem = UINavigationItem(title: String.webTitle)
         navigationBar.titleTextAttributes = [
             .font: UIFont.appFont(.filled, withSize: UIScreen.screenHeight(dividedBy: 25)),
             .foregroundColor: UIColor.bbdbBlack
         ]
         navigationBar.setTitleVerticalPositionAdjustment(3, for: .default)
-        let refreshButton = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"),
+        let refreshButton = UIBarButtonItem(image: UIImage(systemName: K.ImagesNames.arrowClockwise),
                                             style: .plain,
                                             target: nil,
                                             action: #selector(refreshButtonTapped))
-        let backwardButton = UIBarButtonItem(image: UIImage(systemName: "chevron.right"),
+        let backwardButton = UIBarButtonItem(image: UIImage(systemName: K.ImagesNames.chevronRight),
                                              style: .plain,
                                              target: nil,
                                              action: #selector(forwardButtonTapped))
-        let forwardButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
+        let forwardButton = UIBarButtonItem(image: UIImage(systemName: K.ImagesNames.chevronLeft),
                                             style: .plain,
                                             target: nil,
                                             action: #selector(backwardButtonTapped))
@@ -106,4 +106,9 @@ extension WebView: WKNavigationDelegate {
         }
         decisionHandler(.allow)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let webTitle = "Bob's Burgers Wiki"
 }

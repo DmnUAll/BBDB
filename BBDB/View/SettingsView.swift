@@ -42,8 +42,8 @@ final class SettingsView: UIView {
         andCurrentState: UserDefaultsManager.shared.appSplashScreen)
 
     private let settingsClearCacheButton: UIButton = UICreator.shared.makeFilledButton(
-        title: "Clear image cache",
-        subtitle: "Delete all images cache from memory and disk",
+        title: String.buttonTitle,
+        subtitle: String.buttonSubtitle,
         backgroundColor: .bbdbBlack,
         foregroundColor: .bbdbGray,
         action: #selector(clearCacheButtonTapped),
@@ -87,17 +87,17 @@ extension SettingsView {
         addSubview(settingsStackView)
 
         let soundStack = UICreator.shared.makeStackView(axis: .horizontal, alignment: .center)
-        soundStack.addArrangedSubview(makeLabel(withText: "Sound:"))
+        soundStack.addArrangedSubview(makeLabel(withText: String.sound))
         soundStack.addArrangedSubview(settingsSoundSwitch)
         settingsStackView.addArrangedSubview(soundStack)
 
         let volumeStack = UICreator.shared.makeStackView(axis: .horizontal)
-        volumeStack.addArrangedSubview(makeLabel(withText: "Volume:"))
+        volumeStack.addArrangedSubview(makeLabel(withText: String.volume))
         volumeStack.addArrangedSubview(settingsSoundSlider)
         settingsStackView.addArrangedSubview(volumeStack)
 
         let splashScreenStack = UICreator.shared.makeStackView(axis: .horizontal, alignment: .center)
-        splashScreenStack.addArrangedSubview(makeLabel(withText: "Show Splash Screen:"))
+        splashScreenStack.addArrangedSubview(makeLabel(withText: String.showSplashScreen))
         splashScreenStack.addArrangedSubview(settingsSplashScreenSwitch)
         settingsStackView.addArrangedSubview(splashScreenStack)
         settingsStackView.addArrangedSubview(settingsClearCacheButton)
@@ -123,4 +123,13 @@ extension SettingsView {
         label.toAutolayout()
         return label
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let buttonTitle = "Clear image cache"
+    static let buttonSubtitle = "Delete all images cache from memory and disk"
+    static let sound = "Sound:"
+    static let volume = "Volume:"
+    static let showSplashScreen = "Show Splash Screen:"
 }

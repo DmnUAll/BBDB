@@ -41,9 +41,9 @@ extension FeedController {
     }
 
     func showNetworkError(message: String) {
-        let alertModel = AlertModel(title: "Error",
+        let alertModel = AlertModel(title: String.error,
                                     message: message,
-                                    buttonText: "Try again",
+                                    buttonText: String.tryAgain,
                                     completionHandler: { [weak self] _ in
             guard let self = self else { return }
             self.presenter?.loadFiveOfTheDay()
@@ -74,20 +74,27 @@ extension FeedController {
             scrollViewPage.addArrangedSubview(imageView)
             scrollViewPage.addArrangedSubview(labelStack)
             let uiCreator = UICreator.shared
-            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Name:",
-                                                                   trailingText: character.name))
-            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Gender:",
-                                                                   trailingText: character.gender))
-            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Age:",
-                                                                   trailingText: character.age ?? "Unknown"))
-            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Hair color:",
-                                                                   trailingText: character.hairColor ?? "Undefined"))
-            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Occupation:",
-                                                                   trailingText: character.occupation ?? "Unknown"))
-            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "1st appearance:",
-                                                                   trailingText: character.firstEpisode ?? "Undefined"))
-            labelStack.addArrangedSubview(uiCreator.makeLabelStack(leadingText: "Voiced by:",
-                                                                   trailingText: character.voicedBy ?? "Undefined"))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(
+                leadingText: String.name,
+                trailingText: character.name))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(
+                leadingText: String.gender,
+                trailingText: character.gender))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(
+                leadingText: String.age,
+                trailingText: character.age ?? String.unknown))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(
+                leadingText: String.hairColor,
+                trailingText: character.hairColor ?? String.undefined))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(
+                leadingText: String.occupation,
+                trailingText: character.occupation ?? String.unknown))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(
+                leadingText: String.firstAppearance,
+                trailingText: character.firstEpisode ?? String.undefined))
+            labelStack.addArrangedSubview(uiCreator.makeLabelStack(
+                leadingText: String.voicedBy,
+                trailingText: character.voicedBy ?? String.undefined))
             feedView.feedScrollView.addSubview(scrollViewPage)
         }
     }
@@ -115,18 +122,29 @@ extension FeedController: AlertPresenterDelegate {
 extension FeedController: InfoAlertPresenterProtocol {
 
     func showCurrentControllerInfoAlert() {
-        let alertModel = AlertModel(title: "About Feed",
-                                    message: InfoAlertText.aboutFeed.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(title: String.aboutFeed,
+                                    message: InfoAlertText.aboutFeed.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
 
     func showAboutAppAlert() {
-        let alertModel = AlertModel(title: "About App",
-                                    message: InfoAlertText.aboutApp.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(message: InfoAlertText.aboutApp.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let error = "Error"
+    static let tryAgain = "Try again"
+    static let aboutFeed = "About Feed"
+    static let undefined = "Undefined"
+    static let unknown = "Unknown"
+    static let name = "Name:"
+    static let gender = "Gender:"
+    static let age = "Age:"
+    static let hairColor = "Hair color:"
+    static let occupation = "Occupation:"
+    static let firstAppearance = "1st appearance:"
+    static let voicedBy = "Voiced by:"
 }

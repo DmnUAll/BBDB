@@ -60,27 +60,27 @@ extension TabBarController {
         self.viewControllers = [
             configureTab(
                 withRootController: FeedController(),
-                title: "Daily Feed",
+                title: String.feedTab,
                 andImage: UIImage(
                     named: K.IconsNames.feed)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
             configureTab(
                 withRootController: MenuController(),
-                title: "Main Menu",
+                title: String.menuTab,
                 andImage: UIImage(
                     named: K.IconsNames.menu)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
             configureTab(
                 withRootController: FavoritesController(),
-                title: "Favorites",
+                title: String.favoritesTab,
                 andImage: UIImage(
                     named: K.IconsNames.favorites)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
             configureTab(
                 withRootController: WhoAmIController(),
-                title: "Who am I?",
+                title: String.whoAmITab,
                 andImage: UIImage(
                     named: K.IconsNames.whoAmI)?.resize(targetSize: CGSize(width: iconSize, height: iconSize))),
             configureTab(
                 withRootController: SettingsController(),
-                title: "Settings",
+                title: String.settingsTab,
                 andImage: UIImage(
                     named: K.IconsNames.settings)?.resize(targetSize: CGSize(width: iconSize, height: iconSize)))
         ]
@@ -117,9 +117,9 @@ extension TabBarController {
             } else {
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    let alertModel = AlertModel(title: "Error",
-                                                message: "No Internet connection!",
-                                                buttonText: "Ok",
+                    let alertModel = AlertModel(title: String.error,
+                                                message: String.connectionError,
+                                                buttonText: String.okTitle,
                                                 completionHandler: nil)
                     self.alertPresenter?.show(alertModel: alertModel)
                 }
@@ -141,4 +141,16 @@ extension TabBarController: AlertPresenterDelegate {
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let error = "Error"
+    static let connectionError = "No Internet connection!"
+    static let okTitle = "Ok"
+    static let feedTab =  "Daily Feed"
+    static let menuTab = "Main Menu"
+    static let favoritesTab = "Favorites"
+    static let whoAmITab = "Who am I?"
+    static let settingsTab = "Settings"
 }

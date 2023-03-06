@@ -20,7 +20,6 @@ final class WhoAmIController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UIImageView.setAsBackground(withImage: K.ImagesNames.redBackground, to: self)
-        self.title = "Who am I?"
         view.addSubview(whoAmIView)
         setupConstraints()
         presenter = WhoAmIPresenter(viewController: self)
@@ -56,18 +55,13 @@ extension WhoAmIController: AlertPresenterDelegate {
 extension WhoAmIController: InfoAlertPresenterProtocol {
 
     func showCurrentControllerInfoAlert() {
-        let alertModel = AlertModel(title: "About 'Who am I?'",
-                                    message: InfoAlertText.aboutWhoAmI.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(title: String.aboutWhoAmI,
+                                    message: InfoAlertText.aboutWhoAmI.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
 
     func showAboutAppAlert() {
-        let alertModel = AlertModel(title: "About App",
-                                    message: InfoAlertText.aboutApp.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(message: InfoAlertText.aboutApp.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
 }
@@ -80,7 +74,7 @@ extension WhoAmIController: UIImagePickerControllerDelegate {
     ) {
         if let userPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             guard let ciimage = CIImage(image: userPickedImage.fixOrientation()) else {
-                fatalError("Can't convert UIImage в CIImage")
+                fatalError(String.imageConvertingError)
             }
             presenter?.detectImage(image: ciimage)
         }
@@ -90,3 +84,9 @@ extension WhoAmIController: UIImagePickerControllerDelegate {
 
 // MARK: - UINavigationControllerDelegate
 extension WhoAmIController: UINavigationControllerDelegate { }
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let aboutWhoAmI = "About 'Who am I?'"
+    static let imageConvertingError = "Can't convert UIImage в CIImage"
+}

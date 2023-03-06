@@ -77,7 +77,7 @@ extension FeedPresenter {
 
     private func saveUserDefaults<T: Codable>(value: T, at key: Keys) {
         guard let data = try? JSONEncoder().encode(value) else {
-            print("Can't save data to UserDefaults")
+            print(String.savingError)
             return
         }
         userDefaults.set(data, forKey: key.rawValue)
@@ -100,4 +100,9 @@ extension FeedPresenter: FeedViewDelegate {
         }
         viewController?.present(webController, animated: true)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let savingError = "Can't save data to UserDefaults"
 }

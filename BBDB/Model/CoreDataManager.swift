@@ -29,7 +29,7 @@ struct CoreDataManager {
         do {
             try context.save()
         } catch {
-            print("Error saving cintext: \(error)")
+            print("\(String.contextSavingError) \(error)")
         }
     }
 
@@ -56,40 +56,46 @@ struct CoreDataManager {
             do {
                 favoritesDictionary[.characters] = try context.fetch(request)
             } catch {
-                print("Error fetching data from context: \(error)")
+                print("\(String.contextDataFetchingError) \(error)")
             }
         case K.CoreDataEntitiesNames.cdEpisode:
             do {
                 favoritesDictionary[.episodes] = try context.fetch(request)
             } catch {
-                print("Error fetching data from context: \(error)")
+                print("\(String.contextDataFetchingError) \(error)")
             }
         case K.CoreDataEntitiesNames.cdStore:
             do {
                 favoritesDictionary[.stores] = try context.fetch(request)
             } catch {
-                print("Error fetching data from context: \(error)")
+                print("\(String.contextDataFetchingError) \(error)")
             }
         case K.CoreDataEntitiesNames.cdTruck:
             do {
                 favoritesDictionary[.trucks] = try context.fetch(request)
             } catch {
-                print("Error fetching data from context: \(error)")
+                print("\(String.contextDataFetchingError) \(error)")
             }
         case K.CoreDataEntitiesNames.cdCredits:
             do {
                 favoritesDictionary[.credits] = try context.fetch(request)
             } catch {
-                print("Error fetching data from context: \(error)")
+                print("\(String.contextDataFetchingError) \(error)")
             }
         case K.CoreDataEntitiesNames.cdBurger:
             do {
                 favoritesDictionary[.burgers] = try context.fetch(request)
             } catch {
-                print("Error fetching data from context: \(error)")
+                print("\(String.contextDataFetchingError) \(error)")
             }
         default:
             return
         }
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let contextSavingError = "Error saving context:"
+    static let contextDataFetchingError = "Error fetching data from context:"
 }

@@ -15,23 +15,26 @@ final class NavigationController: UINavigationController {
 
         if let viewController = rootViewController as? FeedController {
             self.rootVC = viewController
-            configureNavigationController(withTitle: "Feed: 5 of the day", andCurrentMenuTitle: "About Feed")
+            configureNavigationController(withTitle: String.feedVCTitle, andCurrentMenuTitle: String.feedMenuTitle)
         }
         if let viewController = rootViewController as? MenuController {
             self.rootVC = viewController
-            configureNavigationController(withTitle: "Main Menu", andCurrentMenuTitle: "About Menu")
+            configureNavigationController(withTitle: String.menuVCTitle, andCurrentMenuTitle: String.menuMenuTitle)
         }
         if let viewController = rootViewController as? FavoritesController {
             self.rootVC = viewController
-            configureNavigationController(withTitle: "Favorites", andCurrentMenuTitle: "About Favorites")
+            configureNavigationController(withTitle: String.favoritesVCTitle,
+                                          andCurrentMenuTitle: String.favoritesMenuTitle)
         }
         if let viewController = rootViewController as? WhoAmIController {
             self.rootVC = viewController
-            configureNavigationController(withTitle: "Who am I?", andCurrentMenuTitle: "About 'Who am I?'")
+            configureNavigationController(withTitle: String.whoAmIVCTitle,
+                                          andCurrentMenuTitle: String.whoAmIMenuTitle)
         }
         if let viewController = rootViewController as? SettingsController {
             self.rootVC = viewController
-            configureNavigationController(withTitle: "Settings", andCurrentMenuTitle: "About Settings")
+            configureNavigationController(withTitle: String.settingsVCTitle,
+                                          andCurrentMenuTitle: String.settingsMenuTitle)
         }
     }
 
@@ -62,11 +65,11 @@ extension NavigationController {
         navigationBar.scrollEdgeAppearance = navBarAppearance
         navigationBar.tintColor = .bbdbBrown
         navigationBar.topItem?.title = navVCTitle
-        navigationBar.topItem?.backButtonTitle = "Back"
+        navigationBar.topItem?.backButtonTitle = String.backButtonTitle
         let iconSize = UIScreen.screenHeight(dividedBy: 25)
         let currentModuleInfo = UIAction(
             title: menuTitle,
-            subtitle: "Info about current screen",
+            subtitle: String.currentMenuSubtitle,
             image: UIImage(named: K.IconsNames.currentScreenInfo)?.resize(targetSize: CGSize(width: iconSize,
                                                                                              height: iconSize)),
             handler: { [weak self] _ in
@@ -75,8 +78,8 @@ extension NavigationController {
             })
         currentModuleInfo.accessibilityIdentifier = K.AccessibilityIdentifiers.moduleInfo
         let appInfo = UIAction(
-            title: "About App",
-            subtitle: "Info about app",
+            title: String.appMenuTitle,
+            subtitle: String.appMenuSubtitle,
             image: UIImage(named: K.IconsNames.appInfo)?.resize(targetSize: CGSize(width: iconSize,
                                                                                    height: iconSize)),
             handler: { [weak self] _ in
@@ -85,9 +88,9 @@ extension NavigationController {
             })
         appInfo.accessibilityIdentifier = K.AccessibilityIdentifiers.appInfo
         let menuItems: [UIAction] = [currentModuleInfo, appInfo]
-        let buttonMenu = UIMenu(title: "Info", image: nil, identifier: nil, options: [], children: menuItems)
+        let buttonMenu = UIMenu(title: String.infoTitle, image: nil, identifier: nil, options: [], children: menuItems)
         let infoButton = UIBarButtonItem(
-            title: "Menu",
+            title: String.infoButtonTitle,
             image: UIImage(named: K.IconsNames.info)?.resize(targetSize: CGSize(width: iconSize, height: iconSize)),
             primaryAction: nil, menu: buttonMenu)
         navigationBar.topItem?.leftBarButtonItem = infoButton
@@ -104,4 +107,24 @@ extension NavigationController {
     @objc private func webButtonTapped() {
         (rootVC as? FeedController)?.feedView.webButtonTapped()
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let backButtonTitle = "Back"
+    static let currentMenuSubtitle = "Info about current screen"
+    static let appMenuTitle = "About App"
+    static let appMenuSubtitle = "Info about app"
+    static let infoTitle = "Info"
+    static let infoButtonTitle = "Menu"
+    static let feedVCTitle = "Feed: 5 of the day"
+    static let menuVCTitle = "Main Menu"
+    static let favoritesVCTitle = "Favorites"
+    static let whoAmIVCTitle = "Who am I?"
+    static let settingsVCTitle = "Settings"
+    static let feedMenuTitle = "About Feed"
+    static let menuMenuTitle = "About Menu"
+    static let favoritesMenuTitle = "About Favorites"
+    static let whoAmIMenuTitle = "About 'Who am I?'"
+    static let settingsMenuTitle = "About Settings"
 }

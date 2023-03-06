@@ -48,9 +48,9 @@ extension ListController {
     }
 
     func showNetworkError(message: String) {
-        let alertModel = AlertModel(title: "Error",
+        let alertModel = AlertModel(title: String.errorTitle,
                                     message: message,
-                                    buttonText: "Try again",
+                                    buttonText: String.tryAgain,
                                     completionHandler: { [weak self] _ in
             guard let self = self else { return }
             self.presenter?.loadData()
@@ -59,9 +59,8 @@ extension ListController {
     }
 
     func showDuplicatingFavoriteError(message: String) {
-        let alertModel = AlertModel(title: "Duplicate Found",
+        let alertModel = AlertModel(title: String.duplicateTitle,
                                     message: message,
-                                    buttonText: "Got it!",
                                     completionHandler: nil
         )
         alertPresenter?.show(alertModel: alertModel)
@@ -115,13 +114,14 @@ extension ListController: UITableViewDelegate {
                    leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let addToFavoriteButton = UIContextualAction(style: .destructive,
-                                                     title: "Add to favorites") { [weak self] _, _, completionHandler in
+                                                     title: String.addToFavorites
+        ) { [weak self] _, _, completionHandler in
             guard let self = self else { return }
             self.presenter?.proceedSavingToFavorites(toCategory: self.title, fromRow: indexPath.row)
             completionHandler(true)
         }
         addToFavoriteButton.backgroundColor = .bbdbYellow
-        addToFavoriteButton.image = UIImage(systemName: "star")
+        addToFavoriteButton.image = UIImage(systemName: K.ImagesNames.star)
         let config = UISwipeActionsConfiguration(actions: [addToFavoriteButton])
         config.performsFirstActionWithFullSwipe = true
         return config
@@ -133,4 +133,12 @@ extension ListController: AlertPresenterDelegate {
     func presentAlert(_ alert: UIAlertController) {
         present(alert, animated: true)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let errorTitle = "Error"
+    static let duplicateTitle = "Duplicate Found"
+    static let tryAgain = "Try again"
+    static let addToFavorites = "Add to favorites"
 }

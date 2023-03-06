@@ -20,7 +20,6 @@ final class SettingsController: UIViewController {
         super.viewDidLoad()
         UIImageView.setAsBackground(withImage: K.ImagesNames.grayBackground, to: self)
         view.addSubview(settingsView)
-        self.title = "Settings"
         setupConstraints()
         presenter = SettingsPresenter(viewController: self)
         alertPresenter = AlertPresenter(delegate: self)
@@ -52,18 +51,18 @@ extension SettingsController: AlertPresenterDelegate {
 extension SettingsController: InfoAlertPresenterProtocol {
 
     func showCurrentControllerInfoAlert() {
-        let alertModel = AlertModel(title: "About Settings",
-                                    message: InfoAlertText.aboutSettings.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(title: String.aboutSettings,
+                                    message: InfoAlertText.aboutSettings.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
 
     func showAboutAppAlert() {
-        let alertModel = AlertModel(title: "About App",
-                                    message: InfoAlertText.aboutApp.rawValue,
-                                    buttonText: "Got it",
-                                    completionHandler: nil)
+        let alertModel = AlertModel(message: InfoAlertText.aboutApp.rawValue)
         alertPresenter?.show(alertModel: alertModel)
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let aboutSettings = "About Settings"
 }

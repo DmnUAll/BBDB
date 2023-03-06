@@ -41,6 +41,10 @@ struct K {
         static let greenBackground = "greenBackground"
         static let redBackground = "redBackground"
         static let grayBackground = "grayBackground"
+        static let star = "star"
+        static let arrowClockwise = "arrow.clockwise"
+        static let chevronRight = "chevron.right"
+        static let chevronLeft = "chevron.left"
     }
 
     // MARK: - CoreDataEntitiesNames

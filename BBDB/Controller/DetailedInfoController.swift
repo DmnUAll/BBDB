@@ -74,67 +74,68 @@ extension DetailedInfoController {
         if let data = data as? CharacterModel {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Name:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.name,
                                                          trailingText: data.name))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Gender:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.gender,
                                                          trailingText: data.gender))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Age:",
-                                                         trailingText: data.age ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Hair color:",
-                                                         trailingText: data.hairColor ?? "Undefined"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Occupation:",
-                                                         trailingText: data.occupation ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "1st appearance:",
-                                                         trailingText: data.firstEpisode ?? "Undefined"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Voiced by:",
-                                                         trailingText: data.voicedBy ?? "Undefined"))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.age,
+                                                         trailingText: data.age ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.hairColor,
+                                                         trailingText: data.hairColor ?? String.undefined))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.occupation,
+                                                         trailingText: data.occupation ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.firstAppearance,
+                                                         trailingText: data.firstEpisode ?? String.undefined))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.voicedBy,
+                                                         trailingText: data.voicedBy ?? String.undefined))
         }
         if let data = data as? EpisodeModel {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: imageUrl))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Episode ID:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.episodeID,
                                                          trailingText: "\(data.id)"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Name:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.name,
                                                          trailingText: data.name))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Season: \(data.season):",
-                                                         trailingText: "Episode: \(data.episode)"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Air date:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: "\(String.season) \(data.season):",
+                                                         trailingText: "\(String.episode) \(data.episode)"))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.airDate,
                                                          trailingText: data.airDate))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Total viewers:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.totalViewers,
                                                          trailingText: data.totalViewers))
         }
         if let data = data as? StoreModel {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Name:", trailingText: data.name ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "1st ppearance:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.name,
+                                                         trailingText: data.name ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.firstAppearance,
                                                          trailingText: "S\(data.season) E\(data.episode)"))
         }
         if let data = data as? PestControlTruckModel {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Name:",
-                                                         trailingText: data.name ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "1st ppearance:",
-                                                         trailingText: "Season \(data.season)"))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.name,
+                                                         trailingText: data.name ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.firstAppearance,
+                                                         trailingText: "\(String.season) \(data.season)"))
         }
         if let data = data as? EndCreditsModel {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Season:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.season,
                                                          trailingText: "\(data.season)"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Episode:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.episode,
                                                          trailingText: "\(data.episode)"))
         }
         if let data = data as? BurgerOfTheDayModel {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: imageUrl))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Burger's name:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.burgersName,
                                                          trailingText: data.name))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Burger's price:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.burgersPrice,
                                                          trailingText: data.price))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Season \(data.season):",
-                                                         trailingText: "Episode: \(data.episode)"))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: "\(String.season) \(data.season)",
+                                                         trailingText: "\(String.episode) \(data.episode)"))
         }
     }
 
@@ -151,66 +152,68 @@ extension DetailedInfoController {
         if let data = data as? CDCharacter {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL ?? imageUrl))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Name:",
-                                                         trailingText: data.name ?? "No Name"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Gender:",
-                                                         trailingText: data.gender ?? "Undefined"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Age:",
-                                                         trailingText: data.age ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Hair color:",
-                                                         trailingText: data.hairColor ?? "Undefined"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Occupation:",
-                                                         trailingText: data.occupation ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "1st appearance:",
-                                                         trailingText: data.firstEpisode ?? "Undefined"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Voiced by:",
-                                                         trailingText: data.voicedBy ?? "Undefined"))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.name,
+                                                         trailingText: data.name ?? String.noName))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.gender,
+                                                         trailingText: data.gender ?? String.undefined))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.age,
+                                                         trailingText: data.age ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.hairColor,
+                                                         trailingText: data.hairColor ?? String.undefined))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.occupation,
+                                                         trailingText: data.occupation ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.firstAppearance,
+                                                         trailingText: data.firstEpisode ?? String.undefined))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.voicedBy,
+                                                         trailingText: data.voicedBy ?? String.undefined))
         }
         if let data = data as? CDEpisode {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: imageUrl))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Episode ID:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.episodeID,
                                                          trailingText: "\(data.id)"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Name:",
-                                                         trailingText: data.name ?? "No Name"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Season: \(data.season):",
-                                                         trailingText: "Episode: \(data.episode)"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Air date:",
-                                                         trailingText: data.airDate ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Total viewers:",
-                                                         trailingText: data.totalViewers ?? "Unknown"))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.name,
+                                                         trailingText: data.name ?? String.noName))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: "\(String.season) \(data.season):",
+                                                         trailingText: "\(String.episode) \(data.episode)"))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.airDate,
+                                                         trailingText: data.airDate ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.totalViewers,
+                                                         trailingText: data.totalViewers ?? String.unknown))
         }
         if let data = data as? CDStore {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL ?? imageUrl))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Name:", trailingText: data.name ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "1st ppearance:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.name,
+                                                         trailingText: data.name ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.firstAppearance,
                                                          trailingText: "S\(data.season) E\(data.episode)"))
         }
         if let data = data as? CDTruck {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL ?? imageUrl))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Name:", trailingText: data.name ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "1st ppearance:",
-                                                         trailingText: "Season \(data.season)"))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.name,
+                                                         trailingText: data.name ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.firstAppearance,
+                                                         trailingText: "\(String.season) \(data.season)"))
         }
         if let data = data as? CDCredits {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: data.imageURL ?? imageUrl))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Season:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.season,
                                                          trailingText: "\(data.season)"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Episode:",
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.episode,
                                                          trailingText: "\(data.episode)"))
         }
         if let data = data as? CDBurger {
             detailedInfoView.infoStackView.addArrangedSubview(makeImageView(withImage: imageUrl))
             detailedInfoView.infoStackView.addArrangedSubview(labelStack)
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Burger's name:",
-                                                         trailingText: data.name ?? "No Name"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Burger's price:",
-                                                         trailingText: data.price ?? "Unknown"))
-            labelStack.addArrangedSubview(makeLabelStack(leadingText: "Season \(data.season):",
-                                                         trailingText: "Episode: \(data.episode)"))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.burgersName,
+                                                         trailingText: data.name ?? String.noName))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: String.burgersPrice,
+                                                         trailingText: data.price ?? String.unknown))
+            labelStack.addArrangedSubview(makeLabelStack(leadingText: "\(String.season) \(data.season)",
+                                                         trailingText: "\(String.episode) \(data.episode)"))
         }
     }
 
@@ -228,4 +231,25 @@ extension DetailedInfoController {
         stackView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 32).isActive = true
         return stackView
     }
+}
+
+// MARK: - String fileprivate extension
+fileprivate extension String {
+    static let undefined = "Undefined"
+    static let unknown = "Unknown"
+    static let noName = "No Name"
+    static let season = "Season:"
+    static let episode = "Episode:"
+    static let name = "Name:"
+    static let gender = "Gender:"
+    static let age = "Age:"
+    static let hairColor = "Hair color:"
+    static let occupation = "Occupation:"
+    static let firstAppearance = "1st appearance:"
+    static let voicedBy = "Voiced by:"
+    static let episodeID = "Episode ID:"
+    static let airDate = "Air date:"
+    static let totalViewers = "Total viewers:"
+    static let burgersName = "Burger's name:"
+    static let burgersPrice = "Burger's price:"
 }
