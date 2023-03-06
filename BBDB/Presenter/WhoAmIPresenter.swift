@@ -47,6 +47,19 @@ extension WhoAmIPresenter {
             fatalError("Request processing error")
         }
     }
+
+    private func makeAlert(withMessage message: String) -> UIAlertController {
+        let alert = UIAlertController(title: String.alertTitle, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { _ in
+            UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!,
+                                      options: [:],
+                                      completionHandler: nil)
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(settingsAction)
+        return alert
+    }
 }
 
 // MARK: - WhoAmIViewDelegate
@@ -54,25 +67,76 @@ extension WhoAmIPresenter: WhoAmIViewDelegate {
     func cameraButtonTapped() {
         guard let viewController = viewController else { return }
         viewController.imagePicker.sourceType = .camera
-        viewController.present(viewController.imagePicker, animated: true, completion: nil)
-    }
-
-    func galleryButtonTapped() {
-        guard let viewController = viewController else { return }
-        viewController.imagePicker.sourceType = .photoLibrary
-        let photos = PHPhotoLibrary.authorizationStatus()
-        if photos == .notDetermined {
-            PHPhotoLibrary.requestAuthorization({status in
-                if status == .authorized {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
+        case .authorized:
+            DispatchQueue.main.async {
+                viewController.present(viewController.imagePicker, animated: true, completion: nil)
+            }
+        case .denied:
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                viewController.present(self.makeAlert(withMessage: String.alertMessageCamera), animated: true)
+            }
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] success in
+                guard let self else { return }
+                if success {
                     DispatchQueue.main.async {
                         viewController.present(viewController.imagePicker, animated: true, completion: nil)
                     }
                 } else {
-                    return
+                    DispatchQueue.main.async {
+                        viewController.present(self.makeAlert(withMessage: String.alertMessageCamera), animated: true)
+                    }
                 }
-            })
-        } else {
-            viewController.present(viewController.imagePicker, animated: true, completion: nil)
+            }
+        default:
+            return
         }
     }
+
+    // swiftlint:disable:next cyclomatic_complexity
+    func galleryButtonTapped() {
+        guard let viewController = viewController else { return }
+        viewController.imagePicker.sourceType = .photoLibrary
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .authorized:
+            DispatchQueue.main.async {
+                viewController.present(viewController.imagePicker, animated: true, completion: nil)
+            }
+        case .denied, .restricted:
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                viewController.present(self.makeAlert(withMessage: String.alertMessageGallery), animated: true)
+            }
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization { [weak self] status in
+                guard let self else { return }
+                switch status {
+                case .authorized:
+                    DispatchQueue.main.async {
+                        viewController.present(viewController.imagePicker, animated: true, completion: nil)
+                    }
+                case .denied, .restricted:
+                    DispatchQueue.main.async {
+                        viewController.present(self.makeAlert(withMessage: String.alertMessageGallery), animated: true)
+                    }
+                case .notDetermined:
+                    return
+                default:
+                    return
+                }
+            }
+        default:
+            return
+        }
+    }
+}
+
+fileprivate extension String {
+    static let alertTitle = "Access Denied!"
+    static let alertMessageCamera = "Please give an access to camera!"
+    static let alertMessageGallery = "Please give an access to photo gallery!"
 }
